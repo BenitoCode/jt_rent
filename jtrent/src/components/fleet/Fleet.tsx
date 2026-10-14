@@ -1,14 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import {
-  ArrowUpRight,
-  CalendarDays,
-  Camera,
-  MapPin,
-  MessageCircle,
-  MoveUpRight,
-} from "lucide-react";
+import { ArrowUpRight, MoveUpRight } from "lucide-react";
 import { motorcycles, type Locale, type Vehicle } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
@@ -44,38 +37,9 @@ export function Fleet({
       aria-labelledby="fleet-title"
     >
       <div className="container">
-        <div className="fleet-intro">
-          <div className="fleet-intro-copy">
-            <p className="eyebrow">{m.fleet.eyebrow}</p>
-            <h2 id="fleet-title">
-              {m.fleet.title}
-              <br />
-              <span className="muted-heading">{m.fleet.titleAccent}</span>
-            </h2>
-            <p className="fleet-intro-description">{m.fleet.description}</p>
-          </div>
-          <ul className="fleet-facts" aria-label={m.fleet.factsLabel}>
-            <li>
-              <MapPin size={19} aria-hidden="true" />
-              <span>{m.fleet.location}</span>
-            </li>
-            <li>
-              <CalendarDays size={19} aria-hidden="true" />
-              <span>{m.fleet.rentalPeriod}</span>
-            </li>
-            <li>
-              <MessageCircle size={19} aria-hidden="true" />
-              <span>{m.fleet.contactMethod}</span>
-            </li>
-          </ul>
-        </div>
-        <div className="fleet-subheading">
-          <div>
-            <p className="eyebrow">{m.fleet.listEyebrow}</p>
-            <h3>{m.fleet.listTitle}</h3>
-          </div>
-          <p>{m.fleet.listDescription}</p>
-        </div>
+        <h2 id="fleet-title" className="fleet-title">
+          {m.fleet.listTitle}
+        </h2>
         <div className="fleet-grid">
           {vehicles.map((vehicle) => (
             <button
@@ -123,30 +87,6 @@ export function Fleet({
                 </div>
               </div>
             </button>
-          ))}
-          {Array.from({ length: 2 }, (_, index) => (
-            <article
-              className="coming-card"
-              key={`future-vehicle-${index + 1}`}
-              aria-labelledby={`coming-title-${index + 1}`}
-            >
-              <div className="coming-photo" aria-hidden="true">
-                <span className="coming-photo-index">JT RENT · MÁLAGA</span>
-                <span className="coming-photo-icon">
-                  <Camera size={25} strokeWidth={1.4} />
-                </span>
-                <span className="coming-photo-caption">
-                  {m.fleet.photoPlaceholder}
-                </span>
-              </div>
-              <div className="coming-content">
-                <p className="coming-label">
-                  {m.fleet.soon} · 0{index + 1}
-                </p>
-                <h4 id={`coming-title-${index + 1}`}>{m.fleet.comingTitle}</h4>
-                <p>{m.fleet.comingDescription}</p>
-              </div>
-            </article>
           ))}
         </div>
       </div>
