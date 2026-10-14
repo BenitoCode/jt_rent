@@ -10,7 +10,7 @@ En Hostinger, crea una **Node.js Web App** e importa este repositorio desde GitH
 - Instalación: `npm ci`
 - Build: `npm run build`
 - Start: `npm start`
-- Salida: la gestiona Next.js; si Hostinger solicita una carpeta para la app de servidor, indica `jtrent/.next` (no `dist` ni `out`).
+- Directorio de salida: `jtrent/out`
 
 Antes de compilar, añade estas variables de entorno en Hostinger:
 
