@@ -1,60 +1,114 @@
+"use client";
+
+import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
-import { testimonials } from "@/data/testimonials";
-import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
-export function Reviews({
-  locale,
-  messages: m,
-}: {
-  locale: Locale;
-  messages: Messages;
-}) {
-  const verified = testimonials.filter((item) => item.verified);
-  if (!verified.length) return null;
+const reviewImages = [
+  "/images/hero-malaga-sunset.jpg",
+  "/images/hero-malaga-port.jpg",
+  "/images/hero-malaga-coast.jpg",
+  "/images/kymco-three-quarter.jpeg",
+];
+
+export function Reviews({ messages: m }: { messages: Messages }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLDivElement>(null);
+
+  function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.pointerType === "mouse" && event.button !== 0) return;
+    const animation = trackRef.current?.getAnimations()[0];
+    const groupWidth = groupRef.current?.scrollWidth;
+    if (!animation || !groupWidth) return;
+
+    const duration = Number(animation.effect?.getTiming().duration);
+    const startTime = Number(animation.currentTime ?? 0);
+    const startX = event.clientX;
+    const element = event.currentTarget;
+    animation.pause();
+
+    const move = (pointerEvent: globalThis.PointerEvent) => {
+      if (pointerEvent.pointerId !== event.pointerId) return;
+      const delta = pointerEvent.clientX - startX;
+      if (Math.abs(delta) > 4) element.dataset.dragging = "true";
+      const shiftedTime = startTime - (delta / groupWidth) * duration;
+      animation.currentTime = ((shiftedTime % duration) + duration) % duration;
+    };
+    const finish = (pointerEvent: globalThis.PointerEvent) => {
+      if (pointerEvent.pointerId !== event.pointerId) return;
+      delete element.dataset.dragging;
+      animation.play();
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", finish);
+      window.removeEventListener("pointercancel", finish);
+    };
+
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", finish);
+    window.addEventListener("pointercancel", finish);
+  }
   return (
-    <section id="reviews" className="reviews section-pad">
+    <section
+      id="reviews"
+      className="reviews section-pad"
+      aria-labelledby="reviews-title"
+    >
       <div className="container">
-        <p className="eyebrow">{m.reviews.eyebrow}</p>
-        <h2>{m.reviews.title}</h2>
-        <div className="reviews-grid">
-          {verified.map((item) => (
-            <figure key={item.id}>
-              {item.image && (
-                <Image
-                  src={item.image.src}
-                  alt={item.image.alt[locale]}
-                  width={item.image.width}
-                  height={item.image.height}
-                />
-              )}
-              {item.video && (
-                <video controls preload="none">
-                  <source src={item.video.src} />
-                  <track
-                    kind="captions"
-                    src={item.video.captions[locale]}
-                    srcLang={locale}
-                    label={locale === "es" ? "Español" : "English"}
-                    default
-                  />
-                </video>
-              )}
-              <blockquote>{item.quote[locale]}</blockquote>
-              <figcaption>
-                {item.name} · {item.source}{" "}
-                {item.sourceUrl && (
-                  <a
-                    href={item.sourceUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
+        <header className="reviews-heading">
+          <p className="eyebrow">{m.reviews.eyebrow}</p>
+          <h2 id="reviews-title">{m.reviews.title}</h2>
+          <p className="reviews-subtitle">{m.reviews.disclaimer}</p>
+        </header>
+        <div
+          className="reviews-window"
+          onPointerDown={startDrag}
+          role="region"
+          aria-label={m.reviews.carouselLabel}
+        >
+          <div className="reviews-track" ref={trackRef}>
+            {[false, true].map((duplicate) => (
+              <div
+                className="reviews-group"
+                ref={duplicate ? undefined : groupRef}
+                key={duplicate ? "duplicate" : "reviews"}
+                role="list"
+                aria-hidden={duplicate || undefined}
+              >
+                {m.reviews.samples.map((review, index) => (
+                  <article
+                    className="review-card"
+                    key={review.initials}
+                    role="listitem"
                   >
-                    {m.reviews.source}
-                  </a>
-                )}
-              </figcaption>
-            </figure>
-          ))}
+                    <div className="review-photo" aria-hidden="true">
+                      <Image
+                        src={reviewImages[index % reviewImages.length]}
+                        alt=""
+                        width={600}
+                        height={600}
+                      />
+                    </div>
+                    <div className="review-card-body">
+                      <div
+                        className="review-stars"
+                        role="img"
+                        aria-label={m.reviews.starsLabel}
+                      >
+                        {"★★★★★"}
+                      </div>
+                      <blockquote>{review.quote}</blockquote>
+                      <div className="review-reviewer">
+                        <strong>{review.name}</strong>
+                        <span className="review-demo-label">
+                          {m.reviews.sampleLabel}
+                        </span>
+                      </div>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

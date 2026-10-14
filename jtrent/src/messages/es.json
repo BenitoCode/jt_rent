@@ -50,9 +50,14 @@
     "contactMethod": "Consulta por WhatsApp",
     "listEyebrow": "LA FLOTA JT RENT",
     "listTitle": "Nuestra flota",
+    "carouselLabel": "Carrusel de motos",
+    "carousel": "carrusel",
+    "previousCard": "Tarjetas anteriores",
+    "nextCard": "Tarjetas siguientes",
     "listDescription": "Consulta la Kymco Sky Town 125 y sus detalles. Estamos preparando dos futuras incorporaciones para la flota.",
-    "comingTitle": "Próxima incorporación",
+    "comingTitle": "Nueva moto",
     "comingDescription": "Compartiremos el modelo, las fotos y los detalles del alquiler cuando estén confirmados.",
+    "comingCaption": "NUEVOS MODELOS EN CAMINO",
     "photoPlaceholder": "FOTOS PRÓXIMAMENTE",
     "inquiry": "Consulta disponibilidad",
     "details": "Reservar por WhatsApp",
@@ -65,14 +70,24 @@
     "automatic": "SCOOTER · 125 CC"
   },
   "journey": {
-    "eyebrow": "ASÍ DE FÁCIL",
-    "title": "Tu próximo plan, sobre ruedas.",
-    "oneTitle": "Elige tu scooter",
-    "oneText": "Descubre las fotos y características de nuestra flota.",
-    "twoTitle": "Cuéntanos tu plan",
-    "twoText": "Selecciona tus fechas o consúltanos sin compromiso por WhatsApp.",
-    "threeTitle": "Confirma y disfruta",
-    "threeText": "JT Rent te confirmará disponibilidad, precio total y condiciones."
+    "eyebrow": "ALQUILA TU MOTO CON JT RENT",
+    "title": "Tu moto, tu libertad, tu aventura.",
+    "description": "Descubre una forma fácil, rápida y cómoda de alquilar tu moto. Sin complicaciones, con atención personalizada y todo lo que necesitas para disfrutar de cada trayecto.",
+    "oneTitle": "Encuentra tu moto ideal",
+    "oneText": "Explora nuestras motos disponibles y elige la que mejor se adapte a tus planes. Consulta sus características, precios y condiciones de alquiler de forma sencilla.",
+    "twoTitle": "Reserva fácilmente por WhatsApp",
+    "twoText": "¿Ya tienes tu favorita? Contacta directamente con nosotros por WhatsApp, dinos las fechas que necesitas y te confirmaremos la disponibilidad y el precio final. Sin intermediarios ni procesos complicados.",
+    "threeTitle": "Recoge tu moto y disfruta",
+    "threeText": "Presenta tu documentación, revisa las condiciones, firma el contrato de alquiler y recoge las llaves. ¡Todo listo para disfrutar de la carretera a tu ritmo!",
+    "benefitsEyebrow": "TU ALQUILER, SIN COMPLICACIONES",
+    "benefitsTitle": "¿Por qué elegir JT Rent?",
+    "benefitOne": "Reserva directa por WhatsApp",
+    "benefitTwo": "Precios claros y transparentes",
+    "benefitThree": "Atención personalizada",
+    "benefitFour": "Alquiler rápido y sencillo",
+    "benefitFive": "Motos listas para disfrutar",
+    "benefitSix": "Condiciones claras antes de alquilar",
+    "closing": "Tu próxima aventura comienza con JT Rent."
   },
   "modal": {
     "subtitle": "Motos y scooters en Málaga",
@@ -102,12 +117,65 @@
     "noPhotos": "Las fotografías originales se añadirán aquí.",
     "pending": "WhatsApp pendiente de configurar",
     "pendingDetail": "El canal de consultas estará disponible próximamente.",
-    "clearDates": "Borrar fechas"
+    "clearDates": "Borrar fechas",
+    "policyTitle": "Política de alquiler",
+    "policySubtitle": "Cosas que debes saber antes de alquilar tu moto",
+    "policyItems": [
+      "Reservas por WhatsApp. Todas las reservas se gestionan directamente con nuestro equipo mediante WhatsApp, para ofrecerte una atención rápida y personalizada.",
+      "Pago del alquiler. El precio, la forma de pago y cualquier anticipo se comunicarán y acordarán antes de confirmar la reserva.",
+      "Cancelaciones flexibles. Las condiciones de cancelación y devolución de anticipos se informarán al cliente antes de realizar cualquier pago.",
+      "Permiso de conducir obligatorio. Es necesario disponer de un permiso de conducir válido en España y adecuado para la cilindrada y categoría de la moto seleccionada.",
+      "Edad mínima. La edad y experiencia mínima del conductor dependerán del modelo de moto y de las condiciones del seguro contratado.",
+      "Fianza reembolsable. Se podrá solicitar una fianza de seguridad, cuyo importe se indicará antes de confirmar el alquiler. Su devolución estará sujeta a las condiciones del contrato y a la comprobación del estado de la moto.",
+      "Kilometraje. Los kilómetros incluidos en el precio y los posibles costes por exceso se comunicarán antes del alquiler.",
+      "Entrega y recogida. El lugar, la fecha y el horario de entrega y devolución se acordarán previamente por WhatsApp.",
+      "Documentación necesaria. El cliente deberá presentar un documento de identidad válido y su permiso de conducir original.",
+      "Contrato presencial. Antes de entregar la moto, ambas partes firmarán un contrato donde se detallarán las condiciones del alquiler, el precio y las responsabilidades.",
+      "Seguro. Todas las motocicletas contarán con el seguro obligatorio correspondiente. Las coberturas, exclusiones y posibles franquicias se indicarán en el contrato.",
+      "Estado de la moto. Se revisará el estado del vehículo durante la entrega y devolución para dejar constancia de posibles daños.",
+      "Uso responsable. El conductor deberá respetar las normas de circulación y utilizar la moto conforme a las condiciones acordadas.",
+      "Atención personalizada. Si tienes alguna pregunta sobre las motos, disponibilidad, precios o requisitos, estaremos encantados de atenderte por WhatsApp."
+    ],
+    "policyCta": "¿Quieres reservar una moto?",
+    "policyContact": "Contacta con JT Rent por WhatsApp, consulta la disponibilidad y recibe toda la información antes de confirmar tu alquiler.",
+    "includedTitle": "INCLUIDO EN EL PRECIO",
+    "includedSubtitle": "¡Todo el mundo ama las cosas gratis!",
+    "includedItems": [
+      "Asistencia en carretera",
+      "Casco",
+      "Depósito de equipaje seguro"
+    ],
+    "free": "Gratis"
   },
   "reviews": {
-    "eyebrow": "EXPERIENCIAS REALES",
-    "title": "Historias sobre ruedas.",
-    "source": "Ver origen"
+    "eyebrow": "VALORACIONES JT RENT",
+    "title": "Experiencias sobre dos ruedas.",
+    "disclaimer": "Estas reseñas son ficticias y solo sirven como ejemplo de diseño. No son opiniones reales de clientes.",
+    "sampleLabel": "RESEÑA FICTICIA",
+    "carouselLabel": "Carrusel de reseñas ficticias",
+    "starsLabel": "5 de 5 estrellas, valoración de demostración",
+    "samples": [
+      {
+        "name": "Laura M.",
+        "initials": "L",
+        "quote": "La atención fue rápida y cercana. Una forma estupenda de descubrir Málaga a tu ritmo."
+      },
+      {
+        "name": "Daniel R.",
+        "initials": "D",
+        "quote": "Reservar fue muy sencillo y me explicaron con claridad todos los detalles antes de salir."
+      },
+      {
+        "name": "Marta G.",
+        "initials": "M",
+        "quote": "Pude recorrer la ciudad y la costa con comodidad. ¡Una experiencia para repetir!"
+      },
+      {
+        "name": "Álex P.",
+        "initials": "A",
+        "quote": "La moto estaba lista y el trato fue excelente. Málaga se disfruta de otra manera sobre dos ruedas."
+      }
+    ]
   },
   "contact": {
     "eyebrow": "JT RENT · MÁLAGA",
@@ -127,10 +195,34 @@
     "fleetName": "Kymco Sky Town 125",
     "fleetNote": "Disponibilidad y condiciones sujetas a confirmación.",
     "mapLink": "Ver ubicación",
-    "back": "Volver arriba"
+    "back": "Volver arriba",
+    "newTitle": "¿Hablamos? Estamos aquí para ayudarte.",
+    "newDescription": "¿Tienes dudas sobre nuestras motos, precios o disponibilidad? Ponte en contacto con JT Rent. Estaremos encantados de ayudarte a preparar tu próxima aventura.",
+    "socialsLabel": "Redes sociales",
+    "socialComingSoon": "Próximamente",
+    "formEyebrow": "CONTACTO DIRECTO",
+    "formTitle": "Envíanos tu consulta",
+    "formDescription": "Déjanos tu mensaje y nos pondremos en contacto contigo lo antes posible.",
+    "formName": "Nombre completo",
+    "formEmail": "Correo electrónico",
+    "formMessage": "Mensaje o consulta",
+    "privacySummary": "Información sobre el uso de tus datos",
+    "privacyDetails": "Utilizaremos tu nombre, correo y mensaje únicamente para responder a tu consulta. El formulario se envía a través de Formspree y la notificación se remite a info@jt-rent.com. No incluyas información sensible. Para ejercer tus derechos sobre los datos, puedes escribir a info@jt-rent.com.",
+    "privacyAcknowledgement": "He leído la información básica sobre el tratamiento de mis datos.",
+    "formSubmit": "Enviar mensaje",
+    "formSending": "Enviando…",
+    "formSuccess": "Tu consulta se ha enviado correctamente. Gracias por escribir a JT Rent.",
+    "formError": "No se pudo enviar tu consulta. Inténtalo de nuevo o escríbenos a",
+    "formUnconfigured": "El formulario aún no está activado. Puedes escribirnos directamente a",
+    "mapTitle": "Encuéntranos en Málaga",
+    "directions": "Cómo llegar",
+    "mapPrivacy": "El mapa se carga desde Google Maps y puede recibir datos técnicos de tu navegador."
   },
   "footer": {
     "tagline": "Málaga, a tu manera.",
+    "description": "Alquiler de motos en M\u00e1laga con atenci\u00f3n directa y cercana. Tu pr\u00f3xima ruta empieza aqu\u00ed.",
+    "explore": "Explora JT Rent",
+    "contactTitle": "Contacto",
     "rights": "Todos los derechos reservados.",
     "notice": "Aviso legal",
     "privacy": "Privacidad",

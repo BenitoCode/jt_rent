@@ -2,7 +2,6 @@ import { Brand } from "@/components/ui/Brand";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
-import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
@@ -21,24 +20,34 @@ export function Footer({
     <footer className="footer">
       <div className="container">
         <div className="footer-main">
-          <div>
+          <div className="footer-brand">
             <Link href={`/${locale}/`} className="brand-link">
               <Brand />
             </Link>
             <p className="footer-tagline">{m.footer.tagline}</p>
+            <p className="footer-description">{m.footer.description}</p>
           </div>
           <nav aria-label={locale === "es" ? "Pie de página" : "Footer"}>
+            <h2 className="footer-column-title">{m.footer.explore}</h2>
             <a href="#fleet">{m.nav.fleet}</a>
+            <a href="#how-to-rent">{m.nav.howToRent}</a>
             {hasReviews && <a href="#reviews">{m.nav.reviews}</a>}
             <a href="#contact">{m.nav.contact}</a>
           </nav>
-          <WhatsAppLink
-            locale={locale}
-            messages={m}
-            label={m.contact.cta}
-            className="button button-primary footer-whatsapp"
-          />
-          <p className="footer-motto">{m.footer.made}</p>
+          <div className="footer-contact">
+            <h2>{m.footer.contactTitle}</h2>
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.address)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {site.address}
+            </a>
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+          </div>
+          <div className="footer-cta">
+            <p className="footer-motto">{m.footer.made}</p>
+          </div>
         </div>
         <div className="footer-bottom">
           <span>

@@ -50,9 +50,14 @@
     "contactMethod": "Enquire on WhatsApp",
     "listEyebrow": "THE JT RENT FLEET",
     "listTitle": "Our fleet",
+    "carouselLabel": "Motorcycle carousel",
+    "carousel": "carousel",
+    "previousCard": "Previous motorcycles",
+    "nextCard": "Next motorcycles",
     "listDescription": "Explore the Kymco Sky Town 125 and its details. We’re preparing two future additions to the fleet.",
-    "comingTitle": "Coming to the fleet",
+    "comingTitle": "New motorcycle",
     "comingDescription": "We’ll share the model, photos and rental details once confirmed.",
+    "comingCaption": "NEW MODELS COMING SOON",
     "photoPlaceholder": "PHOTOS COMING SOON",
     "inquiry": "Check availability",
     "details": "Book via WhatsApp",
@@ -65,14 +70,24 @@
     "automatic": "SCOOTER · 125 CC"
   },
   "journey": {
-    "eyebrow": "THAT SIMPLE",
-    "title": "Your next plan, on two wheels.",
-    "oneTitle": "Choose your scooter",
-    "oneText": "Explore the photos and features of our fleet.",
-    "twoTitle": "Tell us your plans",
-    "twoText": "Choose your dates or get in touch on WhatsApp with no commitment.",
-    "threeTitle": "Confirm and enjoy",
-    "threeText": "JT Rent will confirm availability, the total price and rental conditions."
+    "eyebrow": "RENT YOUR MOTORBIKE WITH JT RENT",
+    "title": "Your bike, your freedom, your adventure.",
+    "description": "Discover an easy, quick and convenient way to rent a motorbike. No hassle, personal assistance, and everything you need to enjoy every ride.",
+    "oneTitle": "Find your ideal motorbike",
+    "oneText": "Explore our available motorbikes and choose the one that best suits your plans. Easily check its features, prices and rental terms.",
+    "twoTitle": "Book easily on WhatsApp",
+    "twoText": "Found your favourite? Contact us directly on WhatsApp, tell us your dates and we will confirm availability and the final price. No middlemen or complicated steps.",
+    "threeTitle": "Pick up your motorbike and enjoy",
+    "threeText": "Show your documents, review the terms, sign the rental agreement and pick up the keys. Then you are ready to enjoy the road at your own pace!",
+    "benefitsEyebrow": "YOUR RENTAL, MADE SIMPLE",
+    "benefitsTitle": "Why choose JT Rent?",
+    "benefitOne": "Book directly on WhatsApp",
+    "benefitTwo": "Clear, transparent prices",
+    "benefitThree": "Personal assistance",
+    "benefitFour": "Quick, simple rental",
+    "benefitFive": "Motorbikes ready to ride",
+    "benefitSix": "Clear terms before you rent",
+    "closing": "Your next adventure starts with JT Rent."
   },
   "modal": {
     "subtitle": "Motorbikes and scooters in Malaga",
@@ -102,12 +117,65 @@
     "noPhotos": "Original vehicle photographs will appear here.",
     "pending": "WhatsApp setup pending",
     "pendingDetail": "Our enquiry channel will be available soon.",
-    "clearDates": "Clear dates"
+    "clearDates": "Clear dates",
+    "policyTitle": "Rental policy",
+    "policySubtitle": "Things to know before renting your motorbike",
+    "policyItems": [
+      "Bookings via WhatsApp. All bookings are handled directly by our team through WhatsApp so we can offer fast, personal assistance.",
+      "Rental payment. The price, payment method and any deposit will be shared and agreed before the booking is confirmed.",
+      "Flexible cancellations. Cancellation terms and any deposit refund conditions will be explained before any payment is made.",
+      "Valid driving licence required. You must hold a driving licence valid in Spain and suitable for the engine size and category of the selected motorbike.",
+      "Minimum age. The rider's minimum age and experience depend on the motorbike model and the terms of the insurance policy.",
+      "Refundable security deposit. A security deposit may be required; its amount will be shared before the rental is confirmed. Its return is subject to the contract terms and an inspection of the motorbike.",
+      "Mileage. The mileage included in the price and any excess mileage charges will be shared before the rental.",
+      "Drop-off and collection. The location, date and time for handover and return will be agreed in advance via WhatsApp.",
+      "Required documents. The customer must present valid identification and their original driving licence.",
+      "In-person contract. Before the motorbike is handed over, both parties will sign a contract detailing the rental terms, price and responsibilities.",
+      "Insurance. All motorbikes will have the required compulsory insurance. Cover, exclusions and any excess will be stated in the contract.",
+      "Motorbike condition. The vehicle will be inspected at handover and return to record any existing or new damage.",
+      "Responsible use. The rider must follow traffic laws and use the motorbike according to the agreed terms.",
+      "Personal assistance. If you have any questions about our motorbikes, availability, prices or requirements, we will be happy to help on WhatsApp."
+    ],
+    "policyCta": "Would you like to book a motorbike?",
+    "policyContact": "Contact JT Rent on WhatsApp to check availability and get all the information before confirming your rental.",
+    "includedTitle": "INCLUDED IN THE PRICE",
+    "includedSubtitle": "Everyone loves free extras!",
+    "includedItems": [
+      "Roadside assistance",
+      "Helmet",
+      "Secure luggage storage"
+    ],
+    "free": "Free"
   },
   "reviews": {
-    "eyebrow": "REAL EXPERIENCES",
-    "title": "Stories on two wheels.",
-    "source": "View source"
+    "eyebrow": "JT RENT REVIEWS",
+    "title": "Experiences on two wheels.",
+    "disclaimer": "These reviews are fictional and are only examples for the design. They are not real customer reviews.",
+    "sampleLabel": "FICTIONAL REVIEW",
+    "carouselLabel": "Carousel of fictional reviews",
+    "starsLabel": "5 out of 5 stars, demonstration rating",
+    "samples": [
+      {
+        "name": "Laura M.",
+        "initials": "L",
+        "quote": "The team was quick and friendly. A great way to discover Malaga at your own pace."
+      },
+      {
+        "name": "Daniel R.",
+        "initials": "D",
+        "quote": "Booking was simple, and every detail was clearly explained before setting off."
+      },
+      {
+        "name": "Marta G.",
+        "initials": "M",
+        "quote": "I could explore the city and coast comfortably. An experience I would repeat!"
+      },
+      {
+        "name": "Alex P.",
+        "initials": "A",
+        "quote": "The motorbike was ready and the service was excellent. Malaga is a different experience on two wheels."
+      }
+    ]
   },
   "contact": {
     "eyebrow": "JT RENT · MALAGA",
@@ -127,10 +195,34 @@
     "fleetName": "Kymco Sky Town 125",
     "fleetNote": "Availability and terms are subject to confirmation.",
     "mapLink": "View location",
-    "back": "Back to top"
+    "back": "Back to top",
+    "newTitle": "Let's talk. We're here to help.",
+    "newDescription": "Questions about our bikes, prices or availability? Get in touch with JT Rent. We'd be happy to help you plan your next adventure.",
+    "socialsLabel": "Social media",
+    "socialComingSoon": "Coming soon",
+    "formEyebrow": "GET IN TOUCH",
+    "formTitle": "Send us your enquiry",
+    "formDescription": "Leave us a message and we'll get back to you as soon as possible.",
+    "formName": "Full name",
+    "formEmail": "Email address",
+    "formMessage": "Message or enquiry",
+    "privacySummary": "How we use your information",
+    "privacyDetails": "We will use your name, email and message only to respond to your enquiry. The form is submitted through Formspree and the notification is sent to info@jt-rent.com. Please do not include sensitive information. To exercise your data rights, email info@jt-rent.com.",
+    "privacyAcknowledgement": "I have read the basic information about how my data is processed.",
+    "formSubmit": "Send message",
+    "formSending": "Sending…",
+    "formSuccess": "Your enquiry was submitted successfully. Thank you for contacting JT Rent.",
+    "formError": "Your enquiry could not be sent. Please try again or email us at",
+    "formUnconfigured": "The form is not active yet. You can contact us directly at",
+    "mapTitle": "Find us in Malaga",
+    "directions": "Get directions",
+    "mapPrivacy": "The map is loaded from Google Maps and may receive technical data from your browser."
   },
   "footer": {
     "tagline": "Malaga, your way.",
+    "description": "Motorbike rental in Malaga with direct, friendly support. Your next ride starts here.",
+    "explore": "Explore JT Rent",
+    "contactTitle": "Contact",
     "rights": "All rights reserved.",
     "notice": "Legal notice",
     "privacy": "Privacy",

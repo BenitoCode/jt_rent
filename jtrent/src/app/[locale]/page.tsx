@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMessages, isLocale, locales } from "@/lib/i18n";
 import { site } from "@/config/site";
-import { testimonials } from "@/data/testimonials";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/hero/Hero";
 import { Fleet } from "@/components/fleet/Fleet";
@@ -58,7 +57,7 @@ export default async function Home({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const m = getMessages(locale);
-  const hasReviews = testimonials.some((item) => item.verified);
+  const hasReviews = m.reviews.samples.length > 0;
   return (
     <>
       <Header locale={locale} messages={m} hasReviews={hasReviews} />
@@ -67,7 +66,7 @@ export default async function Home({
         <Hero locale={locale} messages={m} />
         <Fleet locale={locale} messages={m} />
         <Journey messages={m} />
-        <Reviews locale={locale} messages={m} />
+        <Reviews messages={m} />
         <Contact locale={locale} messages={m} />
       </main>
       <Footer locale={locale} messages={m} hasReviews={hasReviews} />

@@ -12,6 +12,7 @@ import {
   Smartphone,
   Monitor,
   CalendarDays,
+  Check,
 } from "lucide-react";
 import { site } from "@/config/site";
 import { formatPrice, type Messages } from "@/lib/i18n";
@@ -229,6 +230,23 @@ export function BookingModal({
               })}
             </ul>
           </div>
+          <div className="modal-included">
+            <div className="modal-included-heading">
+              <h3 className="eyebrow">{m.modal.includedTitle}</h3>
+              <p>{m.modal.includedSubtitle}</p>
+            </div>
+            <ul>
+              {m.modal.includedItems.map((item) => (
+                <li key={item}>
+                  <span className="included-check" aria-hidden="true">
+                    <Check size={15} strokeWidth={2.5} />
+                  </span>
+                  <span>{item}</span>
+                  <strong>{m.modal.free}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
           <form onSubmit={submit} noValidate>
             <div className="dates-heading">
               <h3>
@@ -304,6 +322,27 @@ export function BookingModal({
             )}
             <p className="booking-disclaimer">{m.modal.disclaimer}</p>
           </form>
+          <details className="rental-policy">
+            <summary>
+              <span>
+                <strong>{m.modal.policyTitle}</strong>
+                <small>{m.modal.policySubtitle}</small>
+              </span>
+              <ChevronRight size={18} aria-hidden="true" />
+            </summary>
+            <ul>
+              {m.modal.policyItems.map((item) => (
+                <li key={item}>
+                  <strong>{item.slice(0, item.indexOf(". ") + 1)}</strong>
+                  {item.slice(item.indexOf(". ") + 1)}
+                </li>
+              ))}
+            </ul>
+            <div className="rental-policy-cta">
+              <strong>{m.modal.policyCta}</strong>
+              <p>{m.modal.policyContact}</p>
+            </div>
+          </details>
         </div>
       </div>
     </dialog>
