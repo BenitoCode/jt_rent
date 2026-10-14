@@ -1,0 +1,9 @@
+jtrent/node_modules/
+jtrent/.next/
+jtrent/out/
+jtrent/.env*
+!jtrent/.env.example
+jtrent/*.tsbuildinfo
+jtrent/test-results/
+jtrent/playwright-report/
+*.log
