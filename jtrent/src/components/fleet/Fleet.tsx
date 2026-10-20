@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import dynamic from "next/dynamic";
 import {
   ArrowUpRight,
   Bike,
@@ -9,7 +10,18 @@ import {
 import { motorcycles, type Locale, type Vehicle } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
-import { BookingModal } from "@/components/booking/BookingModal";
+
+const BookingModal = dynamic(
+  () =>
+    import("@/components/booking/BookingModal").then(
+      (module) => module.BookingModal,
+    ),
+  { ssr: false },
+);
+
+function preloadBookingModal() {
+  void import("@/components/booking/BookingModal");
+}
 
 export function Fleet({
   locale,
@@ -112,6 +124,8 @@ export function Fleet({
             <button
               key={vehicle.id}
               className="vehicle-card"
+              onPointerEnter={preloadBookingModal}
+              onFocus={preloadBookingModal}
               onClick={(event) => open(vehicle, event.currentTarget)}
               aria-haspopup="dialog"
               aria-label={`${m.fleet.details}: ${vehicle.brand} ${vehicle.model}`}

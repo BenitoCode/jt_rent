@@ -27,6 +27,6 @@ export const site = {
     addressCountry: "ES",
   },
   hours: { es: "", en: "" },
-  logo: "/images/logo-jt.png",
+  logo: "/images/logo-jt.webp",
   legal: { notice: "", privacy: "", cookies: "", rental: "" },
 };

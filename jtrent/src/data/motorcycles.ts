@@ -5,6 +5,7 @@ export type VehiclePhoto = {
   width: number;
   height: number;
   role?: "main" | "side" | "front" | "dashboard";
+  responsiveSrcSet?: string;
 };
 export type Vehicle = {
   id: string;
@@ -47,6 +48,9 @@ export const motorcycles: Vehicle[] = [
         width: 1233,
         height: 768,
         role: "side",
+        responsiveSrcSet: [384, 512, 640]
+          .map((width) => `/images/kymco-side-${width}.webp ${width}w`)
+          .join(", "),
         alt: {
           es: "Kymco Sky Town 125 gris con baúl trasero, vista lateral",
           en: "Grey Kymco Sky Town 125 with rear top box, side view",

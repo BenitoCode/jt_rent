@@ -6,10 +6,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Messages } from "@/lib/i18n";
 
 const photos = [
-  "/images/hero-malaga-sunset.jpg",
-  "/images/hero-malaga-port.jpg",
-  "/images/hero-malaga-coast.jpg",
+  { name: "hero-malaga-sunset", fallbackWidth: 576 },
+  { name: "hero-malaga-port", fallbackWidth: 576 },
+  { name: "hero-malaga-coast", fallbackWidth: 576 },
 ];
+
+function photoSrcSet(name: string) {
+  return [400, 576, 640, 800]
+    .map((width) => `/images/${name}-${width}.webp ${width}w`)
+    .join(", ");
+}
 
 export function HeroGallery({ messages: m }: { messages: Messages }) {
   const [activePhoto, setActivePhoto] = useState(0);
@@ -52,14 +58,22 @@ export function HeroGallery({ messages: m }: { messages: Messages }) {
       aria-roledescription={m.hero.carousel}
     >
       <div className="hero-photo-frame">
-        <Image
-          key={photos[activePhoto]}
-          src={photos[activePhoto]}
-          alt={m.hero.photoAlts[activePhoto]}
-          fill
-          priority={activePhoto === 0}
-          sizes="(max-width: 700px) 90vw, 45vw"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcSet={photoSrcSet(photos[activePhoto].name)}
+            sizes="(max-width: 700px) 90vw, 42vw"
+          />
+          <Image
+            key={photos[activePhoto].name}
+            src={`/images/${photos[activePhoto].name}-${photos[activePhoto].fallbackWidth}.webp`}
+            alt={m.hero.photoAlts[activePhoto]}
+            fill
+            loading={activePhoto === 0 ? "eager" : "lazy"}
+            fetchPriority={activePhoto === 0 ? "high" : "auto"}
+            sizes="(max-width: 700px) 90vw, 42vw"
+          />
+        </picture>
       </div>
       <div className="hero-gallery-controls">
         <button
@@ -73,7 +87,7 @@ export function HeroGallery({ messages: m }: { messages: Messages }) {
         <div className="hero-gallery-dots">
           {photos.map((photo, index) => (
             <button
-              key={photo}
+              key={photo.name}
               type="button"
               aria-label={m.hero.photo.replace("{number}", String(index + 1))}
               aria-pressed={index === activePhoto}

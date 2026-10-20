@@ -740,6 +740,11 @@ h2 {
   height: 100%;
   background: var(--surface);
 }
+.vehicle-photo picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 .vehicle-photo img {
   width: 100%;
   height: 100%;
@@ -1481,6 +1486,45 @@ h2 {
   .reviews-group[aria-hidden="true"] {
     display: none;
   }
+}
+
+.route-loading {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  background: #fff;
+  color: var(--ink, #111);
+}
+
+.route-loading-logo {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  animation: route-loading-pulse 1.6s ease-in-out infinite;
+}
+
+.route-loading-spinner {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #f4c6c9;
+  border-top-color: var(--brand, #e30613);
+  border-radius: 50%;
+  animation: route-loading-spin 0.8s linear infinite;
+}
+
+.route-loading-label {
+  color: #696969;
+  font-size: 14px;
+}
+
+@keyframes route-loading-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes route-loading-pulse {
+  50% { opacity: 0.72; transform: scale(0.96); }
 }
 
 /* Contact and footer */
@@ -2758,6 +2802,23 @@ h2 {
   .contact-map-card {
     grid-column: auto;
     grid-row: auto;
+  }
+  .footer-main {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 28px;
+  }
+  .footer-main > * {
+    min-width: 0;
+  }
+  .footer-social-buttons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .footer-bottom {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 18px;
+    padding-block: 16px;
   }
 }
 @media (max-width: 700px) {

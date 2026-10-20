@@ -17,8 +17,8 @@ export function Brand({
             <Image
               src={site.logo}
               alt="JT Rent"
-              width={500}
-              height={500}
+              width={256}
+              height={256}
               className="brand-image"
               priority
             />
@@ -47,8 +47,8 @@ export function Brand({
       <Image
         src={site.logo}
         alt="JT Rent"
-        width={500}
-        height={500}
+        width={256}
+        height={256}
         className="brand-image"
         priority
       />

@@ -1,0 +1,21 @@
+<IfModule mod_headers.c>
+  # Next.js fingerprints these filenames, so changed builds get new URLs.
+  <IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^_next/static/ - [E=IMMUTABLE_ASSET:1]
+  </IfModule>
+
+  <FilesMatch "\.(css|js|mjs|woff2?|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable" env=IMMUTABLE_ASSET
+  </FilesMatch>
+
+  # Public images use stable filenames, so give them a long but finite TTL.
+  <FilesMatch "\.(avif|webp|png|jpe?g|gif|svg|ico)$">
+    Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=86400"
+  </FilesMatch>
+
+  # Keep documents revalidatable so content and metadata updates appear promptly.
+  <FilesMatch "\.(html|txt|xml)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

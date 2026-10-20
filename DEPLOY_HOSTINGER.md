@@ -20,4 +20,6 @@ Antes de compilar, añade estas variables de entorno en Hostinger:
 
 Conecta el dominio propio en Hostinger siguiendo los valores DNS que indique el panel. Activa el despliegue automatico de la rama conectada para que cada push a GitHub vuelva a compilar y publicar `jtrent/out`.
 
+El archivo `jtrent/public/.htaccess` se copia al directorio de salida y configura la caché de los recursos estáticos en Hostinger: los recursos versionados de Next.js durante un año, las imágenes durante 30 días y los documentos HTML/XML con revalidación. Después de desplegar, comprueba las cabeceras `Cache-Control` de un recurso `/_next/static/` y de `/images/logo-jt.png`; el CDN puede tardar en reflejar las nuevas cabeceras hasta que se purgue su caché.
+
 Para desarrollo local, entra en `jtrent/` y sigue su [README](jtrent/README.md).

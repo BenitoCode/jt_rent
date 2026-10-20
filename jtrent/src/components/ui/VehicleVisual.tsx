@@ -18,19 +18,32 @@ export function VehicleVisual({
   if (photo)
     return (
       <div className={`vehicle-photo ${hero ? "vehicle-photo-hero" : ""}`}>
-        <Image
-          src={photo.src}
-          alt={photo.alt[locale]}
-          width={photo.width}
-          height={photo.height}
-          sizes={
-            hero
-              ? "(max-width: 900px) 100vw, 50vw"
-              : "(max-width: 700px) 100vw, 60vw"
-          }
-          priority={hero}
-          loading={hero ? "eager" : "lazy"}
-        />
+        <picture>
+          {photo.responsiveSrcSet && (
+            <source
+              type="image/webp"
+              srcSet={photo.responsiveSrcSet}
+              sizes={
+                hero
+                  ? "(max-width: 900px) 100vw, 50vw"
+                  : "(max-width: 700px) 90vw, 512px"
+              }
+            />
+          )}
+          <Image
+            src={photo.src}
+            alt={photo.alt[locale]}
+            width={photo.width}
+            height={photo.height}
+            sizes={
+              hero
+                ? "(max-width: 900px) 100vw, 50vw"
+                : "(max-width: 700px) 90vw, 512px"
+            }
+            priority={hero}
+            loading={hero ? "eager" : "lazy"}
+          />
+        </picture>
       </div>
     );
   return (
