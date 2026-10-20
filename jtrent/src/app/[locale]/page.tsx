@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/hero/Hero";
 import { Fleet } from "@/components/fleet/Fleet";
 import { Journey } from "@/components/Journey";
+import { About } from "@/components/About";
 import { RentalFaq } from "@/components/RentalFaq";
 import { Reviews } from "@/components/reviews/Reviews";
 import { Contact } from "@/components/contact/Contact";
@@ -76,6 +77,7 @@ export default async function Home({
         <Hero locale={locale} messages={m} />
         <Fleet locale={locale} messages={m} />
         <Journey messages={m} />
+        <About locale={locale} messages={m} />
         <RentalFaq messages={m} />
         {hasReviews && <Reviews locale={locale} messages={m} />}
         <Contact locale={locale} messages={m} />

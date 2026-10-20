@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Brand } from "@/components/ui/Brand";
+import { LanguageFlag } from "@/components/ui/LanguageFlag";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
@@ -72,7 +73,7 @@ export function Header({
           aria-current={lang === locale ? "page" : undefined}
           onClick={(event) => languageLink(event, lang)}
         >
-          {lang.toUpperCase()}
+          <LanguageFlag locale={lang} />
         </a>
       ))}
     </div>

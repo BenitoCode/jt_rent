@@ -60,7 +60,6 @@ export function HeroGallery({ messages: m }: { messages: Messages }) {
           priority={activePhoto === 0}
           sizes="(max-width: 700px) 90vw, 45vw"
         />
-        <p className="hero-gallery-tagline">{m.hero.galleryTagline}</p>
       </div>
       <div className="hero-gallery-controls">
         <button
