@@ -12,7 +12,7 @@ const photos = [
 ];
 
 function photoSrcSet(name: string) {
-  return [400, 576, 640, 800]
+  return [400, 512, 576, 640, 704, 800]
     .map((width) => `/images/${name}-${width}.webp ${width}w`)
     .join(", ");
 }
@@ -62,7 +62,7 @@ export function HeroGallery({ messages: m }: { messages: Messages }) {
           <source
             type="image/webp"
             srcSet={photoSrcSet(photos[activePhoto].name)}
-            sizes="(max-width: 700px) 90vw, 42vw"
+            sizes="(max-width: 700px) 90vw, min(42vw, 571px)"
           />
           <Image
             key={photos[activePhoto].name}
@@ -71,7 +71,7 @@ export function HeroGallery({ messages: m }: { messages: Messages }) {
             fill
             loading={activePhoto === 0 ? "eager" : "lazy"}
             fetchPriority={activePhoto === 0 ? "high" : "auto"}
-            sizes="(max-width: 700px) 90vw, 42vw"
+            sizes="(max-width: 700px) 90vw, min(42vw, 571px)"
           />
         </picture>
       </div>

@@ -25,16 +25,16 @@ export function About({
           <picture>
             <source
               type="image/webp"
-              srcSet={[384, 576, 640, 768]
+              srcSet={[384, 576, 640, 672, 768]
                 .map((width) => `/images/jt-rent-founders-${width}.webp ${width}w`)
                 .join(", ")}
-              sizes="(max-width: 900px) min(540px, calc(100vw - 40px)), min(42vw, 600px)"
+              sizes="(max-width: 900px) min(540px, calc(100vw - 40px)), min(50vw, 650px)"
             />
             <Image
               src="/images/jt-rent-founders-640.webp"
               alt={m.about.photoAlt}
               fill
-              sizes="(max-width: 900px) min(540px, calc(100vw - 40px)), min(42vw, 600px)"
+              sizes="(max-width: 900px) min(540px, calc(100vw - 40px)), min(50vw, 650px)"
             />
           </picture>
           <figcaption>{m.about.photoCaption}</figcaption>

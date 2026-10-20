@@ -9,21 +9,21 @@ for (const name of [
   "hero-malaga-port",
   "hero-malaga-coast",
 ]) {
-  for (const width of [400, 576, 640, 800]) {
+  for (const width of [400, 512, 576, 640, 704, 800]) {
     jobs.push(
       sharp(path.join(imageDirectory, `${name}.jpg`))
         .resize({ width, withoutEnlargement: true })
-        .webp({ quality: 74, effort: 6 })
+        .webp({ quality: 64, effort: 6 })
         .toFile(path.join(imageDirectory, `${name}-${width}.webp`)),
     );
   }
 }
 
-for (const width of [384, 576, 640, 768]) {
+for (const width of [384, 576, 640, 672, 768]) {
   jobs.push(
     sharp(path.join(imageDirectory, "jt-rent-founders.jpeg"))
       .resize({ width, withoutEnlargement: true })
-      .webp({ quality: 74, effort: 6 })
+      .webp({ quality: 60, effort: 6 })
       .toFile(path.join(imageDirectory, `jt-rent-founders-${width}.webp`)),
   );
 }

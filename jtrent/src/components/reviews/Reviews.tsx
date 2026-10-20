@@ -1,6 +1,3 @@
-"use client";
-
-import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Star } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
@@ -33,44 +30,9 @@ export function Reviews({
   messages: Messages;
 }) {
   const reviews = testimonials.filter((review) => review.verified);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const groupRef = useRef<HTMLDivElement>(null);
   const googleUrl =
     site.googleBusinessUrl ??
     `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
-
-  function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
-    if (event.pointerType === "mouse" && event.button !== 0) return;
-    const animation = trackRef.current?.getAnimations()[0];
-    const groupWidth = groupRef.current?.scrollWidth;
-    if (!animation || !groupWidth) return;
-
-    const duration = Number(animation.effect?.getTiming().duration);
-    const startTime = Number(animation.currentTime ?? 0);
-    const startX = event.clientX;
-    const element = event.currentTarget;
-    animation.pause();
-
-    const move = (pointerEvent: globalThis.PointerEvent) => {
-      if (pointerEvent.pointerId !== event.pointerId) return;
-      const delta = pointerEvent.clientX - startX;
-      if (Math.abs(delta) > 4) element.dataset.dragging = "true";
-      const shiftedTime = startTime - (delta / groupWidth) * duration;
-      animation.currentTime = ((shiftedTime % duration) + duration) % duration;
-    };
-    const finish = (pointerEvent: globalThis.PointerEvent) => {
-      if (pointerEvent.pointerId !== event.pointerId) return;
-      delete element.dataset.dragging;
-      animation.play();
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", finish);
-      window.removeEventListener("pointercancel", finish);
-    };
-
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", finish);
-    window.addEventListener("pointercancel", finish);
-  }
 
   return (
     <section id="reviews" className="reviews section-pad" aria-labelledby="reviews-title">
@@ -87,12 +49,11 @@ export function Reviews({
         </header>
 
         {reviews.length > 0 ? (
-          <div className="reviews-window" onPointerDown={startDrag} role="region" aria-label={m.reviews.carouselLabel}>
-            <div className="reviews-track" ref={trackRef}>
+          <div className="reviews-window" role="region" aria-label={m.reviews.carouselLabel}>
+            <div className="reviews-track">
               {[false, true].map((duplicate) => (
                 <div
                   className="reviews-group"
-                  ref={duplicate ? undefined : groupRef}
                   key={duplicate ? "duplicate" : "reviews"}
                   role="list"
                   aria-hidden={duplicate || undefined}

@@ -1306,12 +1306,6 @@ h2 {
 }
 .reviews-window {
   overflow: hidden;
-  cursor: grab;
-  touch-action: pan-y;
-  user-select: none;
-}
-.reviews-window[data-dragging="true"] {
-  cursor: grabbing;
 }
 .reviews-track {
   display: flex;
