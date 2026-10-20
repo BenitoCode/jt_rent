@@ -1107,6 +1107,63 @@ h2 {
   font-weight: 650;
   letter-spacing: -0.3px;
 }
+.rental-faq {
+  background: var(--surface);
+}
+.rental-faq-heading {
+  max-width: 760px;
+  margin: 0 auto 36px;
+  text-align: center;
+}
+.rental-faq-heading .eyebrow {
+  margin-bottom: 10px;
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 2.8px;
+}
+.rental-faq-heading h2 {
+  margin-bottom: 14px;
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 750;
+  letter-spacing: -1.2px;
+}
+.rental-faq-heading > p:last-child {
+  max-width: 670px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.rental-faq-list {
+  display: grid;
+  max-width: 850px;
+  gap: 12px;
+  margin: 0 auto;
+}
+.rental-faq-item {
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+}
+.rental-faq-item summary {
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+.rental-faq-item summary::marker {
+  color: var(--brand);
+}
+.rental-faq-item p {
+  max-width: 740px;
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.75;
+}
 .reviews {
   overflow: hidden;
   background: var(--surface);
@@ -1180,6 +1237,21 @@ h2 {
   height: 100%;
   object-fit: cover;
 }
+.review-photo > span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--brand);
+  font-size: 24px;
+  font-weight: 700;
+}
 .review-card-body {
   display: flex;
   min-height: 0;
@@ -1201,22 +1273,13 @@ h2 {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.review-demo-label {
-  width: fit-content;
-  padding: 3px 7px;
-  border-radius: 4px;
-  background: #fff2bb;
-  color: #735100;
-  font-size: 8px;
-  font-weight: 750;
-  letter-spacing: 0.7px;
-}
-.review-stars {
-  flex: 0 0 auto;
-  color: #f2a900;
-  font-size: 18px;
-  letter-spacing: 2px;
-  line-height: 1;
+.review-reviewer > span,
+.review-reviewer > a {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .review-card blockquote {
   display: -webkit-box;
@@ -1671,6 +1734,156 @@ h2 {
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
+}
+.cookie-settings-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b8b8b8;
+  font: inherit;
+  cursor: pointer;
+}
+.cookie-settings-link:hover {
+  color: var(--paper);
+  text-decoration: underline;
+}
+.cookie-consent-backdrop {
+  position: fixed;
+  z-index: 50;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  padding: 18px max(18px, env(safe-area-inset-right)) max(18px, env(safe-area-inset-bottom)) max(18px, env(safe-area-inset-left));
+  pointer-events: none;
+}
+.cookie-consent-panel {
+  width: min(100%, 760px);
+  max-height: min(78vh, 680px);
+  overflow: auto;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--paper);
+  box-shadow: 0 16px 60px #0003;
+  pointer-events: auto;
+}
+.cookie-consent-eyebrow {
+  margin: 0 0 10px;
+  color: var(--brand);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+.cookie-consent-panel h2 {
+  margin: 0 0 12px;
+  font-size: clamp(23px, 3vw, 31px);
+  letter-spacing: -0.7px;
+  line-height: 1.15;
+}
+.cookie-consent-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+.cookie-consent-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+.cookie-button {
+  display: inline-flex;
+  min-height: 46px;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 13px;
+  border: 1px solid #b8b8b8;
+  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  transition: background 160ms, border-color 160ms, color 160ms;
+}
+.cookie-button:hover {
+  border-color: var(--ink);
+  background: var(--surface);
+}
+.cookie-button-primary {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: white;
+}
+.cookie-button-primary:hover {
+  border-color: var(--brand-dark);
+  background: var(--brand-dark);
+  color: white;
+}
+.cookie-preferences {
+  display: grid;
+  gap: 0;
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.cookie-preference-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+.cookie-preference-row strong {
+  font-size: 12px;
+}
+.cookie-preference-row p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cookie-preference-row input {
+  width: 19px;
+  height: 19px;
+  flex: 0 0 auto;
+  accent-color: var(--brand);
+}
+.cookie-always-on {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+}
+.contact-map-placeholder {
+  display: flex;
+  min-height: 430px;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px;
+  border-radius: calc(var(--radius) * 0.75);
+  background: var(--surface);
+  text-align: center;
+}
+.contact-map-placeholder strong {
+  font-size: 16px;
+}
+.contact-map-placeholder p {
+  max-width: 380px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.contact-map-placeholder .button {
+  margin-top: 4px;
 }
 .whatsapp-float {
   position: fixed;
@@ -2336,6 +2549,12 @@ h2 {
   .journey-cta > p {
     text-align: center;
   }
+  .rental-faq-item {
+    padding: 17px 18px;
+  }
+  .rental-faq-item summary {
+    font-size: 15px;
+  }
   .contact-heading {
     margin-bottom: 28px;
   }
@@ -2356,6 +2575,10 @@ h2 {
     padding: 22px 18px;
   }
   .contact-map {
+    min-height: 320px;
+    aspect-ratio: 1.05 / 1;
+  }
+  .contact-map-placeholder {
     min-height: 320px;
     aspect-ratio: 1.05 / 1;
   }
@@ -2393,6 +2616,20 @@ h2 {
     flex-wrap: wrap;
     gap: 10px;
     padding-block: 12px;
+  }
+  .cookie-consent-backdrop {
+    padding: 10px max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  }
+  .cookie-consent-panel {
+    max-height: min(84vh, 680px);
+    padding: 19px 17px;
+  }
+  .cookie-consent-actions {
+    flex-direction: column;
+  }
+  .cookie-button {
+    width: 100%;
+    min-height: 44px;
   }
   .whatsapp-float {
     right: max(16px, env(safe-area-inset-right));

@@ -43,7 +43,7 @@ export function Header({
   }, [open]);
 
   function currentSection() {
-    const sections = ["fleet", "how-to-rent", "reviews", "contact"];
+    const sections = ["fleet", "how-to-rent", "reviews", "faq", "contact"];
     return sections.findLast((id) => {
       const element = document.getElementById(id);
       return element && element.getBoundingClientRect().top <= 180;
@@ -84,6 +84,9 @@ export function Header({
       </a>
       <a href="#how-to-rent" onClick={() => setOpen(false)}>
         {m.nav.howToRent}
+      </a>
+      <a href="#faq" onClick={() => setOpen(false)}>
+        {m.nav.faq}
       </a>
       {hasReviews && (
         <a href="#reviews" onClick={() => setOpen(false)}>

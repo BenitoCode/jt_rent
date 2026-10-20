@@ -8,6 +8,7 @@ import {
   Navigation,
 } from "lucide-react";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { DeferredMap } from "@/components/contact/DeferredMap";
 import { site } from "@/config/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import type { Locale } from "@/data/motorcycles";
@@ -80,7 +81,7 @@ export function Contact({
                   </a>
                 ))}
               </div>
-              <div className="contact-socials" aria-label={m.contact.socialsLabel}>
+              <div className="contact-socials" role="group" aria-label={m.contact.socialsLabel}>
                 <button className="contact-social" type="button" disabled aria-label="Instagram">
                   <Instagram size={19} aria-hidden="true" />
                   <span>Instagram</span>
@@ -109,13 +110,12 @@ export function Contact({
               </div>
               <MapPin size={22} aria-hidden="true" />
             </div>
-            <iframe
-              className="contact-map"
+            <DeferredMap
               src={mapEmbed}
               title={m.contact.mapTitle}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
+              blockedTitle={m.contact.mapBlockedTitle}
+              blockedDescription={m.contact.mapBlockedDescription}
+              configureLabel={m.contact.mapConfigureCookies}
             />
             <div className="contact-map-footer">
               <p>{site.address}</p>

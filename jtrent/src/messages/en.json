@@ -3,6 +3,7 @@
     "fleet": "Fleet",
     "howToRent": "How to rent",
     "reviews": "Reviews",
+    "faq": "FAQs",
     "contact": "Contact",
     "consult": "WhatsApp",
     "open": "Open menu",
@@ -12,9 +13,9 @@
   },
   "hero": {
     "eyebrow": "SCOOTER RENTAL · MALAGA",
-    "line1": "Your next",
-    "line2": "ride starts",
-    "line3": "in Malaga",
+    "line1": "Motorbike & Scooter",
+    "line2": "Rental in",
+    "line3": "Malaga",
     "description": "Choose your scooter, tell us your dates and we will confirm availability, price and rental conditions.",
     "explore": "View fleet",
     "whatsapp": "Book via WhatsApp",
@@ -89,6 +90,37 @@
     "benefitSix": "Clear terms before you rent",
     "closing": "Your next adventure starts with JT Rent."
   },
+  "faq": {
+    "eyebrow": "RENTAL INFORMATION",
+    "title": "Motorbike and scooter rental FAQs in Malaga",
+    "description": "Get clear answers about the available scooter, booking and rental requirements before contacting JT Rent.",
+    "items": [
+      {
+        "question": "Which motorbike is currently available?",
+        "answer": "The Kymco Sky Town 125 is listed in our fleet. Send us your dates and we will confirm availability and the total price before you book."
+      },
+      {
+        "question": "How do I book a motorbike?",
+        "answer": "Contact JT Rent on WhatsApp and tell us your dates. We will confirm availability, the total price and rental terms before you confirm the rental."
+      },
+      {
+        "question": "What documents do I need to rent?",
+        "answer": "You need valid identification and your original driving licence. The licence must be valid in Spain and suitable for the motorbike's engine size and category."
+      },
+      {
+        "question": "When and where do I collect the motorbike?",
+        "answer": "The handover and return location, date and time are agreed in advance on WhatsApp."
+      },
+      {
+        "question": "Is a security deposit required?",
+        "answer": "A security deposit may be requested. Its amount is shared before the rental is confirmed, and its return depends on the contract terms and the motorbike inspection."
+      },
+      {
+        "question": "What is included in the rental price?",
+        "answer": "JT Rent currently lists a helmet, roadside assistance and secure luggage storage as included. Confirm the details when checking availability."
+      }
+    ]
+  },
   "modal": {
     "subtitle": "Motorbikes and scooters in Malaga",
     "close": "Close details",
@@ -150,32 +182,8 @@
   "reviews": {
     "eyebrow": "JT RENT REVIEWS",
     "title": "Experiences on two wheels.",
-    "disclaimer": "These reviews are fictional and are only examples for the design. They are not real customer reviews.",
-    "sampleLabel": "FICTIONAL REVIEW",
-    "carouselLabel": "Carousel of fictional reviews",
-    "starsLabel": "5 out of 5 stars, demonstration rating",
-    "samples": [
-      {
-        "name": "Laura M.",
-        "initials": "L",
-        "quote": "The team was quick and friendly. A great way to discover Malaga at your own pace."
-      },
-      {
-        "name": "Daniel R.",
-        "initials": "D",
-        "quote": "Booking was simple, and every detail was clearly explained before setting off."
-      },
-      {
-        "name": "Marta G.",
-        "initials": "M",
-        "quote": "I could explore the city and coast comfortably. An experience I would repeat!"
-      },
-      {
-        "name": "Alex P.",
-        "initials": "A",
-        "quote": "The motorbike was ready and the service was excellent. Malaga is a different experience on two wheels."
-      }
-    ]
+    "disclaimer": "Verified feedback from JT Rent customers.",
+    "carouselLabel": "Customer feedback carousel"
   },
   "contact": {
     "eyebrow": "JT RENT · MALAGA",
@@ -216,7 +224,13 @@
     "formUnconfigured": "The form is not active yet. You can contact us directly at",
     "mapTitle": "Find us in Malaga",
     "directions": "Get directions",
-    "mapPrivacy": "The map is loaded from Google Maps and may receive technical data from your browser."
+    "mapPrivacy": "The map loads only if you allow external Google Maps content.",
+    "mapBlockedTitle": "Google Maps is blocked",
+    "mapBlockedDescription": "To show the map, allow external Google Maps content in your cookie preferences.",
+    "mapConfigureCookies": "Configure cookies"
+  },
+  "cookies": {
+    "settingsButton": "Cookie preferences"
   },
   "footer": {
     "tagline": "Malaga, your way.",
@@ -232,6 +246,6 @@
   },
   "seo": {
     "title": "Motorbike & Scooter Rental in Malaga | JT Rent",
-    "description": "Discover Malaga at your own pace with JT Rent. Explore our Kymco Sky Town 125 and check availability on WhatsApp. Service in English and Spanish."
+    "description": "Rent a motorbike or scooter in Malaga with JT Rent. Check the Kymco Sky Town 125, daily price and availability on WhatsApp before booking."
   }
 }

@@ -21,9 +21,9 @@ export function Hero({
               {m.hero.eyebrow}
             </p>
             <h1 id="hero-title">
-              {m.hero.line1}
+              {m.hero.line1}{" "}
               <br />
-              <span>{m.hero.line2}</span>
+              <span>{m.hero.line2}{" "}</span>
               <br />
               {m.hero.line3}
             </h1>

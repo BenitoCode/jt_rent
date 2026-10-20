@@ -132,7 +132,6 @@ export function ScrollMoto() {
         aria-hidden="true"
         width={1376}
         height={768}
-        priority
         draggable={false}
         className="scroll-moto"
       />

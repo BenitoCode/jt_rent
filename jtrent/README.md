@@ -20,7 +20,7 @@ En esta sesión se utilizó Node portátil en una carpeta temporal porque no hab
 
 En `.env.local`, define `NEXT_PUBLIC_WHATSAPP_NUMBER` con el número internacional real, solo dígitos, sin espacios ni `+`. Sin un número válido, todos los botones de WhatsApp permanecen desactivados con un estado explicativo. No hay número ficticio configurado.
 
-Define `NEXT_PUBLIC_SITE_URL` con el dominio real (por ejemplo, el dominio que registres). Hasta entonces, se omiten canonical/hreflang, URL de organización y URLs de sitemap para no indexar un dominio inventado. Reinicia desarrollo o reconstruye producción después de cambiar estas variables públicas.
+Configura NEXT_PUBLIC_SITE_URL con el dominio principal; el valor por defecto es https://jt-rent.com. Si cambia el host canonico, reconstruye el proyecto.
 
 WhatsApp abre un mensaje, nunca confirma automáticamente la reserva. Las fechas son opcionales: para enviarlas se requieren las dos, con devolución igual o posterior a recogida y recogida no anterior al día local de la consulta.
 

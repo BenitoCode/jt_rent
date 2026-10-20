@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMessages, isLocale, locales } from "@/lib/i18n";
 import { site } from "@/config/site";
+import { testimonials } from "@/data/testimonials";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/hero/Hero";
 import { Fleet } from "@/components/fleet/Fleet";
 import { Journey } from "@/components/Journey";
+import { RentalFaq } from "@/components/RentalFaq";
 import { Reviews } from "@/components/reviews/Reviews";
 import { Contact } from "@/components/contact/Contact";
 import { Footer } from "@/components/layout/Footer";
@@ -25,27 +27,35 @@ export async function generateMetadata({
   return {
     title: m.seo.title,
     description: m.seo.description,
-    ...(site.url
-      ? {
-          metadataBase: new URL(site.url),
-          alternates: {
-            canonical: `/${locale}/`,
-            languages: { es: "/es/", en: "/en/", "x-default": "/es/" },
-          },
-        }
-      : {}),
+    metadataBase: new URL(site.url),
+    alternates: {
+      canonical: `/${locale}/`,
+      languages: { es: "/es/", en: "/en/", "x-default": "/es/" },
+    },
+    robots: { index: true, follow: true },
+    icons: { icon: site.logo },
     openGraph: {
       title: m.seo.title,
       description: m.seo.description,
       type: "website",
       siteName: site.name,
       locale: locale === "es" ? "es_ES" : "en_GB",
-      ...(site.url ? { url: `${site.url}/${locale}/` } : {}),
+      url: `${site.url}/${locale}/`,
+      images: [
+        {
+          url: "/images/hero-malaga-port.jpg",
+          alt:
+            locale === "es"
+              ? "Un scooter recorre el puerto de M\u00e1laga"
+              : "A scooter rides along Malaga harbour",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: m.seo.title,
       description: m.seo.description,
+      images: ["/images/hero-malaga-port.jpg"],
     },
   };
 }
@@ -57,7 +67,7 @@ export default async function Home({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const m = getMessages(locale);
-  const hasReviews = m.reviews.samples.length > 0;
+  const hasReviews = testimonials.some((review) => review.verified);
   return (
     <>
       <Header locale={locale} messages={m} hasReviews={hasReviews} />
@@ -66,24 +76,45 @@ export default async function Home({
         <Hero locale={locale} messages={m} />
         <Fleet locale={locale} messages={m} />
         <Journey messages={m} />
-        <Reviews messages={m} />
+        <RentalFaq messages={m} />
+        {hasReviews && <Reviews locale={locale} messages={m} />}
         <Contact locale={locale} messages={m} />
       </main>
       <Footer locale={locale} messages={m} hasReviews={hasReviews} />
-      {site.url && (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Organization",
-              name: site.name,
-              url: site.url,
-              ...(site.logo ? { logo: `${site.url}${site.logo}` } : {}),
-            }).replace(/</g, "\\u003c"),
-          }}
-        />
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@graph": [
+              {
+                "@type": "LocalBusiness",
+                "@id": `${site.url}/#business`,
+                name: site.name,
+                url: site.url,
+                logo: `${site.url}${site.logo}`,
+                image: `${site.url}/images/hero-malaga-port.jpg`,
+                description: m.seo.description,
+                email: site.email,
+                telephone: `+${site.whatsappContacts[0]}`,
+                address: {
+                  "@type": "PostalAddress",
+                  ...site.addressStructured,
+                },
+                areaServed: { "@type": "City", name: "M\u00e1laga" },
+              },
+              {
+                "@type": "WebSite",
+                "@id": `${site.url}/#website`,
+                url: site.url,
+                name: site.name,
+                inLanguage: ["es", "en"],
+                publisher: { "@id": `${site.url}/#business` },
+              },
+            ],
+          }).replace(/</g, "\\u003c"),
+        }}
+      />
     </>
   );
 }

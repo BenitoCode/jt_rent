@@ -3,6 +3,7 @@
     "fleet": "Flota",
     "howToRent": "Cómo alquilar",
     "reviews": "Valoraciones",
+    "faq": "Preguntas frecuentes",
     "contact": "Contacto",
     "consult": "WhatsApp",
     "open": "Abrir menú",
@@ -12,8 +13,8 @@
   },
   "hero": {
     "eyebrow": "SCOOTER RENTAL · MÁLAGA",
-    "line1": "Tu próxima",
-    "line2": "ruta empieza",
+    "line1": "Alquiler de motos",
+    "line2": "y scooters",
     "line3": "en Málaga",
     "description": "Elige tu scooter, cuéntanos tus fechas y te confirmaremos disponibilidad, precio y condiciones.",
     "explore": "Ver flota",
@@ -89,6 +90,37 @@
     "benefitSix": "Condiciones claras antes de alquilar",
     "closing": "Tu próxima aventura comienza con JT Rent."
   },
+  "faq": {
+    "eyebrow": "INFORMACIÓN PARA TU ALQUILER",
+    "title": "Preguntas frecuentes sobre alquiler de motos y scooters en Málaga",
+    "description": "Resuelve tus dudas sobre la moto disponible, la reserva y las condiciones antes de contactar con JT Rent.",
+    "items": [
+      {
+        "question": "¿Qué moto está disponible actualmente?",
+        "answer": "La Kymco Sky Town 125 aparece en nuestra flota. Escríbenos con las fechas que necesitas y confirmaremos disponibilidad y precio total antes de reservar."
+      },
+      {
+        "question": "¿Cómo puedo reservar una moto?",
+        "answer": "Contacta con JT Rent por WhatsApp e indícanos las fechas. Te confirmaremos la disponibilidad, el precio total y las condiciones antes de que confirmes el alquiler."
+      },
+      {
+        "question": "¿Qué documentos necesito para alquilar?",
+        "answer": "Necesitarás un documento de identidad válido y el permiso de conducir original, válido en España y adecuado a la cilindrada y categoría de la moto."
+      },
+      {
+        "question": "¿Cuándo y dónde recojo la moto?",
+        "answer": "El lugar, la fecha y el horario de entrega y devolución se acuerdan previamente por WhatsApp."
+      },
+      {
+        "question": "¿Se solicita una fianza?",
+        "answer": "Se podría solicitar una fianza de seguridad. Su importe se comunicará antes de confirmar el alquiler y su devolución dependerá de las condiciones del contrato y de la revisión de la moto."
+      },
+      {
+        "question": "¿Qué incluye el precio del alquiler?",
+        "answer": "La información actual de JT Rent indica que se incluyen casco, asistencia en carretera y depósito seguro de equipaje. Confirma los detalles al consultar disponibilidad."
+      }
+    ]
+  },
   "modal": {
     "subtitle": "Motos y scooters en Málaga",
     "close": "Cerrar detalles",
@@ -150,32 +182,8 @@
   "reviews": {
     "eyebrow": "VALORACIONES JT RENT",
     "title": "Experiencias sobre dos ruedas.",
-    "disclaimer": "Estas reseñas son ficticias y solo sirven como ejemplo de diseño. No son opiniones reales de clientes.",
-    "sampleLabel": "RESEÑA FICTICIA",
-    "carouselLabel": "Carrusel de reseñas ficticias",
-    "starsLabel": "5 de 5 estrellas, valoración de demostración",
-    "samples": [
-      {
-        "name": "Laura M.",
-        "initials": "L",
-        "quote": "La atención fue rápida y cercana. Una forma estupenda de descubrir Málaga a tu ritmo."
-      },
-      {
-        "name": "Daniel R.",
-        "initials": "D",
-        "quote": "Reservar fue muy sencillo y me explicaron con claridad todos los detalles antes de salir."
-      },
-      {
-        "name": "Marta G.",
-        "initials": "M",
-        "quote": "Pude recorrer la ciudad y la costa con comodidad. ¡Una experiencia para repetir!"
-      },
-      {
-        "name": "Álex P.",
-        "initials": "A",
-        "quote": "La moto estaba lista y el trato fue excelente. Málaga se disfruta de otra manera sobre dos ruedas."
-      }
-    ]
+    "disclaimer": "Opiniones verificadas de clientes de JT Rent.",
+    "carouselLabel": "Carrusel de opiniones de clientes"
   },
   "contact": {
     "eyebrow": "JT RENT · MÁLAGA",
@@ -216,11 +224,17 @@
     "formUnconfigured": "El formulario aún no está activado. Puedes escribirnos directamente a",
     "mapTitle": "Encuéntranos en Málaga",
     "directions": "Cómo llegar",
-    "mapPrivacy": "El mapa se carga desde Google Maps y puede recibir datos técnicos de tu navegador."
+    "mapPrivacy": "El mapa solo se carga si permites el contenido externo de Google Maps.",
+    "mapBlockedTitle": "Mapa de Google Maps bloqueado",
+    "mapBlockedDescription": "Para mostrar el mapa, permite el contenido externo de Google Maps en tus preferencias de cookies.",
+    "mapConfigureCookies": "Configurar cookies"
+  },
+  "cookies": {
+    "settingsButton": "Preferencias de cookies"
   },
   "footer": {
     "tagline": "Málaga, a tu manera.",
-    "description": "Alquiler de motos en M\u00e1laga con atenci\u00f3n directa y cercana. Tu pr\u00f3xima ruta empieza aqu\u00ed.",
+    "description": "Alquiler de motos en Málaga con atención directa y cercana. Tu próxima ruta empieza aquí.",
     "explore": "Explora JT Rent",
     "contactTitle": "Contacto",
     "rights": "Todos los derechos reservados.",
@@ -232,6 +246,6 @@
   },
   "seo": {
     "title": "Alquiler de motos y scooters en Málaga | JT Rent",
-    "description": "Descubre Málaga a tu ritmo con JT Rent. Consulta nuestra Kymco Sky Town 125 y solicita disponibilidad por WhatsApp. Atención en español e inglés."
+    "description": "Alquiler de motos y scooters en Málaga con JT Rent. Consulta la Kymco Sky Town 125, el precio y la disponibilidad por WhatsApp antes de reservar."
   }
 }

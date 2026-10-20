@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import "../globals.css";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: true },
+};
 export default function EntryLayout({
   children,
 }: {

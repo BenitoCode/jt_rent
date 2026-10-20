@@ -1,4 +1,5 @@
 import { Brand } from "@/components/ui/Brand";
+import { CookieSettingsButton } from "@/components/privacy/CookieSettingsButton";
 import Link from "next/link";
 import { site } from "@/config/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -31,6 +32,7 @@ export function Footer({
             <h2 className="footer-column-title">{m.footer.explore}</h2>
             <a href="#fleet">{m.nav.fleet}</a>
             <a href="#how-to-rent">{m.nav.howToRent}</a>
+            <a href="#faq">{m.nav.faq}</a>
             {hasReviews && <a href="#reviews">{m.nav.reviews}</a>}
             <a href="#contact">{m.nav.contact}</a>
           </nav>
@@ -59,8 +61,9 @@ export function Footer({
                 <a key={key} href={href}>
                   {m.footer[key as keyof typeof site.legal]}
                 </a>
-              ) : null,
+            ) : null,
             )}
+            <CookieSettingsButton label={m.cookies.settingsButton} />
           </div>
           <div className="language-switch">
             <Link

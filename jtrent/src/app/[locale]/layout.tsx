@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { isLocale, getMessages } from "@/lib/i18n";
+import { CookieConsent } from "@/components/privacy/CookieConsent";
 import "../globals.css";
 
 export default async function LocaleLayout({
@@ -18,6 +19,7 @@ export default async function LocaleLayout({
           {getMessages(locale).nav.skip}
         </a>
         {children}
+        <CookieConsent locale={locale} />
       </body>
     </html>
   );

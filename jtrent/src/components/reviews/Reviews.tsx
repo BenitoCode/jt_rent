@@ -2,18 +2,22 @@
 
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
+import { testimonials } from "@/data/testimonials";
+import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
-const reviewImages = [
-  "/images/hero-malaga-sunset.jpg",
-  "/images/hero-malaga-port.jpg",
-  "/images/hero-malaga-coast.jpg",
-  "/images/kymco-three-quarter.jpeg",
-];
-
-export function Reviews({ messages: m }: { messages: Messages }) {
+export function Reviews({
+  locale,
+  messages: m,
+}: {
+  locale: Locale;
+  messages: Messages;
+}) {
+  const reviews = testimonials.filter((review) => review.verified);
   const trackRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement>(null);
+
+  if (reviews.length === 0) return null;
 
   function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -74,34 +78,41 @@ export function Reviews({ messages: m }: { messages: Messages }) {
                 role="list"
                 aria-hidden={duplicate || undefined}
               >
-                {m.reviews.samples.map((review, index) => (
+                {reviews.map((review) => (
                   <article
                     className="review-card"
-                    key={review.initials}
+                    key={review.id}
                     role="listitem"
                   >
-                    <div className="review-photo" aria-hidden="true">
-                      <Image
-                        src={reviewImages[index % reviewImages.length]}
-                        alt=""
-                        width={600}
-                        height={600}
-                      />
+                    <div className="review-photo" aria-hidden={!review.image}>
+                      {review.image ? (
+                        <Image
+                          src={review.image.src}
+                          alt={review.image.alt[locale]}
+                          width={review.image.width}
+                          height={review.image.height}
+                        />
+                      ) : (
+                        <span aria-hidden="true">
+                          {review.name
+                            .split(/\s+/)
+                            .map((part) => part[0])
+                            .join("")
+                            .slice(0, 2)}
+                        </span>
+                      )}
                     </div>
                     <div className="review-card-body">
-                      <div
-                        className="review-stars"
-                        role="img"
-                        aria-label={m.reviews.starsLabel}
-                      >
-                        {"★★★★★"}
-                      </div>
-                      <blockquote>{review.quote}</blockquote>
+                      <blockquote>{review.quote[locale]}</blockquote>
                       <div className="review-reviewer">
                         <strong>{review.name}</strong>
-                        <span className="review-demo-label">
-                          {m.reviews.sampleLabel}
-                        </span>
+                        {review.sourceUrl ? (
+                          <a href={review.sourceUrl} target="_blank" rel="noopener noreferrer">
+                            {review.source}
+                          </a>
+                        ) : (
+                          <span>{review.source}</span>
+                        )}
                       </div>
                     </div>
                   </article>
