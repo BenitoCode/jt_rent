@@ -18,6 +18,7 @@ export const site = {
   formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID?.trim() || "",
   // Public Google Analytics measurement ID; tracking is loaded only after consent.
   analyticsMeasurementId: "G-PROG9FDLFP",
+  googleBusinessUrl: publicUrl(process.env.NEXT_PUBLIC_GOOGLE_BUSINESS_URL?.trim()),
   address: "Calle Alejandro Puskin, 29011 M\u00e1laga, Espa\u00f1a",
   addressStructured: {
     streetAddress: "Calle Alejandro Puskin",

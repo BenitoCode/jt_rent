@@ -1,11 +1,10 @@
 import {
   ArrowUpRight,
-  Facebook,
-  Instagram,
   Mail,
   MapPin,
   MessageCircle,
   Navigation,
+  Phone,
 } from "lucide-react";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { DeferredMap } from "@/components/contact/DeferredMap";
@@ -35,7 +34,6 @@ export function Contact({
       <div className="container">
         <header className="contact-heading">
           <p className="eyebrow">
-            <span className="red-dash" aria-hidden="true" />
             {m.contact.eyebrow}
           </p>
           <h2 id="contact-title">{m.contact.newTitle}</h2>
@@ -43,72 +41,65 @@ export function Contact({
         </header>
 
         <div className="contact-layout">
-          <div className="contact-left-column">
-            <section className="contact-info-card" aria-labelledby="contact-info-title">
-              <p className="contact-card-eyebrow">{m.contact.panelEyebrow}</p>
-              <h3 id="contact-info-title">{m.contact.panelTitle}</h3>
-              <div className="contact-channels">
-                <a className="contact-channel" href={`mailto:${site.email}`}>
-                  <Mail size={18} aria-hidden="true" />
+          <section className="contact-info-card" aria-labelledby="contact-info-title">
+            <h3 id="contact-info-title">{m.contact.panelTitle}</h3>
+            <a
+              className="button contact-whatsapp-button"
+              href={whatsappContacts[0]?.href ?? undefined}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-disabled={!whatsappContacts[0]?.href || undefined}
+            >
+              <MessageCircle size={20} aria-hidden="true" />
+              {m.contact.panelWhatsApp}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </a>
+            <p className="contact-primary-phone">{whatsappContacts[0]?.number}</p>
+            <div className="contact-channels">
+              {whatsappContacts.slice(1).map((contact) => (
+                <a
+                  className="contact-channel"
+                  href={contact.href ?? undefined}
+                  key={contact.number}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-disabled={!contact.href || undefined}
+                >
+                  <Phone size={18} aria-hidden="true" />
                   <span>
-                    <small>{m.contact.emailLabel}</small>
-                    <strong>{site.email}</strong>
+                    <small>{m.contact.otherPhoneLabel}</small>
+                    <strong>{contact.number}</strong>
                   </span>
                   <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
-                <div className="contact-channel contact-location">
-                  <MapPin size={18} aria-hidden="true" />
-                  <span>
-                    <small>{m.contact.locationLabel}</small>
-                    <strong>{site.address}</strong>
-                  </span>
-                </div>
-                {whatsappContacts.map((contact) => (
-                  <a
-                    className="contact-channel"
-                    href={contact.href ?? undefined}
-                    key={contact.number}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-disabled={!contact.href || undefined}
-                  >
-                    <MessageCircle size={18} aria-hidden="true" />
-                    <span>
-                      <small>{m.contact.whatsappLabel} 0{contact.index + 1}</small>
-                      <strong>{contact.number}</strong>
-                    </span>
-                    <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
-                ))}
-              </div>
-              <div className="contact-socials" role="group" aria-label={m.contact.socialsLabel}>
-                <button className="contact-social" type="button" disabled aria-label="Instagram">
-                  <Instagram size={19} aria-hidden="true" />
-                  <span>Instagram</span>
-                  <small>{m.contact.socialComingSoon}</small>
-                </button>
-                <button className="contact-social" type="button" disabled aria-label="Facebook">
-                  <Facebook size={19} aria-hidden="true" />
-                  <span>Facebook</span>
-                  <small>{m.contact.socialComingSoon}</small>
-                </button>
-                <a className="contact-social" href={`mailto:${site.email}`} aria-label={m.contact.emailLabel}>
-                  <Mail size={19} aria-hidden="true" />
-                  <span>Email</span>
-                </a>
-              </div>
-            </section>
+              ))}
+              <a className="contact-channel" href={`mailto:${site.email}`}>
+                <Mail size={18} aria-hidden="true" />
+                <span>
+                  <small>{m.contact.emailLabel}</small>
+                  <strong>{site.email}</strong>
+                </span>
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </a>
+            </div>
+            <a className="contact-info-location" href={mapHref} target="_blank" rel="noopener noreferrer">
+              <MapPin size={17} aria-hidden="true" />
+              <span>
+                <small>{m.contact.mapPickupTitle}</small>
+                <strong>{site.address}</strong>
+              </span>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </section>
 
-            <ContactForm formId={site.formspreeId} messages={m} />
-          </div>
+          <ContactForm formId={site.formspreeId} messages={m} />
 
           <section className="contact-map-card" aria-labelledby="contact-map-title">
             <div className="contact-map-header">
               <div>
-                <p className="contact-card-eyebrow">{m.contact.locationLabel}</p>
-                <h3 id="contact-map-title">{m.contact.mapTitle}</h3>
+                <h3 className="contact-map-kicker" id="contact-map-title">{m.contact.mapPickupTitle}</h3>
+                <p className="contact-card-description">{m.contact.mapPickupDescription}</p>
               </div>
-              <MapPin size={22} aria-hidden="true" />
             </div>
             <DeferredMap
               src={mapEmbed}
@@ -118,7 +109,10 @@ export function Contact({
               configureLabel={m.contact.mapConfigureCookies}
             />
             <div className="contact-map-footer">
-              <p>{site.address}</p>
+              <p className="contact-map-address">
+                <MapPin size={17} aria-hidden="true" />
+                <span>{site.address}</span>
+              </p>
               <a className="button button-primary" href={mapHref} target="_blank" rel="noopener noreferrer">
                 <Navigation size={16} aria-hidden="true" />
                 {m.contact.directions}

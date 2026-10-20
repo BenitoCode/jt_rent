@@ -6,6 +6,8 @@ export type Testimonial = {
   quote: Record<Locale, string>;
   source: string;
   sourceUrl?: string;
+  rating?: number;
+  date?: Record<Locale, string>;
   verified: boolean;
   image?: {
     src: string;

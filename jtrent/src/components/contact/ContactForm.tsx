@@ -41,7 +41,6 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
 
   return (
     <div className="contact-form-card">
-      <p className="contact-card-eyebrow">{m.contact.formEyebrow}</p>
       <h3>{m.contact.formTitle}</h3>
       <p className="contact-card-description">{m.contact.formDescription}</p>
       <form
@@ -56,6 +55,7 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
             id="contact-name"
             name="name"
             type="text"
+            placeholder={m.contact.formNamePlaceholder}
             autoComplete="name"
             maxLength={120}
             required
@@ -67,6 +67,7 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
             id="contact-email"
             name="email"
             type="email"
+            placeholder={m.contact.formEmailPlaceholder}
             autoComplete="email"
             maxLength={254}
             required
@@ -78,6 +79,7 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
             id="contact-message"
             name="message"
             rows={4}
+            placeholder={m.contact.formMessagePlaceholder}
             minLength={10}
             maxLength={3000}
             required
@@ -125,6 +127,7 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
           </p>
         )}
       </form>
+      <p className="contact-form-footnote">{m.contact.formFootnote}</p>
     </div>
   );
 }

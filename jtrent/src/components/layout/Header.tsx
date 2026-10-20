@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { Brand } from "@/components/ui/Brand";
@@ -18,6 +18,7 @@ export function Header({
   hasReviews: boolean;
 }) {
   const [open, setOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | undefined>();
   const router = useRouter();
   const toggle = useRef<HTMLButtonElement>(null);
   const menu = useRef<HTMLDivElement>(null);
@@ -43,13 +44,26 @@ export function Header({
     };
   }, [open]);
 
-  function currentSection() {
-    const sections = ["fleet", "how-to-rent", "reviews", "faq", "contact"];
+  const currentSection = useCallback(() => {
+    const sections = ["fleet", "how-to-rent", "about", "reviews", "faq", "contact"];
     return sections.findLast((id) => {
       const element = document.getElementById(id);
       return element && element.getBoundingClientRect().top <= 180;
     });
-  }
+  }, []);
+
+  useEffect(() => {
+    function updateActiveSection() {
+      setActiveSection(currentSection());
+    }
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection);
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+    };
+  }, [currentSection]);
 
   function languageLink(
     event: React.MouseEvent<HTMLAnchorElement>,
@@ -80,21 +94,21 @@ export function Header({
   );
   const links = (
     <>
-      <a href="#fleet" onClick={() => setOpen(false)}>
+      <a href="#fleet" aria-current={activeSection === "fleet" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.fleet}
       </a>
-      <a href="#how-to-rent" onClick={() => setOpen(false)}>
+      <a href="#how-to-rent" aria-current={activeSection === "how-to-rent" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.howToRent}
       </a>
-      <a href="#faq" onClick={() => setOpen(false)}>
-        {m.nav.faq}
+      <a href="#about" aria-current={activeSection === "about" ? "location" : undefined} onClick={() => setOpen(false)}>
+        {m.footer.about}
       </a>
       {hasReviews && (
-        <a href="#reviews" onClick={() => setOpen(false)}>
+        <a href="#reviews" aria-current={activeSection === "reviews" ? "location" : undefined} onClick={() => setOpen(false)}>
           {m.nav.reviews}
         </a>
       )}
-      <a href="#contact" onClick={() => setOpen(false)}>
+      <a href="#contact" aria-current={activeSection === "contact" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.contact}
       </a>
     </>
@@ -132,6 +146,9 @@ export function Header({
         <div id="mobile-menu" ref={menu} className="mobile-menu">
           <nav aria-label={locale === "es" ? "Menú móvil" : "Mobile menu"}>
             {links}
+            <a href="#faq" onClick={() => setOpen(false)}>
+              {m.nav.faq}
+            </a>
           </nav>
           {language}
         </div>

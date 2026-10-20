@@ -2,9 +2,28 @@
 
 import { useRef, type PointerEvent as ReactPointerEvent } from "react";
 import Image from "next/image";
+import { ArrowUpRight, Star } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
+import { site } from "@/config/site";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
+
+const reviewPhotos = [
+  "/images/hero-malaga-coast.jpg",
+  "/images/kymco-three-quarter.jpeg",
+  "/images/hero-malaga-port.jpg",
+];
+
+function GoogleMark() {
+  return (
+    <svg className="google-mark" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5.1h6.6c3.9-3.6 6.1-8.8 6.1-15Z" />
+      <path fill="#34A853" d="M24 44c5.5 0 10.2-1.8 13.6-4.8L31 34.1c-1.8 1.2-4.1 2-7 2-5.3 0-9.8-3.6-11.4-8.4H5.8v5.3A20 20 0 0 0 24 44Z" />
+      <path fill="#FBBC05" d="M12.6 27.7a12 12 0 0 1 0-7.4V15H5.8a20 20 0 0 0 0 18l6.8-5.3Z" />
+      <path fill="#EA4335" d="M24 11.9c3 0 5.7 1 7.8 3.1l5.9-5.9A19.7 19.7 0 0 0 24 4 20 20 0 0 0 5.8 15l6.8 5.3C14.2 15.5 18.7 12 24 12Z" />
+    </svg>
+  );
+}
 
 export function Reviews({
   locale,
@@ -16,8 +35,9 @@ export function Reviews({
   const reviews = testimonials.filter((review) => review.verified);
   const trackRef = useRef<HTMLDivElement>(null);
   const groupRef = useRef<HTMLDivElement>(null);
-
-  if (reviews.length === 0) return null;
+  const googleUrl =
+    site.googleBusinessUrl ??
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.name}, ${site.address}`)}`;
 
   function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.pointerType === "mouse" && event.button !== 0) return;
@@ -51,75 +71,92 @@ export function Reviews({
     window.addEventListener("pointerup", finish);
     window.addEventListener("pointercancel", finish);
   }
+
   return (
-    <section
-      id="reviews"
-      className="reviews section-pad"
-      aria-labelledby="reviews-title"
-    >
+    <section id="reviews" className="reviews section-pad" aria-labelledby="reviews-title">
       <div className="container">
         <header className="reviews-heading">
+          <a className="reviews-google-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
+            <GoogleMark />
+            {m.reviews.viewGoogle}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
           <p className="eyebrow">{m.reviews.eyebrow}</p>
           <h2 id="reviews-title">{m.reviews.title}</h2>
           <p className="reviews-subtitle">{m.reviews.disclaimer}</p>
         </header>
-        <div
-          className="reviews-window"
-          onPointerDown={startDrag}
-          role="region"
-          aria-label={m.reviews.carouselLabel}
-        >
-          <div className="reviews-track" ref={trackRef}>
-            {[false, true].map((duplicate) => (
-              <div
-                className="reviews-group"
-                ref={duplicate ? undefined : groupRef}
-                key={duplicate ? "duplicate" : "reviews"}
-                role="list"
-                aria-hidden={duplicate || undefined}
-              >
-                {reviews.map((review) => (
-                  <article
-                    className="review-card"
-                    key={review.id}
-                    role="listitem"
-                  >
-                    <div className="review-photo" aria-hidden={!review.image}>
-                      {review.image ? (
+
+        {reviews.length > 0 ? (
+          <div className="reviews-window" onPointerDown={startDrag} role="region" aria-label={m.reviews.carouselLabel}>
+            <div className="reviews-track" ref={trackRef}>
+              {[false, true].map((duplicate) => (
+                <div
+                  className="reviews-group"
+                  ref={duplicate ? undefined : groupRef}
+                  key={duplicate ? "duplicate" : "reviews"}
+                  role="list"
+                  aria-hidden={duplicate || undefined}
+                >
+                  {reviews.map((review, index) => (
+                    <article className="review-card" key={review.id} role="listitem">
+                      <div className="review-photo">
                         <Image
-                          src={review.image.src}
-                          alt={review.image.alt[locale]}
-                          width={review.image.width}
-                          height={review.image.height}
+                          src={review.image?.src ?? reviewPhotos[index % reviewPhotos.length]}
+                          alt={review.image ? review.image.alt[locale] : m.reviews.photoLabel}
+                          width={review.image?.width ?? 900}
+                          height={review.image?.height ?? 600}
                         />
-                      ) : (
-                        <span aria-hidden="true">
-                          {review.name
-                            .split(/\s+/)
-                            .map((part) => part[0])
-                            .join("")
-                            .slice(0, 2)}
-                        </span>
-                      )}
-                    </div>
-                    <div className="review-card-body">
-                      <blockquote>{review.quote[locale]}</blockquote>
-                      <div className="review-reviewer">
-                        <strong>{review.name}</strong>
-                        {review.sourceUrl ? (
-                          <a href={review.sourceUrl} target="_blank" rel="noopener noreferrer">
-                            {review.source}
+                        {!review.image && <span className="review-photo-caption">{m.reviews.photoLabel}</span>}
+                      </div>
+                      <div className="review-card-body">
+                        <div className="review-reviewer">
+                          <GoogleMark />
+                          <span className="review-person">
+                            <strong>{review.name}</strong>
+                            {review.date && <small>{review.date[locale]}</small>}
+                          </span>
+                        </div>
+                        <div className="review-stars" aria-label={`${review.rating ?? 5} / 5`}>
+                          {Array.from({ length: 5 }, (_, starIndex) => (
+                            <Star
+                              key={starIndex}
+                              size={16}
+                              aria-hidden="true"
+                              fill={starIndex < (review.rating ?? 5) ? "currentColor" : "none"}
+                            />
+                          ))}
+                        </div>
+                        <blockquote>{review.quote[locale]}</blockquote>
+                        {review.sourceUrl && (
+                          <a className="review-original-link" href={review.sourceUrl} target="_blank" rel="noopener noreferrer">
+                            {m.reviews.viewOriginal}
+                            <ArrowUpRight size={13} aria-hidden="true" />
                           </a>
-                        ) : (
-                          <span>{review.source}</span>
                         )}
                       </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            ))}
+                    </article>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
+        ) : (
+          <div className="reviews-empty" role="status">
+            <GoogleMark />
+            <p>{m.reviews.noReviews}</p>
+          </div>
+        )}
+
+        <div className="reviews-invite">
+          <div>
+            <h3>{m.reviews.inviteTitle}</h3>
+            <p>{m.reviews.inviteText}</p>
+          </div>
+          <a className="reviews-write-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
+            <GoogleMark />
+            {m.reviews.writeGoogle}
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

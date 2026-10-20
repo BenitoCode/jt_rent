@@ -32,7 +32,7 @@ export function Brand({
         <span className="brand-divider" aria-hidden="true" />
         <span className="brand-header-copy">
           <span className="brand-title">
-            JT Rent<span>.</span>
+            <span className="brand-title-accent">JT</span> RENT
           </span>
           <span className="brand-tagline">
             Málaga · {locale === "es" ? "Alquiler de motos" : "Scooter rental"}
