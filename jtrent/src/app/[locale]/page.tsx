@@ -32,7 +32,7 @@ export async function generateMetadata({
       languages: { es: "/es/", en: "/en/", "x-default": "/es/" },
     },
     robots: { index: true, follow: true },
-    icons: { icon: site.logo },
+    icons: { icon: [{ url: "/favicon.png", type: "image/png", sizes: "128x128" }] },
     openGraph: {
       title: m.seo.title,
       description: m.seo.description,
