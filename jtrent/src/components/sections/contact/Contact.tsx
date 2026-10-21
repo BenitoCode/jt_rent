@@ -6,8 +6,8 @@ import {
   Navigation,
   Phone,
 } from "lucide-react";
-import { ContactForm } from "@/components/contact/ContactForm";
-import { DeferredMap } from "@/components/contact/DeferredMap";
+import { ContactForm } from "@/components/sections/contact/ContactForm";
+import { DeferredMap } from "@/components/sections/contact/DeferredMap";
 import { site } from "@/config/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import type { Locale } from "@/data/motorcycles";

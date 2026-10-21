@@ -30,14 +30,33 @@ La portada, el footer y el acceso flotante preparan una consulta general; desde 
 
 - Colores, tipo de letra, ancho máximo, espacios y bordes: variables al inicio de [globals.css](src/app/globals.css). El resto de estilos está agrupado por sección y breakpoint.
 - Textos: [es.json](src/messages/es.json) y [en.json](src/messages/en.json), con las mismas claves. `Messages` comprueba la compatibilidad de ambos idiomas.
-- Distribución: cada sección tiene su componente en [components](src/components), sin mezclar los datos del negocio.
+- Distribución: cada sección tiene su componente en [components/sections](src/components/sections), agrupado por funcionalidad y sin mezclar los datos del negocio.
 - Decisiones y recursos pendientes: [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
+
+### Estructura del código
+
+```text
+src/
+  app/                    Rutas, layouts y estilos globales
+  components/
+    layout/               Cabecera, pie y navegación
+    sections/<feature>/   Una carpeta por sección de la página
+    booking/              Flujo y estado de reserva
+    privacy/              Consentimiento y privacidad
+    ui/                   Componentes visuales reutilizables
+  config/                 Datos estables del sitio
+  data/                   Flota y contenido estructurado
+  lib/                    Lógica compartida y utilidades
+  messages/               Textos traducidos ES/EN
+```
+
+Al añadir una sección, crea `components/sections/<nombre>/` y mantén juntos su componente y los componentes que solo utilice esa sección. Importa la sección en `app/[locale]/page.tsx`; deja en `app/` solo rutas y composición de página. Comparte piezas entre secciones únicamente cuando tengan el mismo comportamiento y responsabilidad. Guarda contenido editable en `data/`, configuración del negocio en `config/`, textos visibles en ambos archivos de `messages/` y reglas globales de diseño en `globals.css`.
 
 ## Precios y motos
 
 Edita [motorcycles.ts](src/data/motorcycles.ts). `dailyPrice` es la única fuente del precio para tarjeta, modal y mensajes. `previousPrice` es opcional. No se calcula un total de alquiler.
 
-El hero muestra un slider con tres fotografías aprobadas de scooters y paisajes de Málaga; avanza automáticamente cada dos segundos y ofrece flechas y puntos de navegación. El avance automático se desactiva si el dispositivo prefiere movimiento reducido. La Kymco Sky Town 125 aparece como la primera ficha de la flota (`showInFleet: true`), con sus fotos originales y los precios configurados en `motorcycles.ts` (50 €/día; precio anterior 70 €). La sección informativa explica el alquiler por días o semanas y la flota conserva dos espacios no interactivos para futuras motos, sin modelos ni fotos inventados.
+El hero muestra un slider con tres fotografías aprobadas de scooters y paisajes de Málaga; avanza automáticamente cada cinco segundos y respeta la preferencia de movimiento reducido. La Kymco Sky Town 125 aparece como la primera ficha de la flota (`showInFleet: true`), con sus fotos originales y los precios configurados en `motorcycles.ts` (50 €/día; precio anterior 70 €). La sección informativa explica el alquiler por días o semanas y la flota conserva dos espacios no interactivos para futuras motos, sin modelos ni fotos inventados.
 
 Para añadir una moto confirmada, incorpora una entrada con ID único, marca, modelo, cilindrada, descripción ES/EN, fotos, características, precio, estado, `visible: true` y `showInFleet: true`. Solo se muestran en la flota las motos visibles con `available_for_inquiry` y `showInFleet: true`. Sustituye los espacios «Próximamente» cuando haya contenido confirmado. Las fichas publicadas abren la galería y la consulta de fechas por WhatsApp; la solicitud no confirma automáticamente una reserva.
 

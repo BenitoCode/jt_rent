@@ -3,13 +3,13 @@ import { notFound } from "next/navigation";
 import { getMessages, isLocale, locales } from "@/lib/i18n";
 import { site } from "@/config/site";
 import { Header } from "@/components/layout/Header";
-import { Hero } from "@/components/hero/Hero";
-import { Fleet } from "@/components/fleet/Fleet";
-import { Journey } from "@/components/Journey";
-import { About } from "@/components/About";
-import { RentalFaq } from "@/components/RentalFaq";
-import { Reviews } from "@/components/reviews/Reviews";
-import { Contact } from "@/components/contact/Contact";
+import { Hero } from "@/components/sections/hero/Hero";
+import { Fleet } from "@/components/sections/fleet/Fleet";
+import { Journey } from "@/components/sections/journey/Journey";
+import { About } from "@/components/sections/about/About";
+import { RentalFaq } from "@/components/sections/faq/RentalFaq";
+import { Reviews } from "@/components/sections/reviews/Reviews";
+import { Contact } from "@/components/sections/contact/Contact";
 import { Footer } from "@/components/layout/Footer";
 
 export function generateStaticParams() {
@@ -75,8 +75,8 @@ export default async function Home({
         <Fleet locale={locale} messages={m} />
         <Journey messages={m} />
         <About locale={locale} messages={m} />
-        <RentalFaq messages={m} />
         <Reviews locale={locale} messages={m} />
+        <RentalFaq messages={m} />
         <Contact locale={locale} messages={m} />
       </main>
       <Footer locale={locale} messages={m} hasReviews={showReviews} />

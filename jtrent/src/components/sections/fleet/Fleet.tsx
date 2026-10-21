@@ -1,15 +1,25 @@
 "use client";
 
-import { useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import {
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import dynamic from "next/dynamic";
 import {
-  ArrowUpRight,
   Bike,
-  MoveUpRight,
+  ChevronDown,
+  Gauge,
+  Luggage,
+  MessageCircle,
+  PanelTop,
+  Smartphone,
 } from "lucide-react";
 import { motorcycles, type Locale, type Vehicle } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
+import { site } from "@/config/site";
+import { vehicleMessage, whatsappUrl } from "@/lib/whatsapp";
 
 const BookingModal = dynamic(
   () =>
@@ -36,6 +46,12 @@ export function Fleet({
       vehicle.showInFleet &&
       vehicle.status === "available_for_inquiry",
   );
+  const featureIcons = {
+    engine: Gauge,
+    storage: Luggage,
+    phone: Smartphone,
+    display: PanelTop,
+  };
   const [selected, setSelected] = useState<Vehicle | null>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
   const carousel = useRef<HTMLDivElement | null>(null);
@@ -101,9 +117,11 @@ export function Fleet({
     >
       <div className="container">
         <div className="fleet-carousel-heading">
+          <p className="eyebrow fleet-eyebrow">{m.fleet.listEyebrow}</p>
           <h2 id="fleet-title" className="fleet-title">
             {m.fleet.listTitle}
           </h2>
+          <p className="fleet-description">{m.fleet.listDescription}</p>
         </div>
         <div
           className="fleet-grid"
@@ -121,53 +139,88 @@ export function Fleet({
           aria-roledescription={m.fleet.carousel}
         >
           {vehicles.map((vehicle) => (
-            <button
-              key={vehicle.id}
-              className="vehicle-card"
-              onPointerEnter={preloadBookingModal}
-              onFocus={preloadBookingModal}
-              onClick={(event) => open(vehicle, event.currentTarget)}
-              aria-haspopup="dialog"
-              aria-label={`${m.fleet.details}: ${vehicle.brand} ${vehicle.model}`}
-            >
-              <div className="card-image">
+            <article key={vehicle.id} className="vehicle-card">
+              <div className="card-image vehicle-card-image">
                 <VehicleVisual
                   vehicle={vehicle}
                   locale={locale}
                   label={m.fleet.photoPending}
                 />
-                <span className="card-image-arrow">
-                  <ArrowUpRight size={23} />
+                <span className="vehicle-card-badge">
+                  {m.fleet.featuredBadge}
+                </span>
+                <span className="vehicle-card-displacement">
+                  <strong>{vehicle.displacement}</strong>
+                  <span>cc</span>
                 </span>
               </div>
               <div className="card-content">
-                <p className="card-kicker">
-                  {vehicle.brand.toUpperCase()}{" "}
-                  <span>{vehicle.displacement} CC</span>
-                </p>
-                <h3>{vehicle.model}</h3>
-                <p className="card-description">
+                <h3>
+                  {vehicle.brand} {vehicle.model}
+                </h3>
+                <p className="card-description vehicle-card-description">
                   {vehicle.description[locale]}
                 </p>
-                <div className="card-bottom">
-                  <div className="card-price">
+                <ul className="vehicle-features" aria-label={m.modal.features}>
+                  {vehicle.features.slice(0, 3).map((feature) => {
+                    const Icon = featureIcons[feature];
+                    return (
+                      <li key={feature}>
+                        <Icon size={20} strokeWidth={1.5} aria-hidden="true" />
+                        <span>{m.modal[feature]}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="vehicle-price-block">
+                  <p className="card-price vehicle-card-price">
                     {vehicle.previousPrice !== undefined && (
-                      <del aria-label={m.fleet.previous}>
-                        {formatPrice(vehicle.previousPrice, locale)}
-                      </del>
+                      <>
+                        <span className="vehicle-price-before">
+                          {m.modal.before}
+                        </span>
+                        <del aria-label={m.fleet.previous}>
+                          {formatPrice(vehicle.previousPrice, locale)}
+                        </del>
+                      </>
                     )}
                     <span>
                       <strong>{formatPrice(vehicle.dailyPrice, locale)}</strong>
                       <small>{m.fleet.day}</small>
                     </span>
-                  </div>
-                  <span className="card-detail">
-                    {m.fleet.details}
-                    <MoveUpRight size={15} />
-                  </span>
+                  </p>
+                  <p className="vehicle-price-note">{m.fleet.priceNote}</p>
                 </div>
+                <button
+                  type="button"
+                  className="vehicle-card-details"
+                  onPointerEnter={preloadBookingModal}
+                  onFocus={preloadBookingModal}
+                  onClick={(event) => open(vehicle, event.currentTarget)}
+                  aria-haspopup="dialog"
+                >
+                  {m.fleet.viewConditions}
+                  <ChevronDown size={17} aria-hidden="true" />
+                </button>
+                <a
+                  className="vehicle-card-whatsapp"
+                  href={
+                    whatsappUrl(
+                      site.whatsapp,
+                      vehicleMessage(vehicle, locale),
+                    ) ?? undefined
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-disabled={
+                    !whatsappUrl(site.whatsapp, vehicleMessage(vehicle, locale))
+                  }
+                >
+                  <MessageCircle size={18} aria-hidden="true" />
+                  {m.fleet.details}
+                </a>
               </div>
-            </button>
+            </article>
           ))}
           {Array.from({ length: 3 }, (_, index) => (
             <article

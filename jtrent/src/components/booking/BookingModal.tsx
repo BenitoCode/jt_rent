@@ -8,9 +8,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Gauge,
-  Briefcase,
+  Luggage,
   Smartphone,
-  Monitor,
+  PanelTop,
   CalendarDays,
   Check,
 } from "lucide-react";
@@ -23,9 +23,9 @@ import type { Locale, Vehicle } from "@/data/motorcycles";
 
 const featureIcons = {
   engine: Gauge,
-  storage: Briefcase,
+  storage: Luggage,
   phone: Smartphone,
-  display: Monitor,
+  display: PanelTop,
 };
 
 export function BookingModal({
@@ -43,7 +43,10 @@ export function BookingModal({
   const pickupField = useRef<HTMLInputElement>(null);
   const dropoffField = useRef<HTMLInputElement>(null);
   const touch = useRef<number | null>(null);
-  const [photo, setPhoto] = useState(0);
+  const [photo, setPhoto] = useState(() => {
+    const sidePhoto = vehicle.photos.findIndex((item) => item.role === "side");
+    return sidePhoto >= 0 ? sidePhoto : 0;
+  });
   const [pickup, setPickup] = useState("");
   const [dropoff, setDropoff] = useState("");
   const [error, setError] = useState<DateError | null>(null);
@@ -112,238 +115,234 @@ export function BookingModal({
         }
       }}
     >
+      <div className="modal-gallery">
+        <div
+          className="gallery-main"
+          onTouchStart={(event) => {
+            touch.current = event.touches[0].clientX;
+          }}
+          onTouchEnd={(event) => {
+            if (touch.current !== null && vehicle.photos.length > 1) {
+              const delta = event.changedTouches[0].clientX - touch.current;
+              if (Math.abs(delta) > 50) changePhoto(delta > 0 ? -1 : 1);
+            }
+            touch.current = null;
+          }}
+        >
+          {activePhoto ? (
+            <Image
+              key={activePhoto.src}
+              src={activePhoto.src}
+              alt={activePhoto.alt[locale]}
+              width={activePhoto.width}
+              height={activePhoto.height}
+              sizes="(max-width: 700px) calc(100vw - 20px), 820px"
+            />
+          ) : (
+            <VehicleVisual
+              vehicle={vehicle}
+              locale={locale}
+              label={m.fleet.photoPending}
+            />
+          )}
+          <span className="modal-photo-brand">JT RENT / SCOOTER</span>
+          <button
+            className="icon-button modal-close"
+            aria-label={m.modal.close}
+            onClick={onClose}
+            autoFocus
+          >
+            <X size={22} />
+          </button>
+        </div>
+        {vehicle.photos.length > 1 && (
+          <div className="gallery-controls">
+            <button
+              className="icon-button"
+              onClick={() => changePhoto(-1)}
+              aria-label={m.modal.previousPhoto}
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <div className="gallery-dots">
+              {vehicle.photos.map((image, index) => (
+                <button
+                  key={image.src}
+                  aria-label={`${m.modal.photo} ${index + 1}`}
+                  aria-pressed={index === photo}
+                  onClick={() => setPhoto(index)}
+                />
+              ))}
+            </div>
+            <button
+              className="icon-button"
+              onClick={() => changePhoto(1)}
+              aria-label={m.modal.nextPhoto}
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
+        )}
+        {activePhoto && (
+          <p className="gallery-caption" aria-live="polite">
+            {activePhoto.alt[locale]}
+          </p>
+        )}
+        {!activePhoto && <p className="gallery-caption">{m.modal.noPhotos}</p>}
+        <p className="vehicle-description">{vehicle.description[locale]}</p>
+      </div>
       <div className="modal-header">
         <div>
-          <span className="eyebrow">JT RENT / SCOOTER</span>
           <h2 id="booking-title">
             {vehicle.brand} {vehicle.model}
           </h2>
           <p id="booking-subtitle">{m.modal.subtitle}</p>
         </div>
-        <button
-          className="icon-button modal-close"
-          aria-label={m.modal.close}
-          onClick={onClose}
-          autoFocus
-        >
-          <X size={22} />
-        </button>
       </div>
-      <div className="modal-columns">
-        <div className="modal-gallery">
-          <div
-            className="gallery-main"
-            onTouchStart={(event) => {
-              touch.current = event.touches[0].clientX;
-            }}
-            onTouchEnd={(event) => {
-              if (touch.current !== null && vehicle.photos.length > 1) {
-                const delta = event.changedTouches[0].clientX - touch.current;
-                if (Math.abs(delta) > 50) changePhoto(delta > 0 ? -1 : 1);
-              }
-              touch.current = null;
-            }}
-          >
-            {activePhoto ? (
-              <Image
-                key={activePhoto.src}
-                src={activePhoto.src}
-                alt={activePhoto.alt[locale]}
-                width={activePhoto.width}
-                height={activePhoto.height}
-                sizes="(max-width: 700px) 90vw, 450px"
-              />
-            ) : (
-              <VehicleVisual
-                vehicle={vehicle}
-                locale={locale}
-                label={m.fleet.photoPending}
-              />
-            )}
+      <div className="modal-details">
+        <div className="modal-price">
+          <span className="eyebrow">{m.modal.price}</span>
+          <div>
+            <strong>{formatPrice(vehicle.dailyPrice, locale)}</strong>
+            <span>{m.modal.day}</span>
           </div>
-          {vehicle.photos.length > 1 && (
-            <div className="gallery-controls">
-              <button
-                className="icon-button"
-                onClick={() => changePhoto(-1)}
-                aria-label={m.modal.previousPhoto}
-              >
-                <ChevronLeft size={20} />
-              </button>
-              <div className="gallery-dots">
-                {vehicle.photos.map((image, index) => (
-                  <button
-                    key={image.src}
-                    aria-label={`${m.modal.photo} ${index + 1}`}
-                    aria-pressed={index === photo}
-                    onClick={() => setPhoto(index)}
-                  />
-                ))}
-              </div>
-              <button
-                className="icon-button"
-                onClick={() => changePhoto(1)}
-                aria-label={m.modal.nextPhoto}
-              >
-                <ChevronRight size={20} />
-              </button>
-            </div>
-          )}
-          {activePhoto && (
-            <p className="gallery-caption" aria-live="polite">
-              {activePhoto.alt[locale]}
+          {vehicle.previousPrice !== undefined && (
+            <p>
+              {m.modal.before}{" "}
+              <del>{formatPrice(vehicle.previousPrice, locale)}</del>
             </p>
           )}
-          {!activePhoto && (
-            <p className="gallery-caption">{m.modal.noPhotos}</p>
-          )}
-          <p className="vehicle-description">{vehicle.description[locale]}</p>
+          <small>{m.modal.total}</small>
         </div>
-        <div className="modal-details">
-          <div className="modal-price">
-            <span className="eyebrow">{m.modal.price}</span>
-            <div>
-              <strong>{formatPrice(vehicle.dailyPrice, locale)}</strong>
-              <span>{m.modal.day}</span>
-            </div>
-            {vehicle.previousPrice !== undefined && (
-              <p>
-                {m.modal.before}{" "}
-                <del>{formatPrice(vehicle.previousPrice, locale)}</del>
-              </p>
-            )}
-            <small>{m.modal.total}</small>
-          </div>
-          <div className="modal-features">
-            <h3 className="eyebrow">{m.modal.features}</h3>
-            <ul>
-              {vehicle.features.map((feature) => {
-                const Icon = featureIcons[feature];
-                return (
-                  <li key={feature}>
-                    <Icon size={19} strokeWidth={1.6} />
-                    {feature === "engine"
-                      ? `${vehicle.displacement} cc`
-                      : m.modal[feature]}
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-          <div className="modal-included">
-            <div className="modal-included-heading">
-              <h3 className="eyebrow">{m.modal.includedTitle}</h3>
-              <p>{m.modal.includedSubtitle}</p>
-            </div>
-            <ul>
-              {m.modal.includedItems.map((item) => (
-                <li key={item}>
-                  <span className="included-check" aria-hidden="true">
-                    <Check size={15} strokeWidth={2.5} />
-                  </span>
-                  <span>{item}</span>
-                  <strong>{m.modal.free}</strong>
+        <div className="modal-features">
+          <h3 className="eyebrow">{m.modal.features}</h3>
+          <ul>
+            {vehicle.features.map((feature) => {
+              const Icon = featureIcons[feature];
+              return (
+                <li key={feature}>
+                  <Icon size={19} strokeWidth={1.6} aria-hidden="true" />
+                  {feature === "engine"
+                    ? `${vehicle.displacement} cc`
+                    : m.modal[feature]}
                 </li>
-              ))}
-            </ul>
+              );
+            })}
+          </ul>
+        </div>
+        <div className="modal-included">
+          <div className="modal-included-heading">
+            <h3 className="eyebrow">{m.modal.includedTitle}</h3>
+            <p>{m.modal.includedSubtitle}</p>
           </div>
-          <form onSubmit={submit} noValidate>
-            <div className="dates-heading">
-              <h3>
-                <CalendarDays size={18} />
-                {m.modal.dates}
-              </h3>
-              <span>{m.modal.optional}</span>
-            </div>
-            <div className="date-fields">
-              <label>
-                {m.modal.pickup}
-                <input
-                  ref={pickupField}
-                  type="date"
-                  lang={locale}
-                  min={today}
-                  value={pickup}
-                  onChange={(event) => {
-                    setPickup(event.target.value);
-                    setError(null);
-                  }}
-                  aria-invalid={Boolean(error)}
-                  aria-describedby={error ? "date-error" : undefined}
-                />
-              </label>
-              <label>
-                {m.modal.return}
-                <input
-                  ref={dropoffField}
-                  type="date"
-                  lang={locale}
-                  min={pickup > today ? pickup : today}
-                  value={dropoff}
-                  onChange={(event) => {
-                    setDropoff(event.target.value);
-                    setError(null);
-                  }}
-                  aria-invalid={Boolean(error)}
-                  aria-describedby={error ? "date-error" : undefined}
-                />
-              </label>
-            </div>
-            {(pickup || dropoff) && (
-              <button
-                className="clear-dates"
-                type="button"
-                onClick={() => {
-                  setPickup("");
-                  setDropoff("");
+          <ul>
+            {m.modal.includedItems.map((item) => (
+              <li key={item}>
+                <span className="included-check" aria-hidden="true">
+                  <Check size={15} strokeWidth={2.5} />
+                </span>
+                <span>{item}</span>
+                <strong>{m.modal.free}</strong>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <form onSubmit={submit} noValidate>
+          <div className="dates-heading">
+            <h3>
+              <CalendarDays size={18} />
+              {m.modal.dates}
+            </h3>
+            <span>{m.modal.optional}</span>
+          </div>
+          <div className="date-fields">
+            <label>
+              {m.modal.pickup}
+              <input
+                ref={pickupField}
+                type="date"
+                lang={locale}
+                min={today}
+                value={pickup}
+                onChange={(event) => {
+                  setPickup(event.target.value);
                   setError(null);
                 }}
-              >
-                {m.modal.clearDates}
-              </button>
-            )}
-            {error && (
-              <p className="form-error" role="alert" id="date-error">
-                {m.modal[error]}
-              </p>
-            )}
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? "date-error" : undefined}
+              />
+            </label>
+            <label>
+              {m.modal.return}
+              <input
+                ref={dropoffField}
+                type="date"
+                lang={locale}
+                min={pickup > today ? pickup : today}
+                value={dropoff}
+                onChange={(event) => {
+                  setDropoff(event.target.value);
+                  setError(null);
+                }}
+                aria-invalid={Boolean(error)}
+                aria-describedby={error ? "date-error" : undefined}
+              />
+            </label>
+          </div>
+          {(pickup || dropoff) && (
             <button
-              className="button button-primary booking-submit"
-              type="submit"
-              disabled={!hasWhatsapp}
+              className="clear-dates"
+              type="button"
+              onClick={() => {
+                setPickup("");
+                setDropoff("");
+                setError(null);
+              }}
             >
-              {m.modal.submit}
-              <ArrowUpRight size={20} />
+              {m.modal.clearDates}
             </button>
-            {!hasWhatsapp && (
-              <p className="booking-pending" role="status">
-                {m.modal.pending}. {m.modal.pendingDetail}
-              </p>
-            )}
-            <p className="booking-disclaimer">{m.modal.disclaimer}</p>
-          </form>
-          <details className="rental-policy">
-            <summary>
-              <span>
-                <strong>{m.modal.policyTitle}</strong>
-                <small>{m.modal.policySubtitle}</small>
-              </span>
-              <ChevronRight size={18} aria-hidden="true" />
-            </summary>
-            <ul>
-              {m.modal.policyItems.map((item) => (
-                <li key={item}>
-                  <strong>{item.slice(0, item.indexOf(". ") + 1)}</strong>
-                  {item.slice(item.indexOf(". ") + 1)}
-                </li>
-              ))}
-            </ul>
-            <div className="rental-policy-cta">
-              <strong>{m.modal.policyCta}</strong>
-              <p>{m.modal.policyContact}</p>
-            </div>
-          </details>
-        </div>
+          )}
+          {error && (
+            <p className="form-error" role="alert" id="date-error">
+              {m.modal[error]}
+            </p>
+          )}
+          <button
+            className="button button-primary booking-submit"
+            type="submit"
+            disabled={!hasWhatsapp}
+          >
+            {m.modal.submit}
+            <ArrowUpRight size={20} />
+          </button>
+          {!hasWhatsapp && (
+            <p className="booking-pending" role="status">
+              {m.modal.pending}. {m.modal.pendingDetail}
+            </p>
+          )}
+          <p className="booking-disclaimer">{m.modal.disclaimer}</p>
+        </form>
+        <details className="rental-policy">
+          <summary>
+            <span>
+              <strong>{m.modal.policyTitle}</strong>
+              <small>{m.modal.policySubtitle}</small>
+            </span>
+            <ChevronRight size={18} aria-hidden="true" />
+          </summary>
+          <ul>
+            {m.modal.policyItems.map((item) => (
+              <li key={item}>
+                <strong>{item.slice(0, item.indexOf(". ") + 1)}</strong>
+                {item.slice(item.indexOf(". ") + 1)}
+              </li>
+            ))}
+          </ul>
+          <div className="rental-policy-cta">
+            <strong>{m.modal.policyCta}</strong>
+            <p>{m.modal.policyContact}</p>
+          </div>
+        </details>
       </div>
     </dialog>
   );
