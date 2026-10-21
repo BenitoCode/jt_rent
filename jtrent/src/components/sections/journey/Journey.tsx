@@ -1,4 +1,3 @@
-import { Award, HandCoins, MapPinned } from "lucide-react";
 import type { Messages } from "@/lib/i18n";
 
 export function Journey({
@@ -7,12 +6,9 @@ export function Journey({
   messages: Messages;
 }) {
   const steps = [
-    { title: m.journey.oneTitle, Icon: Award },
-    {
-      title: m.journey.twoTitle,
-      Icon: HandCoins,
-    },
-    { title: m.journey.threeTitle, Icon: MapPinned },
+    { title: m.journey.oneTitle, description: m.journey.oneText },
+    { title: m.journey.twoTitle, description: m.journey.twoText },
+    { title: m.journey.threeTitle, description: m.journey.threeText },
   ];
   return (
     <section
@@ -27,14 +23,15 @@ export function Journey({
           <p>{m.journey.description}</p>
         </header>
         <div className="journey-grid">
-          {steps.map(({ title, Icon }) => (
+          {steps.map(({ title, description }, index) => (
             <article className="journey-step" key={title}>
               <div className="journey-step-top">
-                <span className="journey-step-icon" aria-hidden="true">
-                  <Icon size={23} strokeWidth={1.7} />
+                <span className="journey-step-number" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
               </div>
               <h3>{title}</h3>
+              <p>{description}</p>
             </article>
           ))}
         </div>

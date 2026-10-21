@@ -833,7 +833,7 @@ h2 {
   text-align: center;
 }
 .journey-intro .eyebrow {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: var(--brand);
   font-size: 12px;
   font-weight: 750;
@@ -858,9 +858,20 @@ h2 {
   gap: 48px;
 }
 .journey-step {
+  position: relative;
   min-width: 0;
   padding: 0 14px;
   text-align: center;
+}
+.journey-step:not(:last-child)::after {
+  position: absolute;
+  top: 23px;
+  right: -37px;
+  color: var(--brand);
+  content: "→";
+  font-size: 25px;
+  font-weight: 500;
+  line-height: 1;
 }
 .journey-step-top {
   display: flex;
@@ -868,7 +879,7 @@ h2 {
   justify-content: center;
   margin-bottom: 20px;
 }
-.journey-step-icon {
+.journey-step-number {
   display: grid;
   width: 80px;
   height: 80px;
@@ -876,12 +887,21 @@ h2 {
   border-radius: 50%;
   color: var(--brand);
   background: #eef0ff;
+  font-size: 24px;
+  font-weight: 750;
 }
 .journey-step h3 {
   margin: 0 0 14px;
   font-size: 21px;
   font-weight: 750;
   letter-spacing: -0.6px;
+}
+.journey-step p {
+  max-width: 390px;
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 .about {
   background: #fff;
@@ -2718,6 +2738,15 @@ h2 {
   }
   .journey-step {
     padding: 20px;
+  }
+  .journey-step:not(:last-child)::after {
+    top: auto;
+    right: auto;
+    bottom: -22px;
+    left: 50%;
+    z-index: 1;
+    transform: translateX(-50%);
+    content: "↓";
   }
   .rental-faq-item {
     padding: 17px 18px;
