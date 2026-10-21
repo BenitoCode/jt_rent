@@ -10,10 +10,12 @@ import {
   Bike,
   ChevronDown,
   Gauge,
+  IdCard,
   Luggage,
   MessageCircle,
   PanelTop,
   Smartphone,
+  Check,
 } from "lucide-react";
 import { motorcycles, type Locale, type Vehicle } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
@@ -245,6 +247,30 @@ export function Fleet({
             </article>
           ))}
         </div>
+        <aside className="fleet-trust" aria-label={m.fleet.trustTitle}>
+          <div className="fleet-trust-item">
+            <span className="fleet-trust-icon" aria-hidden="true">
+              <Check size={19} strokeWidth={2.2} />
+            </span>
+            <div>
+              <h3>{m.fleet.includedLabel}</h3>
+              <ul className="fleet-trust-included">
+                {m.modal.includedItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="fleet-trust-item">
+            <span className="fleet-trust-icon" aria-hidden="true">
+              <IdCard size={19} strokeWidth={1.8} />
+            </span>
+            <div>
+              <h3>{m.fleet.documentsLabel}</h3>
+              <p>{m.fleet.documentsDescription}</p>
+            </div>
+          </div>
+        </aside>
       </div>
       {selected && (
         <BookingModal

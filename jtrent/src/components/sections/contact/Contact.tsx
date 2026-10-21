@@ -54,7 +54,9 @@ export function Contact({
               {m.contact.panelWhatsApp}
               <ArrowUpRight size={17} aria-hidden="true" />
             </a>
-            <p className="contact-primary-phone">{whatsappContacts[0]?.number}</p>
+            <a className="contact-primary-phone" href={`tel:+${site.whatsapp}`}>
+              {whatsappContacts[0]?.number}
+            </a>
             <div className="contact-channels">
               {whatsappContacts.slice(1).map((contact) => (
                 <a
@@ -92,7 +94,7 @@ export function Contact({
             </a>
           </section>
 
-          <ContactForm formId={site.formspreeId} messages={m} />
+          <ContactForm formId={site.formspreeId} messages={m} locale={locale} />
 
           <section className="contact-map-card" aria-labelledby="contact-map-title">
             <div className="contact-map-header">

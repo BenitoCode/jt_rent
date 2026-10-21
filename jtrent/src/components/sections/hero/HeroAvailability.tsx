@@ -1,10 +1,16 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { CalendarDays, MessageCircle } from "lucide-react";
 import { site } from "@/config/site";
 import { localToday, validateDates, formatDate, type DateError } from "@/lib/dates";
 import { whatsappUrl } from "@/lib/whatsapp";
+import {
+  readRentalDates,
+  RENTAL_DATES_CHANGE_EVENT,
+  saveRentalDates,
+  type RentalDates,
+} from "@/lib/rental-dates";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
@@ -20,6 +26,19 @@ export function HeroAvailability({
   const [error, setError] = useState<DateError | null>(null);
   const [today] = useState(() => localToday());
   const href = whatsappUrl(site.whatsapp, "");
+
+  useEffect(() => {
+    const dates = readRentalDates();
+    setPickup(dates.pickup);
+    setDropoff(dates.dropoff);
+    function syncDates(event: Event) {
+      const nextDates = (event as CustomEvent<RentalDates>).detail;
+      setPickup(nextDates.pickup);
+      setDropoff(nextDates.dropoff);
+    }
+    window.addEventListener(RENTAL_DATES_CHANGE_EVENT, syncDates);
+    return () => window.removeEventListener(RENTAL_DATES_CHANGE_EVENT, syncDates);
+  }, []);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,7 +78,9 @@ export function HeroAvailability({
             min={today}
             value={pickup}
             onChange={(event) => {
-              setPickup(event.target.value);
+              const nextPickup = event.target.value;
+              setPickup(nextPickup);
+              saveRentalDates(nextPickup, dropoff);
               setError(null);
             }}
             aria-invalid={Boolean(error)}
@@ -77,7 +98,9 @@ export function HeroAvailability({
             min={pickup || today}
             value={dropoff}
             onChange={(event) => {
-              setDropoff(event.target.value);
+              const nextDropoff = event.target.value;
+              setDropoff(nextDropoff);
+              saveRentalDates(pickup, nextDropoff);
               setError(null);
             }}
             aria-invalid={Boolean(error)}

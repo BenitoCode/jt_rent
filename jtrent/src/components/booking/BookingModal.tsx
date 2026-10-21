@@ -18,6 +18,7 @@ import { site } from "@/config/site";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { localToday, validateDates, type DateError } from "@/lib/dates";
 import { vehicleMessage, whatsappUrl } from "@/lib/whatsapp";
+import { readRentalDates, saveRentalDates } from "@/lib/rental-dates";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
 import type { Locale, Vehicle } from "@/data/motorcycles";
 
@@ -47,8 +48,9 @@ export function BookingModal({
     const sidePhoto = vehicle.photos.findIndex((item) => item.role === "side");
     return sidePhoto >= 0 ? sidePhoto : 0;
   });
-  const [pickup, setPickup] = useState("");
-  const [dropoff, setDropoff] = useState("");
+  const [initialDates] = useState(readRentalDates);
+  const [pickup, setPickup] = useState(initialDates.pickup);
+  const [dropoff, setDropoff] = useState(initialDates.dropoff);
   const [error, setError] = useState<DateError | null>(null);
   const [today] = useState(() => localToday());
   const hasWhatsapp = Boolean(whatsappUrl(site.whatsapp, ""));
@@ -265,7 +267,9 @@ export function BookingModal({
                 min={today}
                 value={pickup}
                 onChange={(event) => {
-                  setPickup(event.target.value);
+                  const nextPickup = event.target.value;
+                  setPickup(nextPickup);
+                  saveRentalDates(nextPickup, dropoff);
                   setError(null);
                 }}
                 aria-invalid={Boolean(error)}
@@ -281,7 +285,9 @@ export function BookingModal({
                 min={pickup > today ? pickup : today}
                 value={dropoff}
                 onChange={(event) => {
-                  setDropoff(event.target.value);
+                  const nextDropoff = event.target.value;
+                  setDropoff(nextDropoff);
+                  saveRentalDates(pickup, nextDropoff);
                   setError(null);
                 }}
                 aria-invalid={Boolean(error)}
@@ -296,6 +302,7 @@ export function BookingModal({
               onClick={() => {
                 setPickup("");
                 setDropoff("");
+                saveRentalDates("", "");
                 setError(null);
               }}
             >

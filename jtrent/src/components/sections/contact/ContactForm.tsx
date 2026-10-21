@@ -2,22 +2,34 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 import { site } from "@/config/site";
+import { legalDocumentSlugs } from "@/data/legal";
+import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
 type ContactFormProps = {
   formId: string;
   messages: Messages;
+  locale: Locale;
 };
 
-export function ContactForm({ formId, messages: m }: ContactFormProps) {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "unconfigured">("idle");
+export function ContactForm({ formId, messages: m, locale }: ContactFormProps) {
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error" | "emailFallback">("idle");
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     if (!formId) {
-      setStatus("unconfigured");
+      const values = new FormData(form);
+      const subject = locale === "es" ? "Consulta desde JT Rent" : "Enquiry from JT Rent";
+      const body = [
+        `${m.contact.formName}: ${String(values.get("name") ?? "")}`,
+        `${m.contact.formEmail}: ${String(values.get("email") ?? "")}`,
+        `${m.contact.formMessage}: ${String(values.get("message") ?? "")}`,
+      ].join("\n\n");
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setStatus("emailFallback");
       return;
     }
 
@@ -97,7 +109,12 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
         </div>
         <details className="contact-privacy">
           <summary>{m.contact.privacySummary}</summary>
-          <p>{m.contact.privacyDetails}</p>
+          <p>
+            {m.contact.privacyDetails}{" "}
+            <Link href={`/${locale}/${legalDocumentSlugs[locale].privacy}/`}>
+              {m.contact.privacyReadMore}
+            </Link>
+          </p>
         </details>
         <label className="contact-privacy-check">
           <input name="privacy_acknowledged" type="checkbox" required />
@@ -121,9 +138,9 @@ export function ContactForm({ formId, messages: m }: ContactFormProps) {
             {m.contact.formError} <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
         )}
-        {status === "unconfigured" && (
+        {status === "emailFallback" && (
           <p className="contact-form-status is-error" role="alert">
-            {m.contact.formUnconfigured} <a href={`mailto:${site.email}`}>{site.email}</a>
+            {m.contact.formEmailFallback} <a href={`mailto:${site.email}`}>{site.email}</a>
           </p>
         )}
       </form>

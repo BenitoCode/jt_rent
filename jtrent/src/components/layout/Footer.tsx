@@ -12,6 +12,7 @@ import { LanguageFlag } from "@/components/ui/LanguageFlag";
 import { CookieSettingsButton } from "@/components/privacy/CookieSettingsButton";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 import { site } from "@/config/site";
+import { legalDocumentSlugs } from "@/data/legal";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
@@ -27,8 +28,9 @@ export function Footer({
 }) {
   const floatingWhatsapp = whatsappUrl(site.whatsapp, generalMessage(locale));
   const legalItems = [
-    { label: m.footer.notice, href: site.legal.notice },
-    { label: m.footer.privacy, href: site.legal.privacy },
+    { label: m.footer.notice, href: `/${locale}/${legalDocumentSlugs[locale].notice}/` },
+    { label: m.footer.privacy, href: `/${locale}/${legalDocumentSlugs[locale].privacy}/` },
+    { label: m.footer.cookiePolicy, href: `/${locale}/${legalDocumentSlugs[locale].cookies}/` },
   ];
 
   return (
@@ -63,16 +65,20 @@ export function Footer({
 
             <nav className="footer-explore" aria-label={m.footer.explore}>
               <h2 className="footer-column-title">{m.footer.explore}</h2>
-              <a href="#fleet">{m.nav.fleet}</a>
-              <a href="#how-to-rent">{m.nav.howToRent}</a>
-              <a href="#about">{m.footer.about}</a>
-              <a href="#faq">{m.nav.faq}</a>
-              {hasReviews && <a href="#reviews">{m.nav.reviews}</a>}
+              <a href={`/${locale}/#fleet`}>{m.nav.fleet}</a>
+              <a href={`/${locale}/#how-to-rent`}>{m.nav.howToRent}</a>
+              <a href={`/${locale}/#about`}>{m.footer.about}</a>
+              <a href={`/${locale}/#faq`}>{m.nav.faq}</a>
+              {hasReviews && <a href={`/${locale}/#reviews`}>{m.nav.reviews}</a>}
             </nav>
 
             <div className="footer-contact">
               <h2 className="footer-column-title">{m.footer.contactTitle}</h2>
-              <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener noreferrer">
+              <a
+                href={whatsappUrl(site.whatsapp, generalMessage(locale)) ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <MessageCircle aria-hidden="true" />
                 <span>{m.footer.contactWhatsApp}</span>
               </a>
@@ -111,13 +117,11 @@ export function Footer({
               © {new Date().getFullYear()} JT Rent
             </span>
             <div className="footer-legal" aria-label={m.footer.legalLinks}>
-              {legalItems.map(({ label, href }) =>
-                href ? (
-                  <a key={label} href={href}>{label}</a>
-                ) : (
-                  <span key={label} aria-disabled="true" title={m.footer.legalPending}>{label}</span>
-                ),
-              )}
+              {legalItems.map(({ label, href }) => (
+                <Link key={label} href={href}>
+                  {label}
+                </Link>
+              ))}
               <CookieSettingsButton label={m.footer.cookies} />
             </div>
             <div className="language-switch" aria-label={m.nav.language}>

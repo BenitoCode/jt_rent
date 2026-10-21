@@ -1,4 +1,8 @@
 const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+const configuredWhatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || "";
+const whatsapp = /^[1-9]\d{6,14}$/.test(configuredWhatsapp)
+  ? configuredWhatsapp
+  : "34623280254";
 function publicUrl(value: string | undefined) {
   if (!value) return undefined;
   try {
@@ -12,8 +16,8 @@ function publicUrl(value: string | undefined) {
 export const site = {
   name: "JT Rent",
   url: publicUrl(configuredUrl) ?? "https://jt-rent.com",
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || "34623280254",
-  whatsappContacts: ["34623280254", "34622759365"],
+  whatsapp,
+  whatsappContacts: [whatsapp, "34622759365"],
   email: "info@jt-rent.com",
   formspreeId: process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID?.trim() || "",
   // Public Google Analytics measurement ID; tracking is loaded only after consent.
@@ -28,5 +32,4 @@ export const site = {
   },
   hours: { es: "", en: "" },
   logo: "/images/logo-jt.webp",
-  legal: { notice: "", privacy: "", cookies: "", rental: "" },
 };

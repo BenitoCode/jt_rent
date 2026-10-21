@@ -94,21 +94,21 @@ export function Header({
   );
   const links = (
     <>
-      <a href="#fleet" aria-current={activeSection === "fleet" ? "location" : undefined} onClick={() => setOpen(false)}>
+      <a href={`/${locale}/#fleet`} aria-current={activeSection === "fleet" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.fleet}
       </a>
-      <a href="#how-to-rent" aria-current={activeSection === "how-to-rent" ? "location" : undefined} onClick={() => setOpen(false)}>
+      <a href={`/${locale}/#how-to-rent`} aria-current={activeSection === "how-to-rent" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.howToRent}
       </a>
-      <a href="#about" aria-current={activeSection === "about" ? "location" : undefined} onClick={() => setOpen(false)}>
+      <a href={`/${locale}/#about`} aria-current={activeSection === "about" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.footer.about}
       </a>
       {hasReviews && (
-        <a href="#reviews" aria-current={activeSection === "reviews" ? "location" : undefined} onClick={() => setOpen(false)}>
+        <a href={`/${locale}/#reviews`} aria-current={activeSection === "reviews" ? "location" : undefined} onClick={() => setOpen(false)}>
           {m.nav.reviews}
         </a>
       )}
-      <a href="#contact" aria-current={activeSection === "contact" ? "location" : undefined} onClick={() => setOpen(false)}>
+      <a href={`/${locale}/#contact`} aria-current={activeSection === "contact" ? "location" : undefined} onClick={() => setOpen(false)}>
         {m.nav.contact}
       </a>
     </>
@@ -146,7 +146,7 @@ export function Header({
         <div id="mobile-menu" ref={menu} className="mobile-menu">
           <nav aria-label={locale === "es" ? "Menú móvil" : "Mobile menu"}>
             {links}
-            <a href="#faq" onClick={() => setOpen(false)}>
+            <a href={`/${locale}/#faq`} onClick={() => setOpen(false)}>
               {m.nav.faq}
             </a>
           </nav>
