@@ -35,6 +35,7 @@ export function Hero({
             <div className="hero-ctas">
               <WhatsAppLink
                 locale={locale}
+                messages={m}
                 label={m.hero.whatsapp}
                 className="button button-primary"
               />
