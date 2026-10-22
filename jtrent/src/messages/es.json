@@ -147,6 +147,23 @@
     ]
   },
   "modal": {
+    "stepsTitle": "Así de sencillo",
+    "steps": [
+      { "title": "Elige tus fechas", "description": "Cuéntanos cuándo necesitas el scooter. Las fechas son opcionales." },
+      { "title": "Confirmamos precio y condiciones", "description": "Te respondemos por WhatsApp con la disponibilidad y el total para tus fechas." },
+      { "title": "Recoge tu scooter", "description": "Cuando esté todo listo, recoges tu scooter y disfrutas de Málaga a tu ritmo." }
+    ],
+    "beforeBooking": "Antes de reservar",
+    "viewConditionsAvailability": "Ver condiciones y disponibilidad",
+    "depositInsurance": "Fianza y seguro",
+    "licenseAge": "Permiso y edad mínima",
+    "policyGroups": [
+      { "title": "¿Qué permiso necesito?", "indexes": [3, 4] },
+      { "title": "¿Cuál es la fianza?", "indexes": [1, 5] },
+      { "title": "¿Qué incluye el seguro?", "indexes": [10, 11, 12] },
+      { "title": "¿Dónde se recoge y devuelve?", "indexes": [7, 8, 9] },
+      { "title": "Otras condiciones", "indexes": [0, 2, 6, 13] }
+    ],
     "subtitle": "Motos y scooters en Málaga",
     "close": "Cerrar detalles",
     "price": "PRECIO",

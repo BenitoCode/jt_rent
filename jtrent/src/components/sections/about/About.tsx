@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { BadgeEuro, ClipboardCheck, UsersRound } from "lucide-react";
-import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
-import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
 const features = [
@@ -12,10 +10,8 @@ const features = [
 ] as const;
 
 export function About({
-  locale,
   messages: m,
 }: {
-  locale: Locale;
   messages: Messages;
 }) {
   return (
@@ -56,12 +52,6 @@ export function About({
             ))}
           </ul>
 
-          <WhatsAppLink
-            locale={locale}
-            messages={m}
-            label={m.about.cta}
-            className="button button-primary about-whatsapp"
-          />
           <Link className="about-fleet-link" href="#fleet">
             {m.about.fleetLink} <span aria-hidden="true">→</span>
           </Link>

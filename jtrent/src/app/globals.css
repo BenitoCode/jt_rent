@@ -1056,17 +1056,6 @@ h2 {
   font-size: 10px;
   line-height: 1.4;
 }
-.about-whatsapp {
-  width: fit-content;
-  min-width: 230px;
-  justify-content: center;
-  border-color: #19a85b;
-  background: #19a85b;
-}
-.about-whatsapp:hover:not(:disabled) {
-  border-color: #148c4b;
-  background: #148c4b;
-}
 .about-fleet-link {
   display: block;
   width: fit-content;
@@ -1504,23 +1493,6 @@ h2 {
 .contact-map-header .contact-map-kicker {
   font-size: 20px;
 }
-.contact-whatsapp-button {
-  display: flex;
-  width: 100%;
-  min-height: 50px;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
-  border-color: #117b3b;
-  background: #117b3b;
-  color: #fff;
-  font-size: 13px;
-}
-.contact-whatsapp-button:hover:not(:disabled) {
-  border-color: #117b3b;
-  background: #117b3b;
-}
 .contact-primary-phone {
   margin: 8px 0 14px;
   color: var(--muted);
@@ -1804,9 +1776,10 @@ h2 {
   display: flex;
   min-height: 112px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 28px;
   padding-block: 22px;
+  text-align: center;
 }
 .footer-promo h2 {
   margin: 0 0 5px;
@@ -1817,21 +1790,6 @@ h2 {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
-}
-.footer-promo-button {
-  min-width: 225px;
-  min-height: 48px;
-  gap: 10px;
-  border-radius: 9px;
-  background: #19a94f;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  box-shadow: 0 4px 12px rgb(25 169 79 / 20%);
-}
-.footer-promo-button:hover {
-  background: #128d40;
-  transform: translateY(-1px);
 }
 .footer-dark {
   background: #101010;
@@ -1847,14 +1805,20 @@ h2 {
   gap: clamp(24px, 4vw, 58px);
   padding-block: 42px 34px;
 }
-.footer-brand .brand-logo-window {
-  width: 190px;
-  height: 102px;
+.footer-brand .footer-logo-window {
+  position: relative;
+  display: block;
+  width: 110px;
+  height: 73px;
+  overflow: hidden;
 }
-.footer-brand .brand-image {
-  top: -43px;
-  width: 190px;
-  height: 190px;
+.footer-brand .footer-logo-image {
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
 }
 .footer-wordmark {
   display: block;
@@ -2692,9 +2656,6 @@ h2 {
   .about-features span {
     font-size: 9px;
   }
-  .about-whatsapp {
-    width: 100%;
-  }
   .header-consult-label {
     display: none;
   }
@@ -2862,9 +2823,6 @@ h2 {
     flex-direction: column;
     gap: 18px;
     padding-block: 24px;
-  }
-  .footer-promo-button {
-    width: 100%;
   }
   .footer-contact a {
     overflow-wrap: anywhere;
@@ -3606,6 +3564,238 @@ h2 {
   margin-top: 0;
 }
 
+/* Vehicle detail sheet: gallery and booking summary stay together on desktop. */
+.booking-modal .modal-product-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+  gap: 30px;
+  align-items: center;
+  padding: 18px;
+  background: #f5f8fa;
+}
+.booking-modal { width: min(920px, calc(100vw - 32px)); }
+.booking-modal .modal-product-overview .modal-gallery {
+  min-width: 0;
+}
+.booking-modal .modal-product-overview .gallery-main {
+  aspect-ratio: 4 / 3;
+  border-radius: 14px;
+  background: #e9eef1;
+}
+.booking-modal .modal-product-overview .gallery-main > img {
+  object-fit: cover;
+}
+.booking-modal .modal-product-overview .gallery-caption {
+  display: none;
+}
+.booking-modal .modal-product-overview .modal-gallery { position: relative; }
+.booking-modal .modal-product-overview .modal-photo-brand { display: none; }
+.booking-modal .modal-product-overview .gallery-controls {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+  margin: 0;
+  pointer-events: none;
+}
+.booking-modal .modal-product-overview .gallery-controls > *,
+.booking-modal .modal-product-overview .gallery-controls button { pointer-events: auto; }
+.booking-modal > .modal-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  width: 34px;
+  height: 34px;
+  border: 1px solid #11111112;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px #00000018;
+}
+.booking-modal .modal-product-overview .gallery-controls,
+.booking-modal .modal-product-overview .gallery-caption {
+  margin-inline: 4px;
+}
+.booking-modal .modal-product-summary {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.booking-modal .modal-product-summary .modal-header {
+  display: block;
+  padding: 0;
+}
+.booking-modal .modal-product-summary .modal-header h2 {
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 800;
+  letter-spacing: -1.1px;
+}
+.booking-modal .modal-product-summary .modal-price {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.booking-modal .modal-product-summary .modal-price > div { gap: 7px; }
+.booking-modal .modal-product-summary .modal-price strong {
+  color: var(--ink);
+  font-size: clamp(31px, 3.4vw, 38px);
+  letter-spacing: -1.2px;
+}
+.booking-modal .modal-product-summary .modal-price > div > span { font-size: 21px; }
+.booking-modal .modal-product-summary .modal-price del {
+  margin-left: 3px;
+  color: #8b949d;
+  font-size: 12px;
+}
+.booking-modal .modal-product-summary .modal-price small {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+}
+.booking-modal .modal-product-summary .modal-header p { display: none; }
+.booking-modal .modal-product-summary .modal-price {
+  padding: 16px 18px;
+}
+.booking-modal .modal-product-summary .modal-features {
+  padding: 0;
+}
+.booking-modal .modal-product-summary .modal-features ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.booking-modal .modal-product-summary .modal-features li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  font-size: 12px;
+}
+.booking-modal .modal-product-summary .vehicle-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.modal-summary-cta {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 9px;
+}
+.modal-summary-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+.modal-summary-links a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.modal-details .modal-steps {
+  padding: 4px 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+.modal-steps h3,
+.modal-terms > h3 {
+  margin: 0;
+  font-size: 22px;
+}
+.modal-steps ol {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.modal-steps li {
+  position: relative;
+  display: flex;
+  gap: 12px;
+  min-width: 0;
+}
+.modal-steps li > span {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  place-items: center;
+  border-radius: 50%;
+  background: #fce8e9;
+  color: var(--brand);
+  font-weight: 700;
+}
+.modal-steps li strong {
+  font-size: 14px;
+}
+.modal-steps li p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.modal-step-arrow {
+  position: absolute;
+  top: 8px;
+  right: -14px;
+  width: 15px;
+  color: var(--brand);
+}
+.modal-terms > h3 {
+  margin-bottom: 14px;
+}
+.modal-terms { order: 2; }
+.modal-policy-groups {
+  display: grid;
+  gap: 7px;
+}
+.modal-policy-groups .rental-policy {
+  overflow: hidden;
+  border: 0;
+  border-radius: 9px;
+  background: #f3f6f8;
+}
+.modal-policy-groups .rental-policy summary {
+  min-height: 46px;
+  padding: 12px 15px;
+  font-size: 14px;
+}
+.modal-policy-groups .rental-policy[open] summary {
+  border-bottom: 1px solid #e3e8ec;
+}
+.modal-policy-groups .rental-policy > ul {
+  padding: 14px 18px 16px;
+}
+@media (max-width: 700px) {
+  .booking-modal .modal-product-overview {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 14px;
+  }
+  .booking-modal .modal-product-overview .gallery-main {
+    aspect-ratio: 4 / 3;
+  }
+  .booking-modal .modal-details {
+    padding: 22px 18px 28px;
+  }
+  .modal-steps ol {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .modal-step-arrow {
+    display: none;
+  }
+}
+
 /* Fleet card refresh based on the requested product-card layout. */
 .vehicle-card {
   display: flex;
@@ -3873,8 +4063,7 @@ h2 {
   .vehicle-card-whatsapp,
   .contact-form .button,
   .contact-info-card .button,
-  .contact-map-footer .button,
-  .footer-promo-button {
+  .contact-map-footer .button {
     min-height: 48px;
   }
 

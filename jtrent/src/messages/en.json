@@ -147,6 +147,23 @@
     ]
   },
   "modal": {
+    "stepsTitle": "It’s that simple",
+    "steps": [
+      { "title": "Choose your dates", "description": "Tell us when you need the scooter. Dates are optional." },
+      { "title": "We confirm the price and terms", "description": "We’ll reply on WhatsApp with availability and the total for your dates." },
+      { "title": "Pick up your scooter", "description": "Once everything is arranged, collect your scooter and enjoy Malaga at your own pace." }
+    ],
+    "beforeBooking": "Before you book",
+    "viewConditionsAvailability": "View terms and availability",
+    "depositInsurance": "Deposit and insurance",
+    "licenseAge": "Licence and minimum age",
+    "policyGroups": [
+      { "title": "Which licence do I need?", "indexes": [3, 4] },
+      { "title": "How much is the deposit?", "indexes": [1, 5] },
+      { "title": "What does the insurance cover?", "indexes": [10, 11, 12] },
+      { "title": "Where do I collect and return the scooter?", "indexes": [7, 8, 9] },
+      { "title": "Other terms", "indexes": [0, 2, 6, 13] }
+    ],
     "subtitle": "Motorbikes and scooters in Malaga",
     "close": "Close details",
     "price": "PRICE",

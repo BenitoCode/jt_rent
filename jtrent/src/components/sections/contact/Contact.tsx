@@ -2,7 +2,6 @@ import {
   ArrowUpRight,
   Mail,
   MapPin,
-  MessageCircle,
   Navigation,
   Phone,
 } from "lucide-react";
@@ -43,17 +42,6 @@ export function Contact({
         <div className="contact-layout">
           <section className="contact-info-card" aria-labelledby="contact-info-title">
             <h3 id="contact-info-title">{m.contact.panelTitle}</h3>
-            <a
-              className="button contact-whatsapp-button"
-              href={whatsappContacts[0]?.href ?? undefined}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-disabled={!whatsappContacts[0]?.href || undefined}
-            >
-              <MessageCircle size={20} aria-hidden="true" />
-              {m.contact.panelWhatsApp}
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </a>
             <a className="contact-primary-phone" href={`tel:+${site.whatsapp}`}>
               {whatsappContacts[0]?.number}
             </a>

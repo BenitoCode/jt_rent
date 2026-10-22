@@ -74,10 +74,10 @@ export default async function Home({
         <Hero locale={locale} messages={m} />
         <Fleet locale={locale} messages={m} />
         <Journey messages={m} />
-        <About locale={locale} messages={m} />
+        <About messages={m} />
         <Reviews locale={locale} messages={m} />
-        <RentalFaq messages={m} />
         <Contact locale={locale} messages={m} />
+        <RentalFaq messages={m} />
       </main>
       <Footer locale={locale} messages={m} hasReviews={showReviews} />
       <script

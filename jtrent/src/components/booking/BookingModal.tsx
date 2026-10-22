@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   X,
@@ -11,14 +11,10 @@ import {
   Luggage,
   Smartphone,
   PanelTop,
-  CalendarDays,
-  Check,
 } from "lucide-react";
 import { site } from "@/config/site";
 import { formatPrice, type Messages } from "@/lib/i18n";
-import { localToday, validateDates, type DateError } from "@/lib/dates";
 import { vehicleMessage, whatsappUrl } from "@/lib/whatsapp";
-import { readRentalDates, saveRentalDates } from "@/lib/rental-dates";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
 import type { Locale, Vehicle } from "@/data/motorcycles";
 
@@ -41,19 +37,11 @@ export function BookingModal({
   onClose: () => void;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
-  const pickupField = useRef<HTMLInputElement>(null);
-  const dropoffField = useRef<HTMLInputElement>(null);
   const touch = useRef<number | null>(null);
   const [photo, setPhoto] = useState(() => {
     const sidePhoto = vehicle.photos.findIndex((item) => item.role === "side");
     return sidePhoto >= 0 ? sidePhoto : 0;
   });
-  const [initialDates] = useState(readRentalDates);
-  const [pickup, setPickup] = useState(initialDates.pickup);
-  const [dropoff, setDropoff] = useState(initialDates.dropoff);
-  const [error, setError] = useState<DateError | null>(null);
-  const [today] = useState(() => localToday());
-  const hasWhatsapp = Boolean(whatsappUrl(site.whatsapp, ""));
   const activePhoto = vehicle.photos[photo];
 
   useEffect(() => {
@@ -77,35 +65,17 @@ export function BookingModal({
         (current + direction + vehicle.photos.length) % vehicle.photos.length,
     );
   }
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const invalid = validateDates(pickup, dropoff);
-    setError(invalid);
-    if (invalid) {
-      (invalid === "pastError" || !pickup
-        ? pickupField
-        : dropoffField
-      ).current?.focus();
-      return;
-    }
-    const href = whatsappUrl(
-      site.whatsapp,
-      vehicleMessage(vehicle, locale, pickup, dropoff),
-    );
-    if (href) window.open(href, "_blank", "noopener,noreferrer");
-  }
   return (
     <dialog
       className="booking-modal"
       ref={dialog}
       aria-labelledby="booking-title"
-      aria-describedby="booking-subtitle"
       onCancel={(event) => {
         event.preventDefault();
         onClose();
       }}
       onClick={(event) => {
-        if (event.target === event.currentTarget && !pickup && !dropoff) {
+        if (event.target === event.currentTarget) {
           const bounds = event.currentTarget.getBoundingClientRect();
           if (
             event.clientX < bounds.left ||
@@ -117,6 +87,15 @@ export function BookingModal({
         }
       }}
     >
+      <button
+        className="icon-button modal-close"
+        aria-label={m.modal.close}
+        onClick={onClose}
+        autoFocus
+      >
+        <X size={20} />
+      </button>
+      <div className="modal-product-overview">
       <div className="modal-gallery">
         <div
           className="gallery-main"
@@ -148,14 +127,6 @@ export function BookingModal({
             />
           )}
           <span className="modal-photo-brand">JT RENT / SCOOTER</span>
-          <button
-            className="icon-button modal-close"
-            aria-label={m.modal.close}
-            onClick={onClose}
-            autoFocus
-          >
-            <X size={22} />
-          </button>
         </div>
         {vehicle.photos.length > 1 && (
           <div className="gallery-controls">
@@ -191,35 +162,16 @@ export function BookingModal({
           </p>
         )}
         {!activePhoto && <p className="gallery-caption">{m.modal.noPhotos}</p>}
-        <p className="vehicle-description">{vehicle.description[locale]}</p>
       </div>
-      <div className="modal-header">
+      <div className="modal-product-summary">
         <div>
           <h2 id="booking-title">
             {vehicle.brand} {vehicle.model}
           </h2>
-          <p id="booking-subtitle">{m.modal.subtitle}</p>
         </div>
-      </div>
-      <div className="modal-details">
-        <div className="modal-price">
-          <span className="eyebrow">{m.modal.price}</span>
-          <div>
-            <strong>{formatPrice(vehicle.dailyPrice, locale)}</strong>
-            <span>{m.modal.day}</span>
-          </div>
-          {vehicle.previousPrice !== undefined && (
-            <p>
-              {m.modal.before}{" "}
-              <del>{formatPrice(vehicle.previousPrice, locale)}</del>
-            </p>
-          )}
-          <small>{m.modal.total}</small>
-        </div>
-        <div className="modal-features">
-          <h3 className="eyebrow">{m.modal.features}</h3>
+        <div className="modal-features modal-summary-features">
           <ul>
-            {vehicle.features.map((feature) => {
+            {vehicle.features.slice(0, 3).map((feature) => {
               const Icon = featureIcons[feature];
               return (
                 <li key={feature}>
@@ -232,124 +184,67 @@ export function BookingModal({
             })}
           </ul>
         </div>
-        <div className="modal-included">
-          <div className="modal-included-heading">
-            <h3 className="eyebrow">{m.modal.includedTitle}</h3>
-            <p>{m.modal.includedSubtitle}</p>
+        <div className="modal-price">
+          <div>
+            <strong>{formatPrice(vehicle.dailyPrice, locale)}</strong>
+            <span>{m.modal.day}</span>
+            {vehicle.previousPrice !== undefined && (
+              <del>{formatPrice(vehicle.previousPrice, locale)}</del>
+            )}
           </div>
-          <ul>
-            {m.modal.includedItems.map((item) => (
-              <li key={item}>
-                <span className="included-check" aria-hidden="true">
-                  <Check size={15} strokeWidth={2.5} />
-                </span>
-                <span>{item}</span>
-                <strong>{m.modal.free}</strong>
-              </li>
-            ))}
-          </ul>
+          <small>{m.modal.total}</small>
         </div>
-        <form onSubmit={submit} noValidate>
-          <div className="dates-heading">
-            <h3>
-              <CalendarDays size={18} />
-              {m.modal.dates}
-            </h3>
-            <span>{m.modal.optional}</span>
-          </div>
-          <div className="date-fields">
-            <label>
-              {m.modal.pickup}
-              <input
-                ref={pickupField}
-                type="date"
-                lang={locale}
-                min={today}
-                value={pickup}
-                onChange={(event) => {
-                  const nextPickup = event.target.value;
-                  setPickup(nextPickup);
-                  saveRentalDates(nextPickup, dropoff);
-                  setError(null);
-                }}
-                aria-invalid={Boolean(error)}
-                aria-describedby={error ? "date-error" : undefined}
-              />
-            </label>
-            <label>
-              {m.modal.return}
-              <input
-                ref={dropoffField}
-                type="date"
-                lang={locale}
-                min={pickup > today ? pickup : today}
-                value={dropoff}
-                onChange={(event) => {
-                  const nextDropoff = event.target.value;
-                  setDropoff(nextDropoff);
-                  saveRentalDates(pickup, nextDropoff);
-                  setError(null);
-                }}
-                aria-invalid={Boolean(error)}
-                aria-describedby={error ? "date-error" : undefined}
-              />
-            </label>
-          </div>
-          {(pickup || dropoff) && (
-            <button
-              className="clear-dates"
-              type="button"
-              onClick={() => {
-                setPickup("");
-                setDropoff("");
-                saveRentalDates("", "");
-                setError(null);
-              }}
-            >
-              {m.modal.clearDates}
-            </button>
-          )}
-          {error && (
-            <p className="form-error" role="alert" id="date-error">
-              {m.modal[error]}
-            </p>
-          )}
-          <button
-            className="button button-primary booking-submit"
-            type="submit"
-            disabled={!hasWhatsapp}
-          >
-            {m.modal.submit}
-            <ArrowUpRight size={20} />
-          </button>
-          {!hasWhatsapp && (
-            <p className="booking-pending" role="status">
-              {m.modal.pending}. {m.modal.pendingDetail}
-            </p>
-          )}
-          <p className="booking-disclaimer">{m.modal.disclaimer}</p>
-        </form>
-        <details className="rental-policy">
-          <summary>
-            <span>
-              <strong>{m.modal.policyTitle}</strong>
-              <small>{m.modal.policySubtitle}</small>
-            </span>
-            <ChevronRight size={18} aria-hidden="true" />
-          </summary>
-          <ul>
-            {m.modal.policyItems.map((item) => (
-              <li key={item}>
-                <strong>{item.slice(0, item.indexOf(". ") + 1)}</strong>
-                {item.slice(item.indexOf(". ") + 1)}
+        <a
+          className="button button-primary modal-summary-cta"
+          href={whatsappUrl(site.whatsapp, vehicleMessage(vehicle, locale)) ?? "#contact"}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {m.modal.viewConditionsAvailability}<ArrowUpRight size={19} />
+        </a>
+        <nav className="modal-summary-links" aria-label={m.modal.beforeBooking}>
+          <a href="#rental-terms">{m.modal.depositInsurance}</a>
+          <a href="#rental-terms">{m.modal.licenseAge}</a>
+        </nav>
+      </div>
+      </div>
+      <div className="modal-details">
+        <section className="modal-steps" aria-labelledby="modal-steps-title">
+          <h3 id="modal-steps-title">{m.modal.stepsTitle}</h3>
+          <ol>
+            {m.modal.steps.map((step, index) => (
+              <li key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <div><strong>{step.title}</strong><p>{step.description}</p></div>
+                {index < m.modal.steps.length - 1 && <ArrowUpRight className="modal-step-arrow" aria-hidden="true" />}
               </li>
             ))}
-          </ul>
-          <div className="rental-policy-cta">
-            <strong>{m.modal.policyCta}</strong>
-            <p>{m.modal.policyContact}</p>
-          </div>
-        </details>
+          </ol>
+        </section>
+        <section id="rental-terms" className="modal-terms">
+        <h3>{m.modal.beforeBooking}</h3>
+        <div className="modal-policy-groups">
+          {m.modal.policyGroups.map((group) => (
+            <details className="rental-policy" key={group.title}>
+              <summary>
+                <span><strong>{group.title}</strong></span>
+                <ChevronRight size={18} aria-hidden="true" />
+              </summary>
+              <ul>
+                {group.indexes.map((index) => {
+                  const item = m.modal.policyItems[index];
+                  return (
+                    <li key={item}>
+                      <strong>{item.slice(0, item.indexOf(". ") + 1)}</strong>
+                      {item.slice(item.indexOf(". ") + 1)}
+                    </li>
+                  );
+                })}
+              </ul>
+            </details>
+          ))}
+        </div>
+        </section>
       </div>
     </dialog>
   );

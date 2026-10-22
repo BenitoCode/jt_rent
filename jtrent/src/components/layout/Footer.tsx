@@ -6,11 +6,10 @@ import {
   MapPin,
   MessageCircle,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { Brand } from "@/components/ui/Brand";
 import { LanguageFlag } from "@/components/ui/LanguageFlag";
 import { CookieSettingsButton } from "@/components/privacy/CookieSettingsButton";
-import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
 import { site } from "@/config/site";
 import { legalDocumentSlugs } from "@/data/legal";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -41,12 +40,6 @@ export function Footer({
             <h2>{m.footer.promoTitle}</h2>
             <p>{m.footer.promoDescription}</p>
           </div>
-          <WhatsAppLink
-            locale={locale}
-            messages={m}
-            label={m.footer.promoButton}
-            className="button footer-promo-button"
-          />
         </div>
       </div>
 
@@ -55,7 +48,15 @@ export function Footer({
           <div className="footer-main">
             <div className="footer-brand">
               <Link href={`/${locale}/`} className="brand-link" aria-label="JT Rent">
-                <Brand />
+                <span className="footer-logo-window">
+                  <Image
+                    src="/images/logo-jt-footer.png"
+                    alt=""
+                    width={500}
+                    height={500}
+                    className="footer-logo-image"
+                  />
+                </span>
               </Link>
               <span className="footer-wordmark" aria-hidden="true">
                 <span>JT</span> RENT
