@@ -22,4 +22,6 @@ Conecta el dominio propio en Hostinger siguiendo los valores DNS que indique el 
 
 El archivo `jtrent/public/.htaccess` se copia al directorio de salida y configura la caché de los recursos estáticos en Hostinger: los recursos versionados de Next.js durante un año, las imágenes durante 30 días y los documentos HTML/XML con revalidación. Después de desplegar, comprueba las cabeceras `Cache-Control` de un recurso `/_next/static/` y de `/images/logo-jt.png`; el CDN puede tardar en reflejar las nuevas cabeceras hasta que se purgue su caché.
 
+El mismo `.htaccess` redirige permanentemente las solicitudes HTTP y `www.jt-rent.com` a `https://jt-rent.com`, que es el dominio canonico configurado en `NEXT_PUBLIC_SITE_URL`. Tras cambiar estas reglas, vuelve a ejecutar el build y publica de nuevo `jtrent/out`. Si Hostinger sirve el dominio mediante un proxy que no admite `.htaccess`, configura las mismas redirecciones en el panel del proveedor.
+
 Para desarrollo local, entra en `jtrent/` y sigue su [README](jtrent/README.md).

@@ -1,3 +1,12 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Use HTTPS and the non-www hostname as the single canonical domain.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\.jt-rent\.com$ [NC]
+  RewriteRule ^ https://jt-rent.com%{REQUEST_URI} [R=301,L,NE]
+</IfModule>
+
 <IfModule mod_headers.c>
   # Next.js fingerprints these filenames, so changed builds get new URLs.
   <IfModule mod_rewrite.c>
