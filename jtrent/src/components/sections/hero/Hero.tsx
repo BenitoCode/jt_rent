@@ -31,7 +31,6 @@ export function Hero({
               <br />
               {m.hero.line3}
             </h1>
-            <p className="hero-description">{m.hero.description}</p>
             <div className="hero-ctas">
               <WhatsAppLink
                 locale={locale}
@@ -44,10 +43,6 @@ export function Hero({
                 <ArrowUpRight size={20} aria-hidden="true" />
               </a>
             </div>
-            <p className="hero-note">
-              <span aria-hidden="true" />
-              {m.hero.note}
-            </p>
           </div>
           <HeroAvailability locale={locale} messages={m} />
         </div>

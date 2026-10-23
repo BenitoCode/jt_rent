@@ -64,9 +64,7 @@ export function HeroAvailability({
       <div className="hero-availability-heading">
         <div>
           <h2>{m.hero.availabilityTitle}</h2>
-          <p>{m.hero.availabilityHint}</p>
         </div>
-        <span className="hero-availability-note">{m.modal.optional}</span>
       </div>
       <label className="hero-date-field">
         <span>{m.modal.pickup}</span>
