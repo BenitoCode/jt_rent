@@ -35,33 +35,35 @@ export function Contact({
 
         <div className="contact-layout">
           <section className="contact-info-card" aria-labelledby="contact-info-title">
-            <h3 id="contact-info-title">{m.contact.panelTitle}</h3>
+            <h3 id="contact-info-title">
+              <Phone className="contact-info-heading-icon" size={21} aria-hidden="true" />
+              {m.contact.panelTitle}
+            </h3>
             <div className="contact-channels">
-              <a
-                className="contact-channel"
-                href={whatsappContacts[0]?.href ?? undefined}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Phone size={18} aria-hidden="true" />
+              <div className="contact-channel contact-phone-channel">
                 <span>
                   <small>{m.contact.whatsappLabel}</small>
-                  <strong>{whatsappContacts[0]?.number}</strong>
+                  <strong className="contact-phone-numbers">
+                    {whatsappContacts[0] && (
+                      <a
+                        href={whatsappContacts[0].href ?? undefined}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {whatsappContacts[0].number}
+                      </a>
+                    )}
+                    {whatsappContacts[0] && whatsappContacts[1] && (
+                      <span aria-hidden="true">·</span>
+                    )}
+                    {whatsappContacts[1] && (
+                      <a href={`tel:+${whatsappContacts[1].number.replace(/\D/g, "")}`}>
+                        {whatsappContacts[1].number}
+                      </a>
+                    )}
+                  </strong>
                 </span>
-              </a>
-              {whatsappContacts.slice(1).map((contact) => (
-                <a
-                  className="contact-channel"
-                  href={`tel:+${contact.number.replace(/\D/g, "")}`}
-                  key={contact.number}
-                >
-                  <Phone size={18} aria-hidden="true" />
-                  <span>
-                    <small>{m.contact.otherPhoneLabel}</small>
-                    <strong>{contact.number}</strong>
-                  </span>
-                </a>
-              ))}
+              </div>
               <a className="contact-channel" href={`mailto:${site.email}`}>
                 <Mail size={18} aria-hidden="true" />
                 <span>

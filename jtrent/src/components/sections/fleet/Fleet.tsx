@@ -10,7 +10,6 @@ import {
 import { motorcycles, type Locale } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
-import { FleetScroller } from "@/components/sections/fleet/FleetScroller";
 import { VehicleDetailsButton } from "@/components/sections/fleet/VehicleDetailsButton";
 import { site } from "@/config/site";
 import { vehicleMessage, whatsappUrl } from "@/lib/whatsapp";
@@ -48,7 +47,7 @@ export function Fleet({
           </h2>
           <p className="fleet-description">{m.fleet.listDescription}</p>
         </div>
-        <FleetScroller
+        <div
           className="fleet-grid"
           role="group"
           aria-label={m.fleet.carouselLabel}
@@ -105,7 +104,6 @@ export function Fleet({
                       <small>{m.fleet.day}</small>
                     </span>
                   </p>
-                  <p className="vehicle-price-note">{m.fleet.priceNote}</p>
                 </div>
                 <VehicleDetailsButton vehicle={vehicle} locale={locale} messages={m} />
                 <a
@@ -159,7 +157,7 @@ export function Fleet({
               </div>
             </article>
           ))}
-        </FleetScroller>
+        </div>
         <aside className="fleet-trust" aria-label={m.fleet.trustTitle}>
           <div className="fleet-trust-item">
             <span className="fleet-trust-icon" aria-hidden="true">

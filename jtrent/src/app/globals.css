@@ -643,18 +643,11 @@ h2 {
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   touch-action: auto;
-  cursor: grab;
-  user-select: none;
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 2px;
   scrollbar-width: none;
   gap: 24px;
   padding: 4px 2px 18px;
-}
-.fleet-grid[data-dragging="true"] {
-  cursor: grabbing;
-  scroll-snap-type: none;
-  scroll-behavior: auto;
 }
 .fleet-grid::-webkit-scrollbar {
   display: none;
@@ -1169,10 +1162,17 @@ h2 {
     box-shadow 160ms,
     transform 160ms;
 }
-.reviews-google-link {
-  position: absolute;
-  top: 0;
-  right: 0;
+.reviews-actions {
+  display: flex;
+  width: min(100%, 240px);
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 8px;
+}
+.reviews-actions .reviews-google-link,
+.reviews-actions .reviews-write-link {
+  width: 100%;
+  margin: 0;
 }
 .reviews-google-link:hover,
 .reviews-write-link:hover {
@@ -1487,6 +1487,15 @@ h2 {
   font-size: clamp(21px, 2.2vw, 27px);
   letter-spacing: -0.7px;
 }
+.contact-info-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-info-heading-icon {
+  flex: 0 0 auto;
+  color: var(--brand);
+}
 .contact-map-header .contact-map-kicker {
   font-size: 20px;
 }
@@ -1532,6 +1541,24 @@ h2 {
   font-weight: 600;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+.contact-phone-channel {
+  display: block;
+}
+.contact-phone-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 9px;
+}
+.contact-phone-numbers a {
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.contact-phone-numbers a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 .contact-brand-note {
   display: flex;
@@ -2690,26 +2717,16 @@ h2 {
     margin-bottom: 28px;
     padding-top: 0;
   }
-  .reviews-google-link {
-    position: static;
-    width: fit-content;
-    margin: 0 auto 18px;
-  }
   .reviews-heading h2 {
     font-size: clamp(28px, 7vw, 38px);
     letter-spacing: -1.1px;
-  }
-  .reviews-google-link {
-    min-height: 38px;
-    padding: 7px 10px;
-    font-size: 10px;
   }
   .reviews-invite {
     align-items: stretch;
     flex-direction: column;
     gap: 15px;
   }
-  .reviews-write-link {
+  .reviews-actions {
     width: 100%;
   }
   .reviews-empty {
@@ -3892,12 +3909,6 @@ h2 {
   color: var(--muted);
   font-size: 13px;
 }
-.vehicle-price-note {
-  margin: 8px 0 0;
-  color: var(--muted);
-  font-size: 10px;
-  line-height: 1.45;
-}
 .vehicle-card-details,
 .vehicle-card-whatsapp {
   display: flex;
@@ -3928,17 +3939,17 @@ h2 {
 .vehicle-card-whatsapp {
   min-height: 42px;
   margin-top: 10px;
-  border: 1px solid #11763e;
-  background: #11763e;
-  color: #fff;
+  border: 1px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
 }
 .vehicle-card-whatsapp:hover {
-  background: #0d6233;
-  border-color: #0d6233;
+  background: var(--surface);
+  border-color: var(--ink);
 }
 .vehicle-card-whatsapp .whatsapp-brand-icon {
   flex: 0 0 auto;
-  color: currentColor;
+  color: #25d366;
 }
 .vehicle-card-whatsapp[aria-disabled="true"] {
   opacity: 0.55;

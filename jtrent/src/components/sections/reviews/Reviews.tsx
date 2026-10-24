@@ -38,11 +38,6 @@ export function Reviews({
     <section id="reviews" className="reviews section-pad" aria-labelledby="reviews-title">
       <div className="container">
         <header className="reviews-heading">
-          <a className="reviews-google-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
-            <GoogleMark />
-            {m.reviews.viewGoogle}
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
           <p className="eyebrow">{m.reviews.eyebrow}</p>
           <h2 id="reviews-title">{m.reviews.title}</h2>
         </header>
@@ -112,11 +107,18 @@ export function Reviews({
             <h3>{m.reviews.inviteTitle}</h3>
             <p>{m.reviews.inviteText}</p>
           </div>
-          <a className="reviews-write-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
-            <GoogleMark />
-            {m.reviews.writeGoogle}
-            <ArrowUpRight size={15} aria-hidden="true" />
-          </a>
+          <div className="reviews-actions">
+            <a className="reviews-write-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
+              <GoogleMark />
+              {m.reviews.writeGoogle}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+            <a className="reviews-google-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
+              <GoogleMark />
+              {m.reviews.viewGoogle}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
