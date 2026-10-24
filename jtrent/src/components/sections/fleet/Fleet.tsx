@@ -1,39 +1,19 @@
-"use client";
-
-import {
-  useRef,
-  useState,
-  type PointerEvent as ReactPointerEvent,
-} from "react";
-import dynamic from "next/dynamic";
 import {
   Bike,
-  ChevronDown,
   Gauge,
   IdCard,
   Luggage,
-  MessageCircle,
   PanelTop,
   Smartphone,
   Check,
 } from "lucide-react";
-import { motorcycles, type Locale, type Vehicle } from "@/data/motorcycles";
+import { motorcycles, type Locale } from "@/data/motorcycles";
 import { formatPrice, type Messages } from "@/lib/i18n";
 import { VehicleVisual } from "@/components/ui/VehicleVisual";
+import { FleetScroller } from "@/components/sections/fleet/FleetScroller";
+import { VehicleDetailsButton } from "@/components/sections/fleet/VehicleDetailsButton";
 import { site } from "@/config/site";
 import { vehicleMessage, whatsappUrl } from "@/lib/whatsapp";
-
-const BookingModal = dynamic(
-  () =>
-    import("@/components/booking/BookingModal").then(
-      (module) => module.BookingModal,
-    ),
-  { ssr: false },
-);
-
-function preloadBookingModal() {
-  void import("@/components/booking/BookingModal");
-}
 
 export function Fleet({
   locale,
@@ -54,63 +34,6 @@ export function Fleet({
     phone: Smartphone,
     display: PanelTop,
   };
-  const [selected, setSelected] = useState<Vehicle | null>(null);
-  const opener = useRef<HTMLButtonElement | null>(null);
-  const carousel = useRef<HTMLDivElement | null>(null);
-  const drag = useRef<{
-    pointerId: number;
-    startX: number;
-    startScrollLeft: number;
-    moved: boolean;
-  } | null>(null);
-  const suppressClick = useRef(false);
-  function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
-    if (event.pointerType !== "mouse" || event.button !== 0) return;
-    drag.current = {
-      pointerId: event.pointerId,
-      startX: event.clientX,
-      startScrollLeft: event.currentTarget.scrollLeft,
-      moved: false,
-    };
-    const move = (pointerEvent: globalThis.PointerEvent) => {
-      const current = drag.current;
-      const element = carousel.current;
-      if (!current || !element || current.pointerId !== pointerEvent.pointerId)
-        return;
-      const delta = pointerEvent.clientX - current.startX;
-      if (!current.moved && Math.abs(delta) < 10) return;
-      current.moved = true;
-      element.dataset.dragging = "true";
-      element.scrollLeft = current.startScrollLeft - delta;
-    };
-    const finish = (pointerEvent: globalThis.PointerEvent) => {
-      const current = drag.current;
-      const element = carousel.current;
-      if (!current || current.pointerId !== pointerEvent.pointerId) return;
-      if (current.moved) {
-        suppressClick.current = true;
-        window.setTimeout(() => {
-          suppressClick.current = false;
-        }, 250);
-      }
-      drag.current = null;
-      if (element) delete element.dataset.dragging;
-      window.removeEventListener("pointermove", move);
-      window.removeEventListener("pointerup", finish);
-      window.removeEventListener("pointercancel", finish);
-    };
-    window.addEventListener("pointermove", move);
-    window.addEventListener("pointerup", finish);
-    window.addEventListener("pointercancel", finish);
-  }
-  function open(vehicle: Vehicle, button: HTMLButtonElement) {
-    opener.current = button;
-    setSelected(vehicle);
-  }
-  function close() {
-    setSelected(null);
-    requestAnimationFrame(() => opener.current?.focus());
-  }
   return (
     <section
       id="fleet"
@@ -125,17 +48,8 @@ export function Fleet({
           </h2>
           <p className="fleet-description">{m.fleet.listDescription}</p>
         </div>
-        <div
+        <FleetScroller
           className="fleet-grid"
-          ref={carousel}
-          onPointerDown={startDrag}
-          onClickCapture={(event) => {
-            if (suppressClick.current) {
-              event.preventDefault();
-              event.stopPropagation();
-              suppressClick.current = false;
-            }
-          }}
           role="group"
           aria-label={m.fleet.carouselLabel}
           aria-roledescription={m.fleet.carousel}
@@ -193,17 +107,7 @@ export function Fleet({
                   </p>
                   <p className="vehicle-price-note">{m.fleet.priceNote}</p>
                 </div>
-                <button
-                  type="button"
-                  className="vehicle-card-details"
-                  onPointerEnter={preloadBookingModal}
-                  onFocus={preloadBookingModal}
-                  onClick={(event) => open(vehicle, event.currentTarget)}
-                  aria-haspopup="dialog"
-                >
-                  {m.fleet.viewConditions}
-                  <ChevronDown size={17} aria-hidden="true" />
-                </button>
+                <VehicleDetailsButton vehicle={vehicle} locale={locale} messages={m} />
                 <a
                   className="vehicle-card-whatsapp"
                   href={
@@ -218,7 +122,16 @@ export function Fleet({
                     !whatsappUrl(site.whatsapp, vehicleMessage(vehicle, locale))
                   }
                 >
-                  <MessageCircle size={18} aria-hidden="true" />
+                  <svg
+                    className="whatsapp-brand-icon"
+                    viewBox="0 0 24 24"
+                    width="18"
+                    height="18"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path d="M20.52 3.48A11.86 11.86 0 0 0 12.08 0C5.5 0 .14 5.36.14 11.94c0 2.1.55 4.15 1.6 5.96L.04 24l6.25-1.64a11.9 11.9 0 0 0 5.78 1.47h.01c6.58 0 11.94-5.36 11.94-11.94 0-3.19-1.24-6.19-3.5-8.41ZM12.08 21.8h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.71.97.99-3.62-.23-.37a9.85 9.85 0 0 1-1.52-5.25c0-5.45 4.44-9.89 9.9-9.89 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.9 6.99c0 5.45-4.44 9.89-9.91 9.89Zm5.43-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.47-.89-.8-1.49-1.78-1.66-2.08-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.21 5.1 4.5.71.31 1.27.49 1.7.63.72.23 1.37.2 1.89.12.58-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+                  </svg>
                   {m.fleet.details}
                 </a>
               </div>
@@ -246,7 +159,7 @@ export function Fleet({
               </div>
             </article>
           ))}
-        </div>
+        </FleetScroller>
         <aside className="fleet-trust" aria-label={m.fleet.trustTitle}>
           <div className="fleet-trust-item">
             <span className="fleet-trust-icon" aria-hidden="true">
@@ -272,14 +185,6 @@ export function Fleet({
           </div>
         </aside>
       </div>
-      {selected && (
-        <BookingModal
-          vehicle={selected}
-          locale={locale}
-          messages={m}
-          onClose={close}
-        />
-      )}
     </section>
   );
 }

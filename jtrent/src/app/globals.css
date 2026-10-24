@@ -3928,13 +3928,17 @@ h2 {
 .vehicle-card-whatsapp {
   min-height: 42px;
   margin-top: 10px;
-  border: 1px solid #168b4b45;
-  background: #fff;
-  color: #168b4b;
+  border: 1px solid #11763e;
+  background: #11763e;
+  color: #fff;
 }
 .vehicle-card-whatsapp:hover {
-  background: #168b4b0d;
-  border-color: #168b4b80;
+  background: #0d6233;
+  border-color: #0d6233;
+}
+.vehicle-card-whatsapp .whatsapp-brand-icon {
+  flex: 0 0 auto;
+  color: currentColor;
 }
 .vehicle-card-whatsapp[aria-disabled="true"] {
   opacity: 0.55;
