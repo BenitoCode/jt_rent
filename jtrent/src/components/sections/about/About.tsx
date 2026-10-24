@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from "next/link";
 import { BadgeEuro, ClipboardCheck, UsersRound } from "lucide-react";
 import type { Messages } from "@/lib/i18n";
 
@@ -52,9 +51,6 @@ export function About({
             ))}
           </ul>
 
-          <Link className="about-fleet-link" href="#fleet">
-            {m.about.fleetLink} <span aria-hidden="true">→</span>
-          </Link>
         </div>
       </div>
     </section>

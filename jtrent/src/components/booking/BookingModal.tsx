@@ -215,7 +215,7 @@ export function BookingModal({
             {m.modal.steps.map((step, index) => (
               <li key={step.title}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <div><strong>{step.title}</strong><p>{step.description}</p></div>
+                <div><strong>{step.title}</strong></div>
                 {index < m.modal.steps.length - 1 && <ArrowUpRight className="modal-step-arrow" aria-hidden="true" />}
               </li>
             ))}

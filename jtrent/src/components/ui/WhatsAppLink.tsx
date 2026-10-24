@@ -10,12 +10,14 @@ export function WhatsAppLink({
   label,
   className = "button button-primary",
   compactOnMobile = false,
+  showArrow = true,
 }: {
   locale: Locale;
   messages: Messages;
   label: string;
   className?: string;
   compactOnMobile?: boolean;
+  showArrow?: boolean;
 }) {
   const href = whatsappUrl(site.whatsapp, generalMessage(locale));
   return href ? (
@@ -33,7 +35,7 @@ export function WhatsAppLink({
       ) : (
         label
       )}
-      <ArrowUpRight size={18} />
+      {showArrow && <ArrowUpRight size={18} />}
     </a>
   ) : (
     <div className="pending-action">
@@ -49,7 +51,7 @@ export function WhatsAppLink({
         ) : (
           label
         )}
-        <ArrowUpRight size={18} />
+        {showArrow && <ArrowUpRight size={18} />}
       </button>
       <span className="pending-caption">{messages.modal.pending}</span>
     </div>

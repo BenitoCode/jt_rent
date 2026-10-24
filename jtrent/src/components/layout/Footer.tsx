@@ -34,15 +34,6 @@ export function Footer({
 
   return (
     <footer className="footer">
-      <div className="footer-promo">
-        <div className="container footer-promo-inner">
-          <div>
-            <h2>{m.footer.promoTitle}</h2>
-            <p>{m.footer.promoDescription}</p>
-          </div>
-        </div>
-      </div>
-
       <div className="footer-dark">
         <div className="container">
           <div className="footer-main">

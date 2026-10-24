@@ -1,4 +1,3 @@
-import { ArrowUpRight } from "lucide-react";
 import { HeroAvailability } from "@/components/sections/hero/HeroAvailability";
 import { HeroGallery } from "@/components/sections/hero/HeroGallery";
 import { WhatsAppLink } from "@/components/ui/WhatsAppLink";
@@ -37,10 +36,10 @@ export function Hero({
                 messages={m}
                 label={m.hero.whatsapp}
                 className="button button-primary"
+                showArrow={false}
               />
               <a href="#fleet" className="button button-text">
                 {m.hero.explore}
-                <ArrowUpRight size={20} aria-hidden="true" />
               </a>
             </div>
           </div>

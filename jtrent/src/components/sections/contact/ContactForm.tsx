@@ -144,7 +144,6 @@ export function ContactForm({ formId, messages: m, locale }: ContactFormProps) {
           </p>
         )}
       </form>
-      <p className="contact-form-footnote">{m.contact.formFootnote}</p>
     </div>
   );
 }

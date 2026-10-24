@@ -9,7 +9,7 @@
   --surface: #f5f5f5;
   --muted: #666666;
   --line: #e6e6e6;
-  --font-body: Arial, Helvetica, sans-serif;
+  --font-body: "Helvetica Neue", Helvetica, Arial, sans-serif;
   --container: 1280px;
   --gutter: clamp(20px, 4.5vw, 80px);
   --radius: 4px;
@@ -78,7 +78,7 @@ video {
   margin-inline: auto;
 }
 .section-pad {
-  padding-block: 100px;
+  padding-block: clamp(64px, 6vw, 80px);
 }
 .hero > .container,
 .fleet > .container,
@@ -417,7 +417,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-  min-height: 610px;
+  min-height: 570px;
   align-items: center;
   padding-top: 36px;
   padding-bottom: 24px;
@@ -451,6 +451,8 @@ h2 {
   flex-wrap: wrap;
 }
 .hero-ctas .button {
+  justify-content: center;
+  text-align: center;
   font-size: 11px;
 }
 .hero-ctas .button-text {
@@ -880,7 +882,7 @@ h2 {
 }
 .journey-intro {
   max-width: 760px;
-  margin: 0 auto 88px;
+  margin: 0 auto 52px;
   text-align: center;
 }
 .journey-intro .eyebrow {
@@ -1071,7 +1073,7 @@ h2 {
 }
 .rental-faq-heading {
   max-width: 760px;
-  margin: 0 auto 36px;
+  margin: 0 auto 28px;
   text-align: center;
 }
 .rental-faq-heading .eyebrow {
@@ -1146,13 +1148,6 @@ h2 {
   color: #202329;
   font-size: clamp(32px, 4vw, 44px);
   letter-spacing: -1.5px;
-}
-.reviews-subtitle {
-  max-width: 650px;
-  margin: 0 auto;
-  color: #52545a;
-  font-size: 13px;
-  line-height: 1.6;
 }
 .reviews-google-link,
 .reviews-write-link {
@@ -1430,7 +1425,7 @@ h2 {
 }
 .contact-heading {
   max-width: 800px;
-  margin: 0 auto 42px;
+  margin: 0 auto 32px;
   text-align: center;
 }
 .contact-heading .eyebrow {
@@ -1469,14 +1464,16 @@ h2 {
 .contact-info-card {
   grid-column: 1;
   grid-row: 1;
+  align-self: stretch;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 12px;
 }
 .contact-form-card {
   grid-column: 2;
   grid-row: 1;
-  align-self: start;
+  align-self: stretch;
   padding: clamp(20px, 2vw, 26px);
 }
 .contact-map-card {
@@ -1493,13 +1490,6 @@ h2 {
 .contact-map-header .contact-map-kicker {
   font-size: 20px;
 }
-.contact-primary-phone {
-  margin: 8px 0 14px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-  text-align: center;
-}
 .contact-card-description {
   margin: 9px 0 0;
   color: var(--muted);
@@ -1507,12 +1497,11 @@ h2 {
   line-height: 1.7;
 }
 .contact-channels {
-  border-top: 1px solid var(--line);
-  margin-top: 17px;
+  margin-top: 0;
 }
 .contact-channel {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) 16px;
+  grid-template-columns: 28px minmax(0, 1fr);
   align-items: center;
   gap: 12px;
   padding: 12px 0;
@@ -1526,16 +1515,6 @@ h2 {
   border-radius: 50%;
   background: #fff0f0;
   color: var(--brand);
-}
-.contact-channel > svg:last-child {
-  color: var(--muted);
-  transition:
-    color 180ms,
-    transform 180ms;
-}
-.contact-channel:hover > svg:last-child {
-  color: var(--brand);
-  transform: translate(2px, -2px);
 }
 .contact-channel > span {
   min-width: 0;
@@ -1554,9 +1533,40 @@ h2 {
   line-height: 1.5;
   overflow-wrap: anywhere;
 }
+.contact-brand-note {
+  display: flex;
+  min-height: 68px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fafafa;
+}
+.contact-brand-note img {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  object-fit: contain;
+}
+.contact-brand-note span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+.contact-brand-note strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+.contact-brand-note small {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
 .contact-info-location {
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr) 16px;
+  grid-template-columns: 28px minmax(0, 1fr);
   align-items: center;
   gap: 12px;
   margin-top: 12px;
@@ -1567,16 +1577,6 @@ h2 {
 }
 .contact-info-location > svg:first-child {
   color: var(--brand);
-}
-.contact-info-location > svg:last-child {
-  color: var(--muted);
-  transition:
-    color 180ms,
-    transform 180ms;
-}
-.contact-info-location:hover > svg:last-child {
-  color: var(--brand);
-  transform: translate(2px, -2px);
 }
 .contact-info-location > span {
   display: flex;
@@ -1699,12 +1699,6 @@ h2 {
 .contact-form-status.is-error {
   color: #a3131b;
 }
-.contact-form-footnote {
-  margin: 7px 0 0;
-  color: var(--muted);
-  font-size: 10px;
-  text-align: center;
-}
 .contact-map-card {
   display: flex;
   flex-direction: column;
@@ -1756,40 +1750,10 @@ h2 {
   font-size: 10px;
 }
 .contact-map-footer .button svg {
-  color: var(--brand);
-}
-.contact-map-privacy {
-  margin: -8px 0 0;
-  color: var(--muted);
-  font-size: 9px;
-  line-height: 1.5;
+  color: #fff;
 }
 .footer {
   color: var(--paper);
-}
-.footer-promo {
-  border-bottom: 2px solid var(--brand);
-  background: #fff;
-  color: var(--ink);
-}
-.footer-promo-inner {
-  display: flex;
-  min-height: 112px;
-  align-items: center;
-  justify-content: center;
-  gap: 28px;
-  padding-block: 22px;
-  text-align: center;
-}
-.footer-promo h2 {
-  margin: 0 0 5px;
-  font-size: clamp(19px, 2vw, 25px);
-  letter-spacing: -0.7px;
-}
-.footer-promo p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
 }
 .footer-dark {
   background: #101010;
@@ -2579,7 +2543,7 @@ h2 {
     letter-spacing: 1.4px;
   }
   .section-pad {
-    padding-block: 70px;
+    padding-block: 64px;
   }
   .fleet-grid {
     gap: 18px;
@@ -2633,6 +2597,10 @@ h2 {
   }
 }
 @media (max-width: 700px) {
+  .section-pad {
+    padding-block: 50px;
+  }
+
   .fleet-trust {
     grid-template-columns: 1fr;
     gap: 10px;
@@ -2720,6 +2688,12 @@ h2 {
   }
   .reviews-heading {
     margin-bottom: 28px;
+    padding-top: 0;
+  }
+  .reviews-google-link {
+    position: static;
+    width: fit-content;
+    margin: 0 auto 18px;
   }
   .reviews-heading h2 {
     font-size: clamp(28px, 7vw, 38px);
@@ -2817,12 +2791,6 @@ h2 {
   }
   .footer-social {
     grid-column: 1 / -1;
-  }
-  .footer-promo-inner {
-    align-items: stretch;
-    flex-direction: column;
-    gap: 18px;
-    padding-block: 24px;
   }
   .footer-contact a {
     overflow-wrap: anywhere;
@@ -3310,7 +3278,7 @@ h2 {
 
 /* Reference-inspired hero: real photo carousel, clear copy and booking panel. */
 .hero-main {
-  min-height: 690px;
+  min-height: 630px;
 }
 .hero-stage {
   z-index: 0;

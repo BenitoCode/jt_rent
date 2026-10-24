@@ -1,10 +1,5 @@
-import {
-  ArrowUpRight,
-  Mail,
-  MapPin,
-  Navigation,
-  Phone,
-} from "lucide-react";
+import { Mail, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
+import Image from "next/image";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { DeferredMap } from "@/components/sections/contact/DeferredMap";
 import { site } from "@/config/site";
@@ -42,25 +37,30 @@ export function Contact({
         <div className="contact-layout">
           <section className="contact-info-card" aria-labelledby="contact-info-title">
             <h3 id="contact-info-title">{m.contact.panelTitle}</h3>
-            <a className="contact-primary-phone" href={`tel:+${site.whatsapp}`}>
-              {whatsappContacts[0]?.number}
-            </a>
             <div className="contact-channels">
+              <a
+                className="contact-channel"
+                href={whatsappContacts[0]?.href ?? undefined}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MessageCircle size={18} aria-hidden="true" />
+                <span>
+                  <small>{m.contact.whatsappLabel}</small>
+                  <strong>{whatsappContacts[0]?.number}</strong>
+                </span>
+              </a>
               {whatsappContacts.slice(1).map((contact) => (
                 <a
                   className="contact-channel"
-                  href={contact.href ?? undefined}
+                  href={`tel:+${contact.number.replace(/\D/g, "")}`}
                   key={contact.number}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-disabled={!contact.href || undefined}
                 >
                   <Phone size={18} aria-hidden="true" />
                   <span>
                     <small>{m.contact.otherPhoneLabel}</small>
                     <strong>{contact.number}</strong>
                   </span>
-                  <ArrowUpRight size={16} aria-hidden="true" />
                 </a>
               ))}
               <a className="contact-channel" href={`mailto:${site.email}`}>
@@ -69,8 +69,18 @@ export function Contact({
                   <small>{m.contact.emailLabel}</small>
                   <strong>{site.email}</strong>
                 </span>
-                <ArrowUpRight size={16} aria-hidden="true" />
               </a>
+            </div>
+            <div className="contact-brand-note">
+              <Image src="/images/logo-jt.webp" alt="" width={500} height={500} />
+              <span>
+                <strong>{locale === "es" ? "Atención directa" : "Personal support"}</strong>
+                <small>
+                  {locale === "es"
+                    ? "En español e inglés, antes y durante tu alquiler."
+                    : "In Spanish and English, before and during your rental."}
+                </small>
+              </span>
             </div>
             <a className="contact-info-location" href={mapHref} target="_blank" rel="noopener noreferrer">
               <MapPin size={17} aria-hidden="true" />
@@ -78,7 +88,6 @@ export function Contact({
                 <small>{m.contact.mapPickupTitle}</small>
                 <strong>{site.address}</strong>
               </span>
-              <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           </section>
 
@@ -88,7 +97,6 @@ export function Contact({
             <div className="contact-map-header">
               <div>
                 <h3 className="contact-map-kicker" id="contact-map-title">{m.contact.mapPickupTitle}</h3>
-                <p className="contact-card-description">{m.contact.mapPickupDescription}</p>
               </div>
             </div>
             <DeferredMap
@@ -108,7 +116,6 @@ export function Contact({
                 {m.contact.directions}
               </a>
             </div>
-            <p className="contact-map-privacy">{m.contact.mapPrivacy}</p>
           </section>
         </div>
       </div>

@@ -45,7 +45,6 @@ export function Reviews({
           </a>
           <p className="eyebrow">{m.reviews.eyebrow}</p>
           <h2 id="reviews-title">{m.reviews.title}</h2>
-          <p className="reviews-subtitle">{m.reviews.disclaimer}</p>
         </header>
 
         {reviews.length > 0 ? (

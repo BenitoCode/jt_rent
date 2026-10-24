@@ -11,7 +11,6 @@ export function RentalFaq({ messages: m }: { messages: Messages }) {
         <header className="rental-faq-heading">
           <p className="eyebrow">{m.faq.eyebrow}</p>
           <h2 id="rental-faq-title">{m.faq.title}</h2>
-          <p>{m.faq.description}</p>
         </header>
         <div className="rental-faq-list">
           {m.faq.items.map(({ question, answer }) => (
