@@ -192,7 +192,6 @@ export function BookingModal({
               <del>{formatPrice(vehicle.previousPrice, locale)}</del>
             )}
           </div>
-          <small>{m.modal.total}</small>
         </div>
         <a
           className="button button-primary modal-summary-cta"
@@ -200,12 +199,8 @@ export function BookingModal({
           target="_blank"
           rel="noopener noreferrer"
         >
-          {m.modal.viewConditionsAvailability}<ArrowUpRight size={19} />
+          {m.modal.viewConditionsAvailability}
         </a>
-        <nav className="modal-summary-links" aria-label={m.modal.beforeBooking}>
-          <a href="#rental-terms">{m.modal.depositInsurance}</a>
-          <a href="#rental-terms">{m.modal.licenseAge}</a>
-        </nav>
       </div>
       </div>
       <div className="modal-details">

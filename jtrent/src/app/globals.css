@@ -3616,11 +3616,6 @@ h2 {
   color: #8b949d;
   font-size: 12px;
 }
-.booking-modal .modal-product-summary .modal-price small {
-  display: block;
-  margin-top: 6px;
-  font-size: 12px;
-}
 .booking-modal .modal-product-summary .modal-header p { display: none; }
 .booking-modal .modal-product-summary .modal-price {
   padding: 16px 18px;
@@ -3655,18 +3650,6 @@ h2 {
   justify-content: center;
   gap: 9px;
   border-radius: 9px;
-}
-.modal-summary-links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 10px;
-  font-size: 12px;
-}
-.modal-summary-links a {
-  color: var(--muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 .modal-details .modal-steps {
   padding: 4px 0 22px;

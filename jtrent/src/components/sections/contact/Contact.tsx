@@ -1,4 +1,4 @@
-import { Mail, MapPin, MessageCircle, Navigation, Phone } from "lucide-react";
+import { Mail, MapPin, Navigation, Phone } from "lucide-react";
 import Image from "next/image";
 import { ContactForm } from "@/components/sections/contact/ContactForm";
 import { DeferredMap } from "@/components/sections/contact/DeferredMap";
@@ -31,7 +31,6 @@ export function Contact({
             {m.contact.eyebrow}
           </p>
           <h2 id="contact-title">{m.contact.newTitle}</h2>
-          <p>{m.contact.newDescription}</p>
         </header>
 
         <div className="contact-layout">
@@ -44,7 +43,7 @@ export function Contact({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <MessageCircle size={18} aria-hidden="true" />
+                <Phone size={18} aria-hidden="true" />
                 <span>
                   <small>{m.contact.whatsappLabel}</small>
                   <strong>{whatsappContacts[0]?.number}</strong>
@@ -72,7 +71,7 @@ export function Contact({
               </a>
             </div>
             <div className="contact-brand-note">
-              <Image src="/images/logo-jt.webp" alt="" width={500} height={500} />
+              <Image src="/images/logo-jt.webp" alt="" width={128} height={128} />
               <span>
                 <strong>{locale === "es" ? "Atención directa" : "Personal support"}</strong>
                 <small>
