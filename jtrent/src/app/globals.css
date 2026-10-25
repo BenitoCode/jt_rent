@@ -638,6 +638,9 @@ h2 {
   font-size: 17px;
   line-height: 1.5;
 }
+.fleet-mobile-hint {
+  display: none;
+}
 .fleet-grid {
   display: flex;
   overflow-x: auto;
@@ -4023,6 +4026,22 @@ h2 {
 
   .fleet-grid > * {
     flex-basis: min(100%, 480px);
+  }
+
+  .fleet-mobile-hint {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+    margin: 0 2px 8px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.2;
+  }
+
+  .fleet-mobile-hint svg {
+    color: var(--brand);
   }
 
   .vehicle-card-details,

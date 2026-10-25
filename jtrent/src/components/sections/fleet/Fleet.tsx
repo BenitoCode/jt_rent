@@ -1,4 +1,5 @@
 import {
+  ArrowRight,
   Bike,
   Gauge,
   IdCard,
@@ -47,6 +48,10 @@ export function Fleet({
           </h2>
           <p className="fleet-description">{m.fleet.listDescription}</p>
         </div>
+        <p className="fleet-mobile-hint">
+          {m.fleet.mobileHint}
+          <ArrowRight size={16} aria-hidden="true" />
+        </p>
         <div
           className="fleet-grid"
           role="group"
