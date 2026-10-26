@@ -17,4 +17,18 @@ export type Testimonial = {
   };
   video?: { src: string; captions: Record<Locale, string> };
 };
-export const testimonials: Testimonial[] = [];
+const joseGoogleReview =
+  "No los conocía, y ahora que los conozco van a ser siempre a los que les alquile, muy buen servicio, rápido y eficaz. Contad conmigo para la próxima.";
+
+export const testimonials: Testimonial[] = [
+  {
+    id: "jose-gallardo-peral-google-review",
+    name: "Jose Gallardo Peral",
+    quote: { es: joseGoogleReview, en: joseGoogleReview },
+    source: "Google",
+    sourceUrl:
+      "https://www.google.com/maps/place/?q=place_id:ChIJR7Xj9zpdZUURUU3Mk-BNFGw",
+    rating: 5,
+    verified: true,
+  },
+];

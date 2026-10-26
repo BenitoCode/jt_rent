@@ -228,9 +228,11 @@
     "carouselLabel": "Carrusel de reseñas de Google",
     "viewGoogle": "Ver reseñas en Google",
     "writeGoogle": "Escribir una reseña",
+    "googleSource": "Reseña de Google",
     "inviteTitle": "¿Has disfrutado de tu moto?",
     "inviteText": "Comparte tu experiencia con otros viajeros.",
-    "noReviews": "Las reseñas verificadas de Google aparecerán aquí cuando añadamos las opiniones de nuestra ficha.",
+    "rating": "5,0/5",
+    "ratingCaption": "1 reseña pública en Google",
     "photoLabel": "Foto ilustrativa",
     "viewOriginal": "Ver reseña original"
   },

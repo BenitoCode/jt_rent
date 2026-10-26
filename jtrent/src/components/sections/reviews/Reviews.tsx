@@ -5,11 +5,7 @@ import { site } from "@/config/site";
 import type { Locale } from "@/data/motorcycles";
 import type { Messages } from "@/lib/i18n";
 
-const reviewPhotos = [
-  "/images/hero-malaga-coast.jpg",
-  "/images/kymco-three-quarter.jpeg",
-  "/images/hero-malaga-port.jpg",
-];
+const googleWriteReviewUrl = "https://g.page/r/CVFNzJPgTRRsECE/review";
 
 function GoogleMark() {
   return (
@@ -44,8 +40,8 @@ export function Reviews({
 
         {reviews.length > 0 ? (
           <div className="reviews-window" role="region" aria-label={m.reviews.carouselLabel}>
-            <div className="reviews-track">
-              {[false, true].map((duplicate) => (
+            <div className={`reviews-track ${reviews.length === 1 ? "reviews-track-single" : ""}`}>
+              {(reviews.length > 1 ? [false, true] : [false]).map((duplicate) => (
                 <div
                   className="reviews-group"
                   key={duplicate ? "duplicate" : "reviews"}
@@ -53,21 +49,28 @@ export function Reviews({
                   aria-hidden={duplicate || undefined}
                 >
                   {reviews.map((review, index) => (
-                    <article className="review-card" key={review.id} role="listitem">
-                      <div className="review-photo">
-                        <Image
-                          src={review.image?.src ?? reviewPhotos[index % reviewPhotos.length]}
-                          alt={review.image ? review.image.alt[locale] : m.reviews.photoLabel}
-                          width={review.image?.width ?? 900}
-                          height={review.image?.height ?? 600}
-                        />
-                        {!review.image && <span className="review-photo-caption">{m.reviews.photoLabel}</span>}
-                      </div>
+                    <article className={`review-card ${review.image ? "" : "review-card-text-only"}`} key={review.id} role="listitem">
+                      {review.image && (
+                        <div className="review-photo">
+                          <Image
+                            src={review.image.src}
+                            alt={review.image.alt[locale]}
+                            width={review.image.width}
+                            height={review.image.height}
+                          />
+                        </div>
+                      )}
                       <div className="review-card-body">
                         <div className="review-reviewer">
+                          {!review.image && (
+                            <span className="review-avatar" aria-hidden="true">
+                              {review.name.trim().charAt(0).toUpperCase()}
+                            </span>
+                          )}
                           <GoogleMark />
                           <span className="review-person">
                             <strong>{review.name}</strong>
+                            <small>{m.reviews.googleSource}</small>
                             {review.date && <small>{review.date[locale]}</small>}
                           </span>
                         </div>
@@ -98,7 +101,15 @@ export function Reviews({
         ) : (
           <div className="reviews-empty" role="status">
             <GoogleMark />
-            <p>{m.reviews.noReviews}</p>
+            <div className="reviews-rating-summary">
+              <strong>{m.reviews.rating}</strong>
+              <span className="reviews-rating-stars" aria-hidden="true">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <Star key={index} size={15} fill="currentColor" />
+                ))}
+              </span>
+              <p>{m.reviews.ratingCaption}</p>
+            </div>
           </div>
         )}
 
@@ -108,7 +119,7 @@ export function Reviews({
             <p>{m.reviews.inviteText}</p>
           </div>
           <div className="reviews-actions">
-            <a className="reviews-write-link" href={googleUrl} target="_blank" rel="noopener noreferrer">
+            <a className="reviews-write-link" href={googleWriteReviewUrl} target="_blank" rel="noopener noreferrer">
               <GoogleMark />
               {m.reviews.writeGoogle}
               <ArrowUpRight size={15} aria-hidden="true" />

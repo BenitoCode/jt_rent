@@ -228,9 +228,11 @@
     "carouselLabel": "Google reviews carousel",
     "viewGoogle": "Read reviews on Google",
     "writeGoogle": "Write a review",
+    "googleSource": "Google review",
     "inviteTitle": "Enjoyed your ride?",
     "inviteText": "Share your experience with other travellers.",
-    "noReviews": "Verified Google reviews will appear here once we add opinions from our business profile.",
+    "rating": "5.0/5",
+    "ratingCaption": "1 public review on Google",
     "photoLabel": "Illustrative photo",
     "viewOriginal": "View original review"
   },
